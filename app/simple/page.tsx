@@ -1,5 +1,5 @@
-import { SimpleEditor } from "@/components/tiptap-templates/simple/simple-editor";
+import AppEditor from "@/components/tiptap-templates";
 
 export default function Page() {
-  return <SimpleEditor />;
+  return <AppEditor />;
 }

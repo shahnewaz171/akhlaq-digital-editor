@@ -1,7 +1,13 @@
 "use client";
 
 import * as React from "react";
-import { Editor, EditorContent, EditorContext, useEditor } from "@tiptap/react";
+import {
+  Editor,
+  EditorContent,
+  EditorContext,
+  useEditor,
+  useEditorState,
+} from "@tiptap/react";
 
 // --- Tiptap Core Extensions ---
 import { StarterKit } from "@tiptap/starter-kit";
@@ -12,8 +18,12 @@ import { Typography } from "@tiptap/extension-typography";
 import { Highlight } from "@tiptap/extension-highlight";
 import { Subscript } from "@tiptap/extension-subscript";
 import { Superscript } from "@tiptap/extension-superscript";
-import { Selection } from "@tiptap/extensions";
+import { CharacterCount, Placeholder, Selection } from "@tiptap/extensions";
+import FileHandler from "@tiptap/extension-file-handler";
 import Mention from "@tiptap/extension-mention";
+
+// --- Other Libraries ---
+import { ToastContainer } from "react-toastify";
 
 // --- UI Primitives ---
 import { Button } from "@/components/tiptap-ui-primitive/button";
@@ -23,6 +33,7 @@ import {
   ToolbarGroup,
   ToolbarSeparator,
 } from "@/components/tiptap-ui-primitive/toolbar";
+import ResizeCorderIcon from "@/components/custom-svg/ResizeCorderIcon";
 
 // --- Tiptap Node ---
 import { ImageUploadNode } from "@/components/tiptap-node/image-upload-node/image-upload-node-extension";
@@ -64,30 +75,39 @@ import { LinkIcon } from "@/components/tiptap-icons/link-icon";
 
 // --- Hooks ---
 import { useIsMobile } from "@/hooks/use-mobile";
-import { useWindowSize } from "@/hooks/use-window-size";
-import { useCursorVisibility } from "@/hooks/use-cursor-visibility";
 
 // --- Components ---
-import { ThemeToggle } from "@/components/tiptap-templates/simple/theme-toggle";
 
 // --- Lib ---
-import { handleImageUpload, MAX_FILE_SIZE } from "@/lib/tiptap-utils";
-import { mentionSuggestion } from "@/lib/mention-suggestion";
+import {
+  cn,
+  handleImageUpload,
+  MAX_FILE_BYTES_SIZE,
+  shouldShowFileSizeLimitWarning,
+} from "@/lib/tiptap-utils";
+import { getMentionSuggestion } from "@/lib/mention-suggestion";
+import { useEditorEnv } from "@/components/tiptap-templates/use-editor-env-context";
+
+// --- utils ---
+import toastAlert from "@/utils/toastConfig";
 
 // --- Styles ---
 import "@/components/tiptap-templates/simple/simple-editor.scss";
 
-import content from "@/components/tiptap-templates/simple/data/content.json";
+// types
+import type {
+  MainToolbarParams,
+  SimpleEditorProps,
+} from "@/components/tiptap-node/types";
 
 const MainToolbarContent = ({
+  isFileUpload,
   onHighlighterClick,
   onLinkClick,
   isMobile,
-}: {
-  onHighlighterClick: () => void;
-  onLinkClick: () => void;
-  isMobile: boolean;
-}) => {
+  acceptedFileTypes,
+  handleFilesChange,
+}: MainToolbarParams) => {
   return (
     <>
       <Spacer />
@@ -144,17 +164,23 @@ const MainToolbarContent = ({
       <ToolbarSeparator />
 
       <ToolbarGroup>
-        <ImageUploadButton text="Add" />
-        <FileUploadButton />
+        <ImageUploadButton />
+        {isFileUpload && (
+          <FileUploadButton
+            acceptedFileTypes={acceptedFileTypes}
+            handleFilesChange={handleFilesChange}
+          />
+        )}
       </ToolbarGroup>
 
       <Spacer />
 
       {isMobile && <ToolbarSeparator />}
 
-      <ToolbarGroup>
+      {/* dark mode */}
+      {/* <ToolbarGroup>
         <ThemeToggle />
-      </ToolbarGroup>
+      </ToolbarGroup> */}
     </>
   );
 };
@@ -188,108 +214,345 @@ const MobileToolbarContent = ({
   </>
 );
 
-export function SimpleEditor() {
-  const isMobile = useIsMobile();
-  const { height } = useWindowSize();
+export function SimpleEditor({
+  envConfig,
+  isShowMention = true,
+  isFileUpload = true,
+  isBottomToolbar = false,
+  acceptedFileTypes = "",
+  content = null,
+  className = "",
+  placeholder = "Enter your content here",
+  mentions = [],
+  onChange = () => {},
+  handleImageInsertion,
+  handleFilesChange = async () => {},
+}: SimpleEditorProps) {
+  // env
+  const { envConfig: contextEnvConfig, setEnvConfig } = useEditorEnv();
+  const { cdnDomain, cdnSecret } = contextEnvConfig || {};
+
+  // states
   const [mobileView, setMobileView] = React.useState<
     "main" | "highlighter" | "link"
   >("main");
+  const [resizeHeight, setHeight] = React.useState<number>(190);
   const toolbarRef = React.useRef<HTMLDivElement>(null);
+  const editorRef = React.useRef<HTMLDivElement>(null);
+  const toastId = React.useRef<any>(null);
 
-  const editor: Editor | null = useEditor({
-    immediatelyRender: false,
-    shouldRerenderOnTransaction: false,
-    editorProps: {
-      attributes: {
-        autocomplete: "off",
-        autocorrect: "off",
-        autocapitalize: "off",
-        "aria-label": "Main content area, start typing to enter text.",
-        class: "simple-editor",
+  // mobile
+  const isMobile = useIsMobile();
+
+  // passing key to force remount the editor when extensions dependencies change
+  const editorKey = React.useMemo(
+    () =>
+      [isShowMention, isFileUpload, placeholder, JSON.stringify(mentions)].join(
+        "-"
+      ),
+    [isShowMention, isFileUpload, placeholder, mentions]
+  );
+
+  // editor instance
+  const editor: Editor | null = useEditor(
+    {
+      content,
+      immediatelyRender: false,
+      shouldRerenderOnTransaction: false,
+      editorProps: {
+        attributes: {
+          autocomplete: "off",
+          autocorrect: "off",
+          autocapitalize: "off",
+          "aria-label": "Main content area, start typing to enter text.",
+          class: "simple-editor min-h-[190px]",
+        },
+      },
+      extensions: [
+        StarterKit.configure({
+          horizontalRule: false,
+          link: {
+            openOnClick: false,
+            enableClickSelection: true,
+          },
+        }),
+        Placeholder.configure({
+          placeholder,
+        }),
+        HorizontalRule,
+        TextAlign.configure({ types: ["paragraph"] }),
+        TaskList,
+        TaskItem.configure({ nested: true }),
+        Highlight.configure({ multicolor: true }),
+        Image,
+        Typography,
+        Superscript,
+        Subscript,
+        Selection,
+        CharacterCount.configure({
+          limit: null,
+        }),
+        ...(isShowMention
+          ? [
+              Mention.configure({
+                HTMLAttributes: {
+                  class: "mention",
+                  style:
+                    "background-color: var(--brand-color); border-radius: 9999px; color: rgb(250 251 252); margin: 0.2rem; display: inline-block; font-size: 12px; padding: 0.1rem 0.5rem;",
+                },
+                suggestion: getMentionSuggestion(mentions),
+
+                renderHTML: (attributes) => {
+                  const { options, node } = attributes;
+                  const { id, label } = node.attrs;
+                  const { HTMLAttributes } = options;
+
+                  return [
+                    "span",
+                    { ...HTMLAttributes, "data-mention-id": id, id },
+                    `@${label}`,
+                  ];
+                },
+              }),
+            ]
+          : []),
+        ImageUploadNode.configure({
+          accept: "image/*",
+          maxSize: MAX_FILE_BYTES_SIZE,
+          limit: 5,
+          upload: async (file, onProgress, signal, removeFileItem) => {
+            if (handleImageInsertion) {
+              return await handleImageInsertion({
+                file,
+                onProgress,
+                abortSignal: signal,
+                removeFileItem,
+                context: "manual",
+              });
+            }
+            return await handleImageUpload({
+              file,
+              onProgress,
+              abortSignal: signal,
+              removeFileItem,
+            });
+          },
+          onError: (error) => {
+            toastAlert(
+              "error",
+              error.message || "Image upload failed",
+              "top-right",
+              toastId
+            );
+          },
+        }),
+        FileHandler.configure({
+          allowedMimeTypes: [
+            "image/png",
+            "image/jpeg",
+            "image/gif",
+            "image/webp",
+            "image/svg+xml",
+          ],
+          onDrop: (currentEditor, files, pos) => {
+            files.forEach(async (file: File) => {
+              const { size } = file;
+
+              if (size > MAX_FILE_BYTES_SIZE) {
+                shouldShowFileSizeLimitWarning(toastId);
+                return;
+              }
+
+              if (!handleImageInsertion) return null;
+
+              const image_url = await handleImageInsertion({
+                file: { file },
+                context: "drop",
+              });
+
+              if (image_url) {
+                currentEditor
+                  .chain()
+                  .insertContentAt(pos, {
+                    type: "image",
+                    attrs: {
+                      src: image_url,
+                    },
+                  })
+                  .focus()
+                  .run();
+              }
+            });
+          },
+          onPaste: (currentEditor, files, htmlContent) => {
+            files.forEach(async (file: File) => {
+              const { size } = file;
+
+              if (htmlContent) {
+                return false;
+              }
+
+              if (size > MAX_FILE_BYTES_SIZE) {
+                shouldShowFileSizeLimitWarning(toastId);
+                return;
+              }
+
+              if (!handleImageInsertion) return null;
+
+              const image_url = await handleImageInsertion({
+                file: { file },
+                context: "paste",
+              });
+
+              if (image_url) {
+                currentEditor
+                  .chain()
+                  .insertContentAt(currentEditor.state.selection.anchor, {
+                    type: "image",
+                    attrs: {
+                      src: image_url,
+                    },
+                  })
+                  .focus()
+                  .run();
+              }
+            });
+          },
+        }),
+        ...(isFileUpload ? [FileUploadNode] : []),
+      ],
+      onUpdate: ({ editor }) => {
+        const html = editor.getHTML();
+        onChange(html || null);
       },
     },
-    extensions: [
-      StarterKit.configure({
-        horizontalRule: false,
-        link: {
-          openOnClick: false,
-          enableClickSelection: true,
-        },
-      }),
-      HorizontalRule,
-      TextAlign.configure({ types: ["heading", "paragraph"] }),
-      TaskList,
-      TaskItem.configure({ nested: true }),
-      Highlight.configure({ multicolor: true }),
-      Image,
-      Typography,
-      Superscript,
-      Subscript,
-      Selection,
-      ImageUploadNode.configure({
-        accept: "image/*",
-        maxSize: MAX_FILE_SIZE,
-        limit: 3,
-        upload: handleImageUpload,
-        onError: (error) => console.error("Upload failed:", error),
-      }),
-      Mention.configure({
-        HTMLAttributes: {
-          class: "mention",
-        },
-        suggestion: mentionSuggestion,
-      }),
-      FileUploadNode,
-    ],
-    content,
-  });
-  console.log(editor?.getHTML(), editor);
+    [editorKey]
+  );
 
-  const rect = useCursorVisibility({
+  // editor state
+  const { characters, words } = useEditorState<any>({
     editor,
-    overlayHeight: toolbarRef.current?.getBoundingClientRect().height ?? 0,
+    selector: (ctx) => {
+      const { characters, words } = ctx?.editor?.storage?.characterCount || {};
+
+      return {
+        characters: characters?.() || 0,
+        words: words?.() || 0,
+      };
+    },
   });
 
+  // initiate envs
+  React.useLayoutEffect(() => {
+    if (envConfig) {
+      setEnvConfig({
+        cdnDomain: cdnDomain || "",
+        cdnSecret: cdnSecret || "",
+      });
+    }
+  }, [cdnDomain, cdnSecret]);
+
+  // editor view
   React.useEffect(() => {
     if (!isMobile && mobileView !== "main") {
       setMobileView("main");
     }
   }, [isMobile, mobileView]);
 
-  return (
-    <div className="simple-editor-wrapper">
-      <EditorContext.Provider value={{ editor }}>
-        <Toolbar
-          ref={toolbarRef}
-          style={{
-            ...(isMobile
-              ? {
-                  bottom: `calc(100% - ${height - rect.y}px)`,
-                }
-              : {}),
-          }}
-        >
-          {mobileView === "main" ? (
-            <MainToolbarContent
-              onHighlighterClick={() => setMobileView("highlighter")}
-              onLinkClick={() => setMobileView("link")}
-              isMobile={isMobile}
-            />
-          ) : (
-            <MobileToolbarContent
-              type={mobileView === "highlighter" ? "highlighter" : "link"}
-              onBack={() => setMobileView("main")}
-            />
-          )}
-        </Toolbar>
+  // resize editor
+  const handleResize = (e: MouseEvent) => {
+    if (editorRef.current) {
+      const startY = e.clientY;
+      const startHeight = editorRef.current.offsetHeight;
 
-        <EditorContent
-          editor={editor}
-          onKeyDown={(...args) => console.log("Key down in editor:", ...args)}
-          role="presentation"
-          className="simple-editor-content"
-        />
+      const handleMouseMove = (e: MouseEvent) => {
+        const newHeight = startHeight + (e.clientY - startY);
+        setHeight(newHeight);
+      };
+
+      const handleMouseUp = () => {
+        document.removeEventListener("mousemove", handleMouseMove);
+        document.removeEventListener("mouseup", handleMouseUp);
+      };
+
+      document.addEventListener("mousemove", handleMouseMove);
+      document.addEventListener("mouseup", handleMouseUp);
+    }
+  };
+
+  return (
+    <div className={cn("simple-editor-wrapper", className)}>
+      <EditorContext.Provider value={{ editor }}>
+        <div className="editor-container">
+          {!isBottomToolbar && (
+            <Toolbar ref={toolbarRef} style={{}}>
+              {mobileView === "main" ? (
+                <MainToolbarContent
+                  isFileUpload={isFileUpload}
+                  onHighlighterClick={() => setMobileView("highlighter")}
+                  onLinkClick={() => setMobileView("link")}
+                  isMobile={isMobile}
+                  acceptedFileTypes={acceptedFileTypes}
+                  handleFilesChange={handleFilesChange}
+                />
+              ) : (
+                <MobileToolbarContent
+                  type={mobileView === "highlighter" ? "highlighter" : "link"}
+                  onBack={() => setMobileView("main")}
+                />
+              )}
+            </Toolbar>
+          )}
+
+          <EditorContent
+            editor={editor}
+            ref={editorRef}
+            role="presentation"
+            className="simple-editor-content"
+            style={{ height: `${resizeHeight}px` }}
+          />
+
+          {/* status bar */}
+          <div className="flex justify-end items-center gap-2 bg-[#f5f5f6] editor-status-bar pr-5">
+            <p className="!text-[11px] uppercase">{`Chars: ${characters}`}</p>
+            <p className="!text-[11px] uppercase">{`Words: ${words}`}</p>
+          </div>
+
+          {/* resize */}
+          <div className="relative editor-resize">
+            <span
+              className="editor-resize-icon"
+              onMouseDown={(e) => handleResize(e.nativeEvent)}
+            >
+              <ResizeCorderIcon />
+            </span>
+          </div>
+
+          {/* bottom toolbar */}
+          {isBottomToolbar && (
+            <Toolbar ref={toolbarRef} style={{}}>
+              {mobileView === "main" ? (
+                <MainToolbarContent
+                  isFileUpload={isFileUpload}
+                  onHighlighterClick={() => setMobileView("highlighter")}
+                  onLinkClick={() => setMobileView("link")}
+                  isMobile={isMobile}
+                  acceptedFileTypes={acceptedFileTypes}
+                  handleFilesChange={handleFilesChange}
+                />
+              ) : (
+                <MobileToolbarContent
+                  type={mobileView === "highlighter" ? "highlighter" : "link"}
+                  onBack={() => setMobileView("main")}
+                />
+              )}
+            </Toolbar>
+          )}
+        </div>
       </EditorContext.Provider>
+
+      {/* toast container */}
+      <ToastContainer />
     </div>
   );
 }

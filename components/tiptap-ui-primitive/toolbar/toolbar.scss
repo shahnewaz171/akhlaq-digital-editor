@@ -37,7 +37,7 @@
     width: 100%;
     min-height: var(--tt-toolbar-height);
     background: var(--tt-toolbar-bg-color);
-    border-bottom: 1px solid var(--tt-toolbar-border-color);
+    border-bottom: 1px solid #dadada;
     padding: 0 0.5rem;
     overflow-x: auto;
     overscroll-behavior-x: contain;
@@ -49,20 +49,20 @@
       display: none;
     }
 
-    @media (max-width: 480px) {
-      position: absolute;
-      top: auto;
-      height: calc(var(--tt-toolbar-height) + var(--tt-safe-area-bottom));
-      border-top: 1px solid var(--tt-toolbar-border-color);
-      border-bottom: none;
-      padding: 0 0.5rem var(--tt-safe-area-bottom);
-      flex-wrap: nowrap;
-      justify-content: flex-start;
+    // @media (max-width: 480px) {
+    //   position: absolute;
+    //   top: auto;
+    //   height: calc(var(--tt-toolbar-height) + var(--tt-safe-area-bottom));
+    //   border-top: 1px solid var(--tt-toolbar-border-color);
+    //   border-bottom: none;
+    //   padding: 0 0.5rem var(--tt-safe-area-bottom);
+    //   flex-wrap: nowrap;
+    //   justify-content: flex-start;
 
-      .tiptap-toolbar-group {
-        flex: 0 0 auto;
-      }
-    }
+    //   .tiptap-toolbar-group {
+    //     flex: 0 0 auto;
+    //   }
+    // }
   }
 
   &[data-variant="floating"] {
@@ -70,13 +70,8 @@
     --tt-toolbar-border-width: 1px;
 
     padding: 0.188rem;
-    border-radius: calc(
-      var(--tt-toolbar-padding) + var(--tt-radius-lg) +
-        var(--tt-toolbar-border-width)
-    );
-    border: var(--tt-toolbar-border-width) solid var(--tt-toolbar-border-color);
+    border-bottom: 1px solid #dadada;
     background-color: var(--tt-toolbar-bg-color);
-    box-shadow: var(--tt-shadow-elevated-md);
     outline: none;
     overflow: hidden;
 

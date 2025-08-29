@@ -1,8 +1,14 @@
+import type {
+  FileWithId,
+  HandleImageUploadParams,
+} from "@/components/tiptap-node/types";
+import { bytesToMB } from "@/utils";
+import toastAlert from "@/utils/toastConfig";
 import type { Node as TiptapNode } from "@tiptap/pm/model";
 import { NodeSelection } from "@tiptap/pm/state";
 import type { Editor } from "@tiptap/react";
 
-export const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+export const MAX_FILE_BYTES_SIZE = 25 * 1024 * 1024; // 25MB
 
 export const MAC_SYMBOLS: Record<string, string> = {
   mod: "⌘",
@@ -145,7 +151,10 @@ export function isExtensionAvailable(
  * @param position The position in the document to find the node
  * @returns The node at the specified position, or null if not found
  */
-export function findNodeAtPosition(editor: Editor, position: number): TiptapNode | null {
+export function findNodeAtPosition(
+  editor: Editor,
+  position: number
+): TiptapNode | null {
   try {
     const node = editor.state.doc.nodeAt(position);
     if (!node) {
@@ -248,19 +257,25 @@ export function isNodeTypeSelected(
  * @param abortSignal Optional AbortSignal for cancelling the upload
  * @returns Promise resolving to the URL of the uploaded image
  */
-export const handleImageUpload = async (
-  file: File,
-  onProgress?: (event: { progress: number }) => void,
-  abortSignal?: AbortSignal
-): Promise<string> => {
-  // Validate file
-  if (!file) {
+
+export const handleImageUpload = async ({
+  file,
+  onProgress,
+  abortSignal,
+  removeFileItem,
+}: HandleImageUploadParams) => {
+  const { file_id, file: rawFile } = file || {};
+
+  const file_url = null;
+
+  if (!file_id) {
     throw new Error("No file provided");
   }
 
-  if (file.size > MAX_FILE_SIZE) {
+  if (rawFile.size > MAX_FILE_BYTES_SIZE) {
+    if (removeFileItem) removeFileItem(file_id);
     throw new Error(
-      `File size exceeds maximum allowed (${MAX_FILE_SIZE / (1024 * 1024)}MB)`
+      `File size exceeds maximum allowed: ${bytesToMB(MAX_FILE_BYTES_SIZE)}MB`
     );
   }
 
@@ -274,33 +289,49 @@ export const handleImageUpload = async (
     onProgress?.({ progress });
   }
 
-  return "/images/tiptap-ui-placeholder-image.jpg";
+  return file_url || "/images/tiptap-ui-placeholder-image.jpg";
 };
 
-export const handleFileUpload = (editor: Editor): void => {
+export const handleFileUpload = (
+  editor: Editor,
+  acceptedFileTypes: string,
+  handleFilesChange: (files: FileWithId[]) => Promise<void>,
+  toastId: any
+): void => {
   const input = document.createElement("input");
-  input.type = "file";
+  input.setAttribute(
+    "accept",
+    acceptedFileTypes ||
+      ".pdf, .doc, .docx, .txt, .rtf, .odt, .xls, .xlsx, .ods, .csv, .tsv, .ppt, .pptx, .pps, .ppsx, .odp"
+  );
+  input.setAttribute("multiple", "true");
+  input.setAttribute("type", "file");
+
   input.onchange = async () => {
-    const file = input.files?.[0];
-    if (!file) {
-      return;
+    let files = Array.from(input.files || []);
+
+    files.forEach((file) => {
+      if (file.size > MAX_FILE_BYTES_SIZE) {
+        toastAlert(
+          "error",
+          `${file.name} is not supported'`,
+          "top-right",
+          toastId
+        );
+        files = files.filter((item) => item.name !== file.name);
+      }
+    });
+
+    if (files.length > 5) {
+      toastAlert(
+        "error",
+        `Maximum ${5} file${files.length === 1 ? "" : "s"} allowed`,
+        "top-right",
+        toastId
+      );
+    } else if (files.length > 0) {
+      await handleFilesChange(files);
     }
-
-    // Simulate file upload
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-
-    const fileId = `file-${Math.random().toString(36).substring(7)}`;
-
-    editor
-      .chain()
-      .focus()
-      .setFileUpload({
-        "data-file-id": fileId,
-        "data-file-name": file.name,
-        "data-file-size": `${(file.size / 1024).toFixed(2)} KB`,
-        "data-file-type": file.type,
-      })
-      .run();
   };
   input.click();
 };
@@ -386,3 +417,14 @@ export function sanitizeUrl(
   }
   return "#";
 }
+
+export const shouldShowFileSizeLimitWarning = (
+  toastId: React.RefObject<string | null>
+): any => {
+  toastAlert(
+    "error",
+    `File size exceeds maximum allowed: ${bytesToMB(MAX_FILE_BYTES_SIZE)}MB`,
+    "top-right",
+    toastId
+  );
+};

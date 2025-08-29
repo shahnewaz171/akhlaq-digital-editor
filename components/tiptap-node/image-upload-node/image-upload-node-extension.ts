@@ -1,12 +1,14 @@
 import { mergeAttributes, Node } from "@tiptap/react";
 import { ReactNodeViewRenderer } from "@tiptap/react";
 import { ImageUploadNode as ImageUploadNodeComponent } from "@/components/tiptap-node/image-upload-node/image-upload-node";
+import type { FileParams } from "@/components/tiptap-node/types";
 
 export type UploadFunction = (
-  file: File,
+  file: FileParams,
   onProgress?: (event: { progress: number }) => void,
   abortSignal?: AbortSignal,
-) => Promise<string>;
+  removeFileItem?: (id: string) => void
+) => Promise<string | null>;
 
 export interface ImageUploadNodeOptions {
   /**

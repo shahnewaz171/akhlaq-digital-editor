@@ -1,14 +1,11 @@
-import { defineConfig, loadEnv } from "vite";
+import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import cssInjectedByJsPlugin from "vite-plugin-css-injected-by-js";
-import graphql from "@rollup/plugin-graphql";
 
-export default () => {
-  const env = loadEnv("", process.cwd());
-
-  return defineConfig({
-    plugins: [react(), cssInjectedByJsPlugin(), graphql()],
+const config = () =>
+  defineConfig({
+    plugins: [react(), cssInjectedByJsPlugin()],
     resolve: {
       alias: {
         "@": path.resolve(__dirname, "./"),
@@ -17,7 +14,7 @@ export default () => {
     build: {
       emptyOutDir: false,
       lib: {
-        entry: path.resolve(__dirname, "index.tsx"),
+        entry: path.resolve(__dirname, "lib/cdn/index.tsx"),
         name: "AkhlaqDigitalEditor",
         fileName: () => "ad-editor.js",
       },
@@ -35,8 +32,7 @@ export default () => {
       "process.env": {
         NODE_ENV: JSON.stringify("production"),
       },
-      __CDN_DOMAIN__: JSON.stringify(env.VITE_CDN_DOMAIN),
-      __API_BASE_URL__: JSON.stringify(env.VITE_API_BASE_URL),
     },
   });
-};
+
+export default config;

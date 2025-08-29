@@ -22,13 +22,13 @@
     "rootDir": "./"
   },
   "include": [
-    "index.tsx",
     "components/**/*.ts",
     "components/**/*.tsx",
     "hooks/**/*.ts",
     "hooks/**/*.tsx",
     "lib/**/*.ts",
-    "lib/**/*.tsx"
+    "lib/**/*.tsx",
+    "utils/**/*.ts"
   ],
   "exclude": ["node_modules", ".next", "dist"]
 }

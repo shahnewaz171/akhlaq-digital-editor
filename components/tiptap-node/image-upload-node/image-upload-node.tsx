@@ -1,12 +1,14 @@
 "use client";
 
 import * as React from "react";
+import { uid } from "uid";
 import type { NodeViewProps } from "@tiptap/react";
 import { NodeViewWrapper } from "@tiptap/react";
 import { Button } from "@/components/tiptap-ui-primitive/button";
 import { CloseIcon } from "@/components/tiptap-icons/close-icon";
 import "@/components/tiptap-node/image-upload-node/image-upload-node.scss";
 import { isValidPosition } from "@/lib/tiptap-utils";
+import type { FileParams, FileWithId } from "@/components/tiptap-node/types";
 
 export interface FileItem {
   /**
@@ -16,7 +18,7 @@ export interface FileItem {
   /**
    * The actual File object being uploaded
    */
-  file: File;
+  file: FileWithId;
   /**
    * Current upload progress as a percentage (0-100)
    */
@@ -55,16 +57,17 @@ export interface UploadOptions {
   accept: string;
   /**
    * Function that handles the actual file upload process
-   * @param {File} file - The file to be uploaded
+   * @param {FileWithId} file - The file to be uploaded
    * @param {Function} onProgress - Callback function to report upload progress
    * @param {AbortSignal} signal - Signal that can be used to abort the upload
    * @returns {Promise<string>} Promise resolving to the URL of the uploaded file
    */
   upload: (
-    file: File,
+    file: FileParams,
     onProgress: (event: { progress: number }) => void,
     signal: AbortSignal,
-  ) => Promise<string>;
+    removeFileItem: (id: string) => void
+  ) => Promise<string | null>;
   /**
    * Callback triggered when a file is uploaded successfully
    * @param {string} url - URL of the successfully uploaded file
@@ -85,17 +88,17 @@ export interface UploadOptions {
 function useFileUpload(options: UploadOptions) {
   const [fileItems, setFileItems] = React.useState<FileItem[]>([]);
 
-  const uploadFile = async (file: File): Promise<string | null> => {
+  const uploadFile = async (file: FileWithId): Promise<string | null> => {
     if (file.size > options.maxSize) {
       const error = new Error(
-        `File size exceeds maximum allowed (${options.maxSize / 1024 / 1024}MB)`,
+        `File size exceeds maximum allowed (${options.maxSize / 1024 / 1024}MB)`
       );
       options.onError?.(error);
       return null;
     }
 
     const abortController = new AbortController();
-    const fileId = crypto.randomUUID();
+    const fileId = uid(16);
 
     const newFileItem: FileItem = {
       id: fileId,
@@ -112,27 +115,36 @@ function useFileUpload(options: UploadOptions) {
         throw new Error("Upload function is not defined");
       }
 
+      const updatedFile = { file, file_id: fileId };
+
       const url = await options.upload(
-        file,
+        updatedFile,
         (event: { progress: number }) => {
           setFileItems((prev) =>
             prev.map((item) =>
-              item.id === fileId ? { ...item, progress: event.progress } : item,
-            ),
+              item.id === fileId ? { ...item, progress: event.progress } : item
+            )
           );
         },
         abortController.signal,
+        removeFileItem
       );
 
-      if (!url) throw new Error("Upload failed: No URL returned");
+      if (url === null) {
+        return url;
+      }
+
+      if (!url) {
+        throw new Error("Upload failed: No URL returned");
+      }
 
       if (!abortController.signal.aborted) {
         setFileItems((prev) =>
           prev.map((item) =>
             item.id === fileId
               ? { ...item, status: "success", url, progress: 100 }
-              : item,
-          ),
+              : item
+          )
         );
         options.onSuccess?.(url);
         return url;
@@ -145,18 +157,18 @@ function useFileUpload(options: UploadOptions) {
           prev.map((item) =>
             item.id === fileId
               ? { ...item, status: "error", progress: 0 }
-              : item,
-          ),
+              : item
+          )
         );
         options.onError?.(
-          error instanceof Error ? error : new Error("Upload failed"),
+          error instanceof Error ? error : new Error("Upload failed")
         );
       }
       return null;
     }
   };
 
-  const uploadFiles = async (files: File[]): Promise<string[]> => {
+  const uploadFiles = async (files: FileWithId[]): Promise<string[]> => {
     if (!files || files.length === 0) {
       options.onError?.(new Error("No files to upload"));
       return [];
@@ -165,8 +177,10 @@ function useFileUpload(options: UploadOptions) {
     if (options.limit && files.length > options.limit) {
       options.onError?.(
         new Error(
-          `Maximum ${options.limit} file${options.limit === 1 ? "" : "s"} allowed`,
-        ),
+          `Maximum ${options.limit} file${
+            options.limit === 1 ? "" : "s"
+          } allowed`
+        )
       );
       return [];
     }
@@ -270,9 +284,9 @@ const FileCornerIcon: React.FC = () => (
 interface ImageUploadDragAreaProps {
   /**
    * Callback function triggered when files are dropped or selected
-   * @param {File[]} files - Array of File objects that were dropped or selected
+   * @param {FileWithId[]} files - Array of File objects that were dropped or selected
    */
-  onFile: (files: File[]) => void;
+  onFile: (files: FileWithId[]) => void;
   /**
    * Optional child elements to render inside the drag area
    * @optional
@@ -326,7 +340,9 @@ const ImageUploadDragArea: React.FC<ImageUploadDragAreaProps> = ({
 
   return (
     <div
-      className={`tiptap-image-upload-drag-area ${isDragActive ? "drag-active" : ""} ${isDragOver ? "drag-over" : ""}`}
+      className={`tiptap-image-upload-drag-area ${
+        isDragActive ? "drag-active" : ""
+      } ${isDragOver ? "drag-over" : ""}`}
       onDragEnter={handleDragEnter}
       onDragLeave={handleDragLeave}
       onDragOver={handleDragOver}
@@ -355,6 +371,8 @@ const ImageUploadPreview: React.FC<ImageUploadPreviewProps> = ({
   fileItem,
   onRemove,
 }) => {
+  const isImageUploading: boolean = fileItem.status === "uploading";
+
   const formatFileSize = (bytes: number) => {
     if (bytes === 0) return "0 Bytes";
     const k = 1024;
@@ -365,7 +383,7 @@ const ImageUploadPreview: React.FC<ImageUploadPreviewProps> = ({
 
   return (
     <div className="tiptap-image-upload-preview">
-      {fileItem.status === "uploading" && (
+      {isImageUploading && (
         <div
           className="tiptap-image-upload-progress"
           style={{ width: `${fileItem.progress}%` }}
@@ -387,7 +405,7 @@ const ImageUploadPreview: React.FC<ImageUploadPreviewProps> = ({
           </div>
         </div>
         <div className="tiptap-image-upload-actions">
-          {fileItem.status === "uploading" && (
+          {isImageUploading && (
             <span className="tiptap-image-upload-progress-text">
               {fileItem.progress}%
             </span>
@@ -395,6 +413,7 @@ const ImageUploadPreview: React.FC<ImageUploadPreviewProps> = ({
           <Button
             type="button"
             data-style="ghost"
+            disabled={isImageUploading}
             onClick={(e) => {
               e.stopPropagation();
               onRemove();
