@@ -1,0 +1,58 @@
+name: (test) Test Package
+
+on:
+  push:
+    tags:
+      - v*.*.*
+
+jobs:
+  Test:
+    name: Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Log Node & OS versions
+        run: |
+          node -v
+          cat /etc/os-release
+
+      - name: Checkout source code
+        uses: actions/checkout@v3
+
+      - name: Setup Node 22.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: "22.x"
+
+      - name: Install PNPM
+        run: npm i -g pnpm
+
+      - name: Install dependencies
+        run: pnpm i
+
+      - name: Checking Lint
+        run: pnpm run lint
+
+      - name: Checking Typescript Types Errors
+        run: pnpm run build:types
+
+      - name: Build NPM
+        run: pnpm run build:npm
+
+      - name: Build CDN
+        run: pnpm run build:cdn
+
+  Notification:
+    if: ${{ always() }}
+    needs: [Test]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify dedicated teams channel for success
+        if: ${{ success() }}
+        uses: jdcargile/ms-teams-notification@v1.3
+        with:
+          github-token: ${{ github.token }}
+          ms-teams-webhook-uri: ${{ secrets.EDITOR_MSTEAMS_WEBHOOK }}
+          notification-summary: 📦 App Editor Test Done!
+          notification-color: 17a2b8
+          timezone: Asia/Dhaka

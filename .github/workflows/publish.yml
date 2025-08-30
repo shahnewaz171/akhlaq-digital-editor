@@ -1,0 +1,58 @@
+name: (publish) Publish Package
+
+on:
+  push:
+    tags:
+      - v*.*.*.*
+
+jobs:
+  Publish:
+    name: Publish
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v3
+
+      - name: Setup Node 22.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: "22.x"
+          registry-url: "https://npm.pkg.github.com"
+
+      - name: Install PNPM
+        run: npm i -g pnpm
+
+      - name: Install dependencies
+        run: pnpm i
+
+      - name: Checking Lint
+        run: pnpm run lint
+
+      - name: Checking Typescript Types Errors
+        run: pnpm run build:types
+
+      - name: Build NPM
+        run: pnpm run build:npm
+
+      - name: Build CDN
+        run: pnpm run build:cdn
+
+      - name: Publish to NPM
+        run: npm publish --access restricted
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
+
+  Notification:
+    if: ${{ always() }}
+    needs: [Publish]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify dedicated teams channel
+        uses: jdcargile/ms-teams-notification@v1.3
+        with:
+          github-token: ${{ github.token }}
+          ms-teams-webhook-uri: ${{ secrets.EDITOR_MSTEAMS_WEBHOOK }}
+          notification-summary: 📦 App Editor Publish Done!
+          notification-color: 17a2b8
+          timezone: Asia/Dhaka
