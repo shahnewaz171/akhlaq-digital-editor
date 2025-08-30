@@ -70,18 +70,15 @@ jobs:
       #     git tag -a "v${{ steps.check.outputs.new_version }}" -m "Release v${{ steps.check.outputs.new_version }}"
       #     git push origin v${{ steps.check.outputs.new_version }}
 
-  Notification:
-    if: ${{ always() }}
-    needs: [Publish]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Notify dedicated slack channel
-        uses: act10ns/slack@v2
-        with:
-          github-token: ${{ github.token }}
-          webhook-url:: ${{ secrets.EDITOR_SLACK_WEBHOOK }}
-          status: ${{ job.status }}
-          steps: ${{ toJson(steps) }}
-          channel: "#notifications"
-          message: 📦 App Editor Publish Done!
-          timezone: Asia/Dhaka
+Notification:
+  if: ${{ always() }}
+  needs: [Publish]
+  runs-on: ubuntu-latest
+  steps:
+    - name: Notify dedicated Slack channel
+      uses: act10ns/slack@v2
+      with:
+        webhook-url: ${{ secrets.EDITOR_SLACK_WEBHOOK }}
+        status: ${{ job.status }}
+        channel: "#notifications"
+        message: "📦 App Editor Publish Done!"
