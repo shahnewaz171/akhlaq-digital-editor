@@ -62,7 +62,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
 
-      # - name: Tag release
+      # - name: Tag releases
       #   if: steps.check.outputs.version_changed == 'true'
       #   run: |
       #     git config --global user.name "github-actions[bot]"
