@@ -77,6 +77,6 @@
     "vite-plugin-css-injected-by-js": "^3.5.2"
   },
   "publishConfig": {
-    "@AkhlaqDigital:registry": "https://npm.pkg.github.com"
+    "@AkhlaqDigital:registry": "https://registry.npmjs.org"
   }
 }

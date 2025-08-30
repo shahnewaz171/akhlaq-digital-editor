@@ -5,6 +5,10 @@ on:
     tags:
       - v*.*.*.*
 
+permissions:
+  id-token: write # Required for OIDC
+  contents: read
+
 jobs:
   Publish:
     name: Publish
@@ -18,7 +22,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: "22.x"
-          registry-url: "https://npm.pkg.github.com"
+          registry-url: "https://registry.npmjs.org"
 
       - name: Install PNPM
         run: npm i -g pnpm
