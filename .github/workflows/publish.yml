@@ -84,3 +84,26 @@ jobs:
           channel: "#notifications"
           message: "📦 App Editor Publish Done!"
           color: "#17a2b8"
+
+      - name: Notify dedicated teams channel
+        uses: jdcargile/ms-teams-notification@v1.4
+        with:
+          github-token: ${{ github.token }}
+          ms-teams-webhook-uri: ${{ secrets.EDITOR_MSTEAMS_WEBHOOK }}
+          notification-summary: App Editor Publish Done!
+          notification-color: 17a2b8
+          timezone: Asia/Dhaka
+
+      - name: Notify dedicated discord channel
+        uses: tsickert/discord-webhook@v7.0.0
+        with:
+          webhook-url: ${{ secrets.EDITOR_DISCORD_WEBHOOK }}
+          embeds: |
+            [
+              {
+                "title": "📦 App Editor Publish Done!",
+                "description": "Status: ${{ job.status }}",
+                "color": 5814783,
+                "timestamp": "${{ github.event.head_commit.timestamp }}"
+              }
+            ]
