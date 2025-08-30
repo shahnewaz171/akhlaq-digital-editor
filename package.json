@@ -1,6 +1,6 @@
 {
   "name": "@akhlaqdigital/editor",
-  "version": "0.11.7",
+  "version": "0.13.5",
   "description": "Editor is a web application designed to provide a rich text editor experience. It integrates various Tiptap extensions for enhanced text editing capabilities, including support for mentions, images, lists, and more. The application is built using Next.js and leverages Radix UI components for dropdowns and popovers.",
   "author": "Akhlaq Digital",
   "license": "ISC",
@@ -31,9 +31,9 @@
     "start": "next start",
     "lint": "next lint"
   },
-  "dependencies": {
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0"
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
