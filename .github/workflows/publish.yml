@@ -99,5 +99,5 @@ jobs:
         with:
           webhook-url: ${{ secrets.EDITOR_DISCORD_WEBHOOK }}
           content: "App Editor Publish Done!"
-          embed-color: 17a2b8
+          embed-color: 15263976
           embed-timestamp: ${{ github.event.head_commit.timestamp }}
