@@ -28,11 +28,11 @@ jobs:
           echo "Latest tag: $LATEST_TAG"
           LATEST_VERSION=${LATEST_TAG#v}
 
-          if["$LATEST_VERSION" != "$CURRENT_VERSION"] then
-            echo "version_changed=true" >> $GITHUB_ENV
-            echo "new_version=$CURRENT_VERSION" >> $GITHUB_ENV
-          else 
-            echo "version_changed=false" >> $GITHUB_ENV
+          if [ "$LATEST_VERSION" != "$CURRENT_VERSION" ]; then
+            echo "version_changed=true" >> $GITHUB_OUTPUT
+            echo "new_version=$CURRENT_VERSION" >> $GITHUB_OUTPUT
+          else
+            echo "version_changed=false" >> $GITHUB_OUTPUT
           fi
 
       - name: Install PNPM
@@ -49,16 +49,16 @@ jobs:
         run: pnpm run build:types
 
       - name: Build NPM
-        run: pnpm run build:npm
         if: steps.check.outputs.version_changed == 'true'
+        run: pnpm run build:npm
 
       - name: Build CDN
         if: steps.check.outputs.version_changed == 'true'
         run: pnpm run build:cdn
 
       - name: Publish to NPM
-        run: npm publish --access public
         if: steps.check.outputs.version_changed == 'true'
+        run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
 
