@@ -98,12 +98,6 @@ jobs:
         uses: tsickert/discord-webhook@v7.0.0
         with:
           webhook-url: ${{ secrets.EDITOR_DISCORD_WEBHOOK }}
-          embeds: |
-            [
-              {
-                "title": "📦 App Editor Publish Done!",
-                "description": "Status: ${{ job.status }}",
-                "color": 5814783,
-                "timestamp": "${{ github.event.head_commit.timestamp }}"
-              }
-            ]
+          content: "App Editor Publish Done!"
+          embed-color: 17a2b8
+          embed-timestamp: ${{ github.event.head_commit.timestamp }}
