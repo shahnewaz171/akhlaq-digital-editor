@@ -5,6 +5,7 @@ import cssInjectedByJsPlugin from "vite-plugin-css-injected-by-js";
 
 const config = () =>
   defineConfig({
+    mode: "production",
     plugins: [react(), cssInjectedByJsPlugin()],
     resolve: {
       alias: {
@@ -30,9 +31,7 @@ const config = () =>
       },
     },
     define: {
-      "process.env": {
-        NODE_ENV: JSON.stringify("production"),
-      },
+      "process.env.NODE_ENV": JSON.stringify("production"),
     },
   });
 
