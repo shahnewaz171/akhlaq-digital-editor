@@ -39,7 +39,7 @@ jobs:
         run: pnpm run build:cdn
 
       - name: Publish to NPM
-        run: npm publish --access restricted
+        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
 
