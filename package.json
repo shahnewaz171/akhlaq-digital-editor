@@ -7,7 +7,6 @@
   "main": "npm/ad-editor.js",
   "module": "npm/ad-editor.js",
   "types": "npm/ad-editor.d.ts",
-  "private": false,
   "files": [
     "dist",
     "npm",
