@@ -99,5 +99,4 @@ jobs:
         with:
           webhook-url: ${{ secrets.EDITOR_DISCORD_WEBHOOK }}
           content: "App Editor Publish Done!"
-          embed-color: 15263976
-          embed-timestamp: ${{ github.event.head_commit.timestamp }}
+          embeds: '[{"title":"Publish Complete","description":"Your npm package was published successfully.","timestamp":"${{ github.event.head_commit.timestamp }}","color":15263976}]'
