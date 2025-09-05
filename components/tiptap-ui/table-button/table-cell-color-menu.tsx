@@ -46,20 +46,27 @@ const TABLE_COLORS = [
 
 export function TableCellColorMenu({
   editor: providedEditor,
+  handleMouseDown,
 }: {
   editor?: Editor;
+  handleMouseDown: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }) {
   const { editor } = useTiptapEditor(providedEditor);
 
   if (!editor || !editor.isEditable) return null;
 
-  const setColor = (color: string) => {
+  const setColor = (color: string | null) => {
     editor.chain().focus().setCellAttribute("backgroundColor", color).run();
   };
 
   // check if selected cell has a color from the palette
+  const selectedCellBg =
+    editor.getAttributes("tableCell")?.backgroundColor ??
+    editor.getAttributes("tableHeader")?.backgroundColor ??
+    null;
+
   const isSelectCellColor = TABLE_COLORS.some(
-    (item) => item.color === editor.getAttributes("tableCell")?.backgroundColor
+    (item) => item.color === selectedCellBg
   );
 
   return (
@@ -82,8 +89,7 @@ export function TableCellColorMenu({
           <span
             style={{
               display: "inline-block",
-              background:
-                editor.getAttributes("tableCell")?.backgroundColor || "#FFFFFF",
+              background: selectedCellBg || "#FFFFFF",
               border: "1px solid #ccc",
               borderRadius: "4px",
               height: "16px",
@@ -104,9 +110,9 @@ export function TableCellColorMenu({
       >
         <div className="grid grid-cols-7 gap-1.5">
           {TABLE_COLORS.map((item) => {
-            const isCellYellow = editor.isActive("tableCell", {
-              backgroundColor: item.color,
-            });
+            const isCellYellow =
+              editor.isActive("tableCell", { backgroundColor: item.color }) ||
+              editor.isActive("tableHeader", { backgroundColor: item.color });
 
             return (
               <DropdownMenuItem asChild key={item.color}>
@@ -124,6 +130,7 @@ export function TableCellColorMenu({
                     minWidth: 0,
                     boxShadow: "0 0 0 1px #e5e7eb",
                   }}
+                  onMouseDown={handleMouseDown}
                   onClick={() => setColor(item.color)}
                 >
                   {isCellYellow && (
@@ -138,7 +145,8 @@ export function TableCellColorMenu({
         {/* remove cell background */}
         <div className="flex justify-center mt-2">
           <Button
-            onClick={() => setColor("transparent")}
+            onMouseDown={handleMouseDown}
+            onClick={() => setColor(null)}
             aria-label="Remove cell background"
             tooltip="Remove cell background"
             type="button"

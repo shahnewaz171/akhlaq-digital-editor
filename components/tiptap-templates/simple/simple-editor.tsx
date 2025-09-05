@@ -39,6 +39,7 @@ import ResizeCorderIcon from "@/components/custom-svg/ResizeCorderIcon";
 import { ImageUploadNode } from "@/components/tiptap-node/image-upload-node/image-upload-node-extension";
 import { HorizontalRule } from "@/components/tiptap-node/horizontal-rule-node/horizontal-rule-node-extension";
 import { FileUploadNode } from "@/components/tiptap-node/file-upload-node/file-upload-node-extension";
+import { AutoHideWhileTyping } from "@/components/tiptap-node/auto-hide-while-typing";
 import "@/components/tiptap-node/blockquote-node/blockquote-node.scss";
 import "@/components/tiptap-node/code-block-node/code-block-node.scss";
 import "@/components/tiptap-node/horizontal-rule-node/horizontal-rule-node.scss";
@@ -81,6 +82,7 @@ import { LinkIcon } from "@/components/tiptap-icons/link-icon";
 // --- Hooks ---
 import { useTiptapEditor } from "@/hooks/use-tiptap-editor";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useEditorOutsideBlur } from "@/hooks/use-editor-outside-blur";
 
 import {
   ContextMenu,
@@ -119,6 +121,7 @@ import ClearHighlightOnBlur from "@/components/tiptap-node/selection-node/highli
 import { ResizableImageExtension } from "@/components/tiptap-ui/image-resizable-button";
 import FloatingTableMenu from "@/components/tiptap-ui/table-button/floating-table-menu";
 import CustomTableCell from "@/components/tiptap-ui/table-button/table-cell";
+import CustomTableHeader from "@/components/tiptap-ui/table-button/table-header";
 import TextColorMenu from "@/components/tiptap-ui/text-color-button/text-color-button";
 
 const MainToolbarContent = ({
@@ -274,6 +277,7 @@ export function SimpleEditor({
     anchorPoint: { x: number; y: number };
     items: ContextMenuItem[];
   }>({ open: false, anchorPoint: { x: 0, y: 0 }, items: [] });
+  const [isFocusedEditor, setIsFocusedEditor] = React.useState<boolean>(false);
 
   // mobile
   const isMobile = useIsMobile();
@@ -318,6 +322,7 @@ export function SimpleEditor({
         TaskList,
         TaskItem.configure({ nested: true }),
         Highlight.configure({ multicolor: true }),
+        AutoHideWhileTyping,
         ResizableImageExtension.configure({
           onContextMenu(event, payload) {
             event.preventDefault();
@@ -351,6 +356,7 @@ export function SimpleEditor({
         TableKit.configure({
           table: { resizable: true },
         }),
+        CustomTableHeader,
         CustomTableCell,
         Typography,
         Superscript,
@@ -511,12 +517,18 @@ export function SimpleEditor({
         const html = editor.getHTML();
         onChange(html || null);
       },
+      onFocus: () => {
+        setIsFocusedEditor(true);
+      },
     },
     [editorKey]
   );
 
   // editor state
   const { characters, words } = useTiptapEditor(editor);
+
+  // handle outside click to blur editor
+  useEditorOutsideBlur(editor, setIsFocusedEditor);
 
   // initiate envs
   React.useLayoutEffect(() => {
@@ -598,7 +610,10 @@ export function SimpleEditor({
           />
 
           {/* floating menu for table options */}
-          <FloatingTableMenu />
+          <FloatingTableMenu
+            editor={editor}
+            isFocusedEditor={isFocusedEditor}
+          />
 
           {/* status bar */}
           <div className="flex justify-end items-center gap-2 bg-[#f5f5f6] editor-status-bar pr-5">

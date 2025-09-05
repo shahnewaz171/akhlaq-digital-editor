@@ -35,20 +35,38 @@ import { AlignRightIcon } from "@/components/tiptap-icons/align-right-icon";
 import { AlignJustifyIcon } from "@/components/tiptap-icons/align-justify-icon";
 
 export interface FloatingTableMenuProps extends Omit<ButtonProps, "type"> {
-  editor?: Editor;
+  editor?: Editor | null;
+  isFocusedEditor?: boolean;
   portal?: boolean;
 }
 
-export default function FloatingTableMenu({
+declare module "@tiptap/core" {
+  interface Storage {
+    autoHideWhileTyping: {
+      isTyping: boolean;
+      timeoutId: NodeJS.Timeout | null;
+    };
+  }
+}
+
+function FloatingTableMenu({
   editor: providedEditor,
+  isFocusedEditor = true,
   portal = false,
 }: FloatingTableMenuProps) {
   const { editor } = useTiptapEditor(providedEditor);
 
   if (!editor || !editor.isEditable) return null;
 
-  const shouldShow = ({ editor: ctxEditor }: { editor: Editor }) =>
-    !!ctxEditor && ctxEditor.isActive("table");
+  const shouldShow = ({ editor }: { editor: Editor }) => {
+    const typingStorage = editor.storage.autoHideWhileTyping;
+    return editor.isActive("table") && !typingStorage?.isTyping;
+  };
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
 
   const exec = (fn: () => void) => {
     fn();
@@ -59,13 +77,14 @@ export default function FloatingTableMenu({
       className="floating-menu"
       editor={editor}
       shouldShow={shouldShow}
+      hidden={!isFocusedEditor}
       options={{ placement: "bottom-start" }}
     >
       <Card className="bg-white z-[1]">
         <CardBody>
           <div className="space-y-2">
             {/* Row 1 */}
-            <div className="grid grid-cols-3 gap-2">
+            <div className="grid grid-cols-4 gap-2">
               {/* Alignment Dropdown */}
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -90,6 +109,7 @@ export default function FloatingTableMenu({
                     <Button
                       type="button"
                       data-style="ghost"
+                      onMouseDown={handleMouseDown}
                       onClick={() =>
                         exec(() =>
                           editor.chain().focus().setTextAlign("left").run()
@@ -103,6 +123,7 @@ export default function FloatingTableMenu({
                     <Button
                       type="button"
                       data-style="ghost"
+                      onMouseDown={handleMouseDown}
                       onClick={() =>
                         exec(() =>
                           editor.chain().focus().setTextAlign("center").run()
@@ -116,6 +137,7 @@ export default function FloatingTableMenu({
                     <Button
                       type="button"
                       data-style="ghost"
+                      onMouseDown={handleMouseDown}
                       onClick={() =>
                         exec(() =>
                           editor.chain().focus().setTextAlign("right").run()
@@ -129,6 +151,7 @@ export default function FloatingTableMenu({
                     <Button
                       type="button"
                       data-style="ghost"
+                      onMouseDown={handleMouseDown}
                       onClick={() =>
                         exec(() =>
                           editor.chain().focus().setTextAlign("justify").run()
@@ -166,6 +189,7 @@ export default function FloatingTableMenu({
                     <Button
                       type="button"
                       data-style="ghost"
+                      onMouseDown={handleMouseDown}
                       onClick={() =>
                         exec(() => editor.chain().focus().addRowBefore().run())
                       }
@@ -177,6 +201,7 @@ export default function FloatingTableMenu({
                     <Button
                       type="button"
                       data-style="ghost"
+                      onMouseDown={handleMouseDown}
                       onClick={() =>
                         exec(() => editor.chain().focus().addRowAfter().run())
                       }
@@ -188,6 +213,7 @@ export default function FloatingTableMenu({
                     <Button
                       type="button"
                       data-style="ghost"
+                      onMouseDown={handleMouseDown}
                       onClick={() =>
                         exec(() => editor.chain().focus().deleteRow().run())
                       }
@@ -222,6 +248,7 @@ export default function FloatingTableMenu({
                     <Button
                       type="button"
                       data-style="ghost"
+                      onMouseDown={handleMouseDown}
                       onClick={() =>
                         exec(() =>
                           editor.chain().focus().addColumnBefore().run()
@@ -235,6 +262,7 @@ export default function FloatingTableMenu({
                     <Button
                       type="button"
                       data-style="ghost"
+                      onMouseDown={handleMouseDown}
                       onClick={() =>
                         exec(() =>
                           editor.chain().focus().addColumnAfter().run()
@@ -248,6 +276,7 @@ export default function FloatingTableMenu({
                     <Button
                       type="button"
                       data-style="ghost"
+                      onMouseDown={handleMouseDown}
                       onClick={() =>
                         exec(() => editor.chain().focus().deleteColumn().run())
                       }
@@ -282,6 +311,7 @@ export default function FloatingTableMenu({
                     <Button
                       type="button"
                       data-style="ghost"
+                      onMouseDown={handleMouseDown}
                       onClick={() =>
                         exec(() =>
                           editor.chain().focus().toggleHeaderRow().run()
@@ -295,6 +325,7 @@ export default function FloatingTableMenu({
                     <Button
                       type="button"
                       data-style="ghost"
+                      onMouseDown={handleMouseDown}
                       onClick={() =>
                         exec(() =>
                           editor.chain().focus().toggleHeaderColumn().run()
@@ -308,6 +339,7 @@ export default function FloatingTableMenu({
                     <Button
                       type="button"
                       data-style="ghost"
+                      onMouseDown={handleMouseDown}
                       onClick={() =>
                         exec(() =>
                           editor.chain().focus().toggleHeaderCell().run()
@@ -344,6 +376,7 @@ export default function FloatingTableMenu({
                     <Button
                       type="button"
                       data-style="ghost"
+                      onMouseDown={handleMouseDown}
                       onClick={() =>
                         exec(() => editor.chain().focus().mergeCells().run())
                       }
@@ -355,6 +388,7 @@ export default function FloatingTableMenu({
                     <Button
                       type="button"
                       data-style="ghost"
+                      onMouseDown={handleMouseDown}
                       onClick={() =>
                         exec(() => editor.chain().focus().splitCell().run())
                       }
@@ -366,6 +400,7 @@ export default function FloatingTableMenu({
                     <Button
                       type="button"
                       data-style="ghost"
+                      onMouseDown={handleMouseDown}
                       onClick={() =>
                         exec(() => editor.chain().focus().mergeOrSplit().run())
                       }
@@ -377,7 +412,10 @@ export default function FloatingTableMenu({
               </DropdownMenu>
 
               {/* Cell background */}
-              <TableCellColorMenu editor={editor} />
+              <TableCellColorMenu
+                editor={editor}
+                handleMouseDown={handleMouseDown}
+              />
 
               {/* Navigate */}
               <DropdownMenu>
@@ -403,6 +441,7 @@ export default function FloatingTableMenu({
                     <Button
                       type="button"
                       data-style="ghost"
+                      onMouseDown={handleMouseDown}
                       onClick={() =>
                         exec(() =>
                           editor.chain().focus().goToPreviousCell().run()
@@ -416,6 +455,7 @@ export default function FloatingTableMenu({
                     <Button
                       type="button"
                       data-style="ghost"
+                      onMouseDown={handleMouseDown}
                       onClick={() =>
                         exec(() => editor.chain().focus().goToNextCell().run())
                       }
@@ -450,6 +490,7 @@ export default function FloatingTableMenu({
                     <Button
                       type="button"
                       data-style="ghost"
+                      onMouseDown={handleMouseDown}
                       onClick={() =>
                         exec(() => editor.chain().focus().fixTables().run())
                       }
@@ -484,6 +525,7 @@ export default function FloatingTableMenu({
                     <Button
                       type="button"
                       data-style="ghost"
+                      onMouseDown={handleMouseDown}
                       onClick={() =>
                         exec(() => editor.chain().focus().deleteRow().run())
                       }
@@ -495,6 +537,7 @@ export default function FloatingTableMenu({
                     <Button
                       type="button"
                       data-style="ghost"
+                      onMouseDown={handleMouseDown}
                       onClick={() =>
                         exec(() => editor.chain().focus().deleteColumn().run())
                       }
@@ -507,6 +550,7 @@ export default function FloatingTableMenu({
                       type="button"
                       data-style="ghost"
                       className="text-red-600"
+                      onMouseDown={handleMouseDown}
                       onClick={() =>
                         exec(() => editor.chain().focus().deleteTable().run())
                       }
@@ -523,3 +567,5 @@ export default function FloatingTableMenu({
     </FloatingMenu>
   );
 }
+
+export default FloatingTableMenu;
