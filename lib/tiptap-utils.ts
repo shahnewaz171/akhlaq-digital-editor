@@ -290,7 +290,7 @@ export const handleImageUpload = async ({
     onProgress?.({ progress });
   }
 
-  return file_url || "/images/tiptap-ui-placeholder-image.jpg";
+  return file_url || "/akhlaq-placeholder.svg";
 };
 
 export const handleFileUpload = (
