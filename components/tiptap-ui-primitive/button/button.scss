@@ -1,9 +1,7 @@
 .tiptap-button {
   font-size: 0.875rem;
   font-weight: 500;
-  font-feature-settings:
-    "salt" on,
-    "cv01" on;
+  font-feature-settings: "salt" on, "cv01" on;
   line-height: 1.15;
   height: 2rem;
   min-width: 2rem;
@@ -184,6 +182,11 @@
   }
 }
 
+.is-active {
+  background-color: var(--tt-button-hover-bg-color) !important;
+  color: var(--tt-button-hover-text-color) !important;
+}
+
 /* --------------------------------------------
 ----------- BUTTON COLOR SETTINGS -------------
 -------------------------------------------- */
@@ -231,7 +234,8 @@
 
   /* Active state of a button */
   &[data-active-state="on"]:not([disabled]),
-  &[data-state="open"]:not([disabled]) {
+  &[data-state="open"]:not([disabled]),
+  .is-active {
     background-color: var(--tt-button-active-bg-color);
     color: var(--tt-button-active-text-color);
 

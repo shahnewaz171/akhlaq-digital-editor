@@ -7,6 +7,7 @@ import toastAlert from "@/utils/toastConfig";
 import type { Node as TiptapNode } from "@tiptap/pm/model";
 import { NodeSelection } from "@tiptap/pm/state";
 import type { Editor } from "@tiptap/react";
+import { uid } from "uid";
 
 export const MAX_FILE_BYTES_SIZE = 25 * 1024 * 1024; // 25MB
 
@@ -427,4 +428,111 @@ export const shouldShowFileSizeLimitWarning = (
     "top-right",
     toastId
   );
+};
+
+// convert base64 to File
+export const base64ToFile = (base64String: string[]) => {
+  if (base64String.length < 4) return null;
+
+  try {
+    const mime = base64String[1]?.match(/:(.*?);/)?.[1] || "";
+
+    const bstr = atob(base64String[3]);
+    let n = bstr.length;
+    const u8arr = new Uint8Array(n);
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+
+    const fileName = `${uid(12)}.${mime?.split("/")?.[1] || "png"}`;
+
+    return new File([u8arr], fileName, { type: mime });
+  } catch (err) {
+    console.error(err);
+    toastAlert("error", "File is not supported!", "top-right");
+    return null;
+  }
+};
+
+// convert url to File
+export const urlToFile = async (url: string) => {
+  try {
+    const response = await fetch(url);
+    const blob = await response.blob();
+
+    const fileName = `${uid(12)}.${blob.type?.split("/")?.[1] || "png"}`;
+
+    return new File([blob], fileName, { type: blob.type || "image/png" });
+  } catch (err) {
+    console.error(err);
+    toastAlert("error", "File is not supported!", "top-right");
+    return null;
+  }
+};
+
+// handle base64 and URL image strings
+export const handleImageString = async (
+  imageString: string,
+  context: "paste" | "drop",
+  onPasteAndDrop: any,
+  editor: any
+) => {
+  let file: File | null = null;
+
+  if (imageString.startsWith("data:image")) {
+    const base64 = imageString.match(
+      /(data:image\/(png|jpeg|jpg|gif|webp|svg\+xml);base64),([A-Za-z0-9+/=]+)/
+    );
+    file = base64 ? base64ToFile(base64) : null;
+  } else if (/^https?:\/\//.test(imageString)) {
+    file = (await urlToFile(imageString)) || null;
+  }
+
+  if (file) {
+    try {
+      const image_url = await onPasteAndDrop({ file, context });
+      if (image_url) {
+        editor
+          ?.chain()
+          .insertContentAt(editor.state.selection.anchor, {
+            type: "image",
+            attrs: { src: image_url, "data-keep-ratio": true },
+          })
+          .focus()
+          .run();
+      } else {
+        toastAlert("error", `${file.name} is not supported`, "top-right");
+      }
+    } catch (err) {
+      console.error(err);
+      toastAlert("error", `${file.name} is not supported`, "top-right");
+    }
+    return true;
+  }
+  return false;
+};
+
+export const copyToClipboard = async (
+  value: string,
+  message?: string,
+  toastId?: any
+) => {
+  const isUrl = /^https?:\/\//i.test(value);
+  const defaultMsg = isUrl ? "Image link copied" : "Copied to clipboard";
+  const toastMsg = message || defaultMsg;
+
+  if (navigator.clipboard) {
+    try {
+      await navigator.clipboard.writeText(value);
+      toastAlert("success", toastMsg, "top-right", toastId);
+    } catch (err) {
+      console.error(err);
+      toastAlert(
+        "error",
+        "Something went wrong. Please try again!",
+        "top-right",
+        toastId
+      );
+    }
+  }
 };

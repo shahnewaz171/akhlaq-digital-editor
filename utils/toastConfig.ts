@@ -11,7 +11,7 @@ const toastAlert = (
   type: ToastType,
   toastBody: any,
   position: ToastPosition,
-  toastId: any
+  toastId?: any
 ): void => {
   if (toastId) toast.dismiss(toastId.current);
 

@@ -37,6 +37,7 @@ import {
   pickHighlightColorsByValue,
   useColorHighlight,
 } from "@/components/tiptap-ui/color-highlight-button";
+import { ChevronDownIcon } from "@/components/tiptap-icons/chevron-down-icon";
 
 export interface ColorHighlightPopoverContentProps {
   /**
@@ -101,7 +102,7 @@ export function ColorHighlightPopoverContent({
 
   const menuItems = React.useMemo(
     () => [...colors, { label: "Remove highlight", value: "none" }],
-    [colors],
+    [colors]
   );
 
   const { selectedIndex } = useMenuNavigation({
@@ -111,7 +112,7 @@ export function ColorHighlightPopoverContent({
     onSelect: (item) => {
       if (!containerRef.current) return false;
       const highlightedElement = containerRef.current.querySelector(
-        '[data-highlighted="true"]',
+        '[data-highlighted="true"]'
       ) as HTMLElement;
       if (highlightedElement) highlightedElement.click();
       if (item.value === "none") handleRemoveHighlight();
@@ -198,6 +199,7 @@ export function ColorHighlightPopover({
           {...props}
         >
           <Icon className="tiptap-button-icon" />
+          <ChevronDownIcon className="tiptap-button-icon" />
         </ColorHighlightPopoverButton>
       </PopoverTrigger>
       <PopoverContent aria-label="Highlight colors">

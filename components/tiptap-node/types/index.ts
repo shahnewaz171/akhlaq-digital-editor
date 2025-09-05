@@ -1,3 +1,5 @@
+import type { Editor } from "@tiptap/react";
+
 export type FileWithId = File & { file_id?: string };
 
 export type FileParams = {
@@ -47,6 +49,7 @@ export interface MainToolbarParams {
   onLinkClick: () => void;
   isMobile: boolean;
   acceptedFileTypes: string;
+  editor: Editor | null;
   handleFilesChange: (files: File[]) => Promise<void>;
 }
 

@@ -54,6 +54,9 @@
   .selection {
     display: inline;
     background-color: var(--tt-selection-color);
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
   }
 
   // Selected node styles

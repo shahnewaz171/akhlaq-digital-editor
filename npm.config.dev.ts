@@ -5,7 +5,7 @@ import cssInjectedByJsPlugin from "vite-plugin-css-injected-by-js";
 
 const config = () =>
   defineConfig({
-    mode: "production",
+    mode: "development",
     plugins: [react(), cssInjectedByJsPlugin()],
     resolve: {
       alias: {
@@ -14,22 +14,31 @@ const config = () =>
     },
     build: {
       lib: {
-        entry: path.resolve(__dirname, "lib/cdn/index.tsx"),
+        entry: path.resolve(__dirname, "lib/npm/index.ts"),
         name: "AkhlaqDigitalEditor",
-        fileName: () => "ad-editor.js",
+        fileName: () => "editor.development.js",
       },
+      outDir: "npm/cjs/dev",
       rollupOptions: {
+        external: [
+          "react",
+          "react-dom",
+          "react/jsx-runtime",
+          "react-dom/client",
+        ],
         output: {
           globals: {
             react: "React",
             "react-dom": "ReactDOM",
+            "react/jsx-runtime": "ReactJsxRuntime",
+            "react-dom/client": "ReactDOMClient",
           },
           exports: "named",
         },
       },
     },
     define: {
-      "process.env.NODE_ENV": JSON.stringify("production"),
+      "process.env.NODE_ENV": JSON.stringify("development"),
     },
   });
 

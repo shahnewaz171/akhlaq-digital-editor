@@ -1,13 +1,7 @@
 "use client";
 
 import * as React from "react";
-import {
-  Editor,
-  EditorContent,
-  EditorContext,
-  useEditor,
-  useEditorState,
-} from "@tiptap/react";
+import { Editor, EditorContent, EditorContext, useEditor } from "@tiptap/react";
 
 // --- Tiptap Core Extensions ---
 import { StarterKit } from "@tiptap/starter-kit";
@@ -19,6 +13,13 @@ import { Highlight } from "@tiptap/extension-highlight";
 import { Subscript } from "@tiptap/extension-subscript";
 import { Superscript } from "@tiptap/extension-superscript";
 import { CharacterCount, Placeholder, Selection } from "@tiptap/extensions";
+import { TableKit } from "@tiptap/extension-table";
+import {
+  BackgroundColor,
+  Color,
+  FontFamily,
+  TextStyle,
+} from "@tiptap/extension-text-style";
 import FileHandler from "@tiptap/extension-file-handler";
 import Mention from "@tiptap/extension-mention";
 
@@ -27,7 +28,6 @@ import { ToastContainer } from "react-toastify";
 
 // --- UI Primitives ---
 import { Button } from "@/components/tiptap-ui-primitive/button";
-import { Spacer } from "@/components/tiptap-ui-primitive/spacer";
 import {
   Toolbar,
   ToolbarGroup,
@@ -46,6 +46,7 @@ import "@/components/tiptap-node/list-node/list-node.scss";
 import "@/components/tiptap-node/image-node/image-node.scss";
 import "@/components/tiptap-node/heading-node/heading-node.scss";
 import "@/components/tiptap-node/paragraph-node/paragraph-node.scss";
+import "@/components/tiptap-ui/global/global.scss";
 
 // --- Tiptap UI ---
 import { HeadingDropdownMenu } from "@/components/tiptap-ui/heading-dropdown-menu";
@@ -67,6 +68,10 @@ import {
 import { MarkButton } from "@/components/tiptap-ui/mark-button";
 import { TextAlignButton } from "@/components/tiptap-ui/text-align-button";
 import { UndoRedoButton } from "@/components/tiptap-ui/undo-redo-button";
+import TableDropdownMenu from "@/components/tiptap-ui/table-button";
+import FontSizeDropdown from "@/components/tiptap-ui/font-size-button";
+import FontSizeExtension from "@/components/tiptap-ui/font-size-button/font-size-extension";
+import FontFamilyDropdown from "@/components/tiptap-ui/font-family-button";
 
 // --- Icons ---
 import { ArrowLeftIcon } from "@/components/tiptap-icons/arrow-left-icon";
@@ -74,13 +79,20 @@ import { HighlighterIcon } from "@/components/tiptap-icons/highlighter-icon";
 import { LinkIcon } from "@/components/tiptap-icons/link-icon";
 
 // --- Hooks ---
+import { useTiptapEditor } from "@/hooks/use-tiptap-editor";
 import { useIsMobile } from "@/hooks/use-mobile";
+
+import {
+  ContextMenu,
+  ContextMenuItem,
+} from "@/components/tiptap-ui/context-menu/context-menu";
 
 // --- Components ---
 
 // --- Lib ---
 import {
   cn,
+  copyToClipboard,
   handleImageUpload,
   MAX_FILE_BYTES_SIZE,
   shouldShowFileSizeLimitWarning,
@@ -99,6 +111,15 @@ import type {
   MainToolbarParams,
   SimpleEditorProps,
 } from "@/components/tiptap-node/types";
+import {
+  Base64ImageNode,
+  HandleImagePasteAndDropParams,
+} from "@/components/tiptap-node/image-paste-node/image-paste-node-extension";
+import ClearHighlightOnBlur from "@/components/tiptap-node/selection-node/highlight-selection";
+import { ResizableImageExtension } from "@/components/tiptap-ui/image-resizable-button";
+import FloatingTableMenu from "@/components/tiptap-ui/table-button/floating-table-menu";
+import CustomTableCell from "@/components/tiptap-ui/table-button/table-cell";
+import TextColorMenu from "@/components/tiptap-ui/text-color-button/text-color-button";
 
 const MainToolbarContent = ({
   isFileUpload,
@@ -106,12 +127,11 @@ const MainToolbarContent = ({
   onLinkClick,
   isMobile,
   acceptedFileTypes,
+  editor,
   handleFilesChange,
 }: MainToolbarParams) => {
   return (
     <>
-      <Spacer />
-
       <ToolbarGroup>
         <UndoRedoButton action="undo" />
         <UndoRedoButton action="redo" />
@@ -120,7 +140,17 @@ const MainToolbarContent = ({
       <ToolbarSeparator />
 
       <ToolbarGroup>
+        <TextColorMenu />
+
+        <FontSizeDropdown />
+        <FontFamilyDropdown editor={editor} />
         <HeadingDropdownMenu levels={[1, 2, 3, 4]} portal={isMobile} />
+      </ToolbarGroup>
+      <ToolbarSeparator />
+
+      <ToolbarGroup>
+        <TableDropdownMenu />
+
         <ListDropdownMenu
           types={["bulletList", "orderedList", "taskList"]}
           portal={isMobile}
@@ -172,8 +202,6 @@ const MainToolbarContent = ({
           />
         )}
       </ToolbarGroup>
-
-      <Spacer />
 
       {isMobile && <ToolbarSeparator />}
 
@@ -241,6 +269,12 @@ export function SimpleEditor({
   const editorRef = React.useRef<HTMLDivElement>(null);
   const toastId = React.useRef<any>(null);
 
+  const [contextMenu, setContextMenu] = React.useState<{
+    open: boolean;
+    anchorPoint: { x: number; y: number };
+    items: ContextMenuItem[];
+  }>({ open: false, anchorPoint: { x: 0, y: 0 }, items: [] });
+
   // mobile
   const isMobile = useIsMobile();
 
@@ -284,11 +318,45 @@ export function SimpleEditor({
         TaskList,
         TaskItem.configure({ nested: true }),
         Highlight.configure({ multicolor: true }),
+        ResizableImageExtension.configure({
+          onContextMenu(event, payload) {
+            event.preventDefault();
+            setContextMenu({
+              open: true,
+              anchorPoint: { x: event.clientX, y: event.clientY },
+              items: [
+                {
+                  key: "copy",
+                  title: "Copy to clipboard",
+                  onClick: () => {
+                    copyToClipboard(payload.node.attrs.src, "", toastId);
+                  },
+                },
+                {
+                  key: "delete",
+                  title: "Delete this image",
+                  onClick: () =>
+                    payload.editor.chain().focus().deleteSelection().run(),
+                },
+              ],
+            });
+          },
+        }),
         Image,
+        TextStyle,
+        Color,
+        BackgroundColor,
+        FontFamily,
+        FontSizeExtension,
+        TableKit.configure({
+          table: { resizable: true },
+        }),
+        CustomTableCell,
         Typography,
         Superscript,
         Subscript,
         Selection,
+        ClearHighlightOnBlur,
         CharacterCount.configure({
           limit: null,
         }),
@@ -346,6 +414,22 @@ export function SimpleEditor({
             );
           },
         }),
+        Base64ImageNode.configure({
+          onPasteAndDrop: async ({
+            file,
+            context,
+          }: HandleImagePasteAndDropParams) => {
+            if (!handleImageInsertion) {
+              return "/images/tiptap-ui-placeholder-image.jpg";
+            }
+
+            const image_url = await handleImageInsertion({
+              file: { file },
+              context,
+            });
+            return image_url || null;
+          },
+        }),
         FileHandler.configure({
           allowedMimeTypes: [
             "image/png",
@@ -377,6 +461,7 @@ export function SimpleEditor({
                     type: "image",
                     attrs: {
                       src: image_url,
+                      "data-keep-ratio": true,
                     },
                   })
                   .focus()
@@ -411,6 +496,7 @@ export function SimpleEditor({
                     type: "image",
                     attrs: {
                       src: image_url,
+                      "data-keep-ratio": true,
                     },
                   })
                   .focus()
@@ -430,17 +516,7 @@ export function SimpleEditor({
   );
 
   // editor state
-  const { characters, words } = useEditorState<any>({
-    editor,
-    selector: (ctx) => {
-      const { characters, words } = ctx?.editor?.storage?.characterCount || {};
-
-      return {
-        characters: characters?.() || 0,
-        words: words?.() || 0,
-      };
-    },
-  });
+  const { characters, words } = useTiptapEditor(editor);
 
   // initiate envs
   React.useLayoutEffect(() => {
@@ -493,6 +569,7 @@ export function SimpleEditor({
                   onLinkClick={() => setMobileView("link")}
                   isMobile={isMobile}
                   acceptedFileTypes={acceptedFileTypes}
+                  editor={editor}
                   handleFilesChange={handleFilesChange}
                 />
               ) : (
@@ -511,6 +588,17 @@ export function SimpleEditor({
             className="simple-editor-content"
             style={{ height: `${resizeHeight}px` }}
           />
+
+          {/* radix contextMenu for images */}
+          <ContextMenu
+            items={contextMenu.items}
+            anchorPoint={contextMenu.anchorPoint}
+            open={contextMenu.open}
+            onOpenChange={(open) => setContextMenu((c) => ({ ...c, open }))}
+          />
+
+          {/* floating menu for table options */}
+          <FloatingTableMenu />
 
           {/* status bar */}
           <div className="flex justify-end items-center gap-2 bg-[#f5f5f6] editor-status-bar pr-5">
@@ -538,6 +626,7 @@ export function SimpleEditor({
                   onLinkClick={() => setMobileView("link")}
                   isMobile={isMobile}
                   acceptedFileTypes={acceptedFileTypes}
+                  editor={editor}
                   handleFilesChange={handleFilesChange}
                 />
               ) : (

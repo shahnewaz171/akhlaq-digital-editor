@@ -481,7 +481,12 @@ export const ImageUploadNode: React.FC<NodeViewProps> = (props) => {
             files[index]?.name.replace(/\.[^/.]+$/, "") || "unknown";
           return {
             type: "image",
-            attrs: { src: url, alt: filename, title: filename },
+            attrs: {
+              src: url,
+              alt: filename,
+              title: filename,
+              "data-keep-ratio": true,
+            },
           };
         });
 

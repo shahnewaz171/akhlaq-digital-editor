@@ -73,7 +73,7 @@ export function ListDropdownMenu({
       setIsOpen(open);
       onOpenChange?.(open);
     },
-    [onOpenChange],
+    [onOpenChange]
   );
 
   if (!isVisible || !editor || !editor.isEditable) {
@@ -96,7 +96,7 @@ export function ListDropdownMenu({
           {...props}
         >
           <Icon className="tiptap-button-icon" />
-          <ChevronDownIcon className="tiptap-button-dropdown-small" />
+          <ChevronDownIcon className="tiptap-button-icon" />
         </Button>
       </DropdownMenuTrigger>
 
