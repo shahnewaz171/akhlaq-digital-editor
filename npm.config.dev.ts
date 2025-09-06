@@ -19,10 +19,10 @@ const config = () =>
         fileName: () => "editor.development.js",
       },
       outDir: "npm/cjs/dev",
-      minify: false,
+      minify: "terser", // Switch to terser for better compression
       target: ["es2015", "chrome79", "firefox72", "safari13"],
-      sourcemap: true,
-      reportCompressedSize: false,
+      sourcemap: false,
+      reportCompressedSize: true,
       rollupOptions: {
         external: [
           "react",
@@ -38,9 +38,21 @@ const config = () =>
             "react-dom/client": "ReactDOMClient",
           },
           exports: "named",
-          compact: false,
+          compact: true,
+          // Additional compression
+          inlineDynamicImports: true,
         },
-        treeshake: false,
+        treeshake: {
+          propertyReadSideEffects: false,
+          unknownGlobalSideEffects: false,
+          // More aggressive tree shaking
+          moduleSideEffects: false,
+        },
+        // Suppress non-critical warnings
+        onwarn(warning, warn) {
+          if (warning.code === "THIS_IS_UNDEFINED") return;
+          warn(warning);
+        },
       },
     },
     define: {

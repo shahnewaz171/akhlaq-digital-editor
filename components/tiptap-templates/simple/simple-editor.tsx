@@ -5,6 +5,7 @@ import { Editor, EditorContent, EditorContext, useEditor } from "@tiptap/react";
 
 // --- Tiptap Core Extensions ---
 import { StarterKit } from "@tiptap/starter-kit";
+import Emoji, { gitHubEmojis } from "@tiptap/extension-emoji";
 import { TaskItem, TaskList } from "@tiptap/extension-list";
 import { TextAlign } from "@tiptap/extension-text-align";
 import { Typography } from "@tiptap/extension-typography";
@@ -39,6 +40,7 @@ import { ImageUploadNode } from "@/components/tiptap-node/image-upload-node/imag
 import { HorizontalRule } from "@/components/tiptap-node/horizontal-rule-node/horizontal-rule-node-extension";
 import { FileUploadNode } from "@/components/tiptap-node/file-upload-node/file-upload-node-extension";
 import { AutoHideWhileTyping } from "@/components/tiptap-node/auto-hide-while-typing";
+import emojiSuggestion from "@/components/tiptap-node/emoji-node/emoji-suggestion";
 import "@/components/tiptap-node/blockquote-node/blockquote-node.scss";
 import "@/components/tiptap-node/code-block-node/code-block-node.scss";
 import "@/components/tiptap-node/horizontal-rule-node/horizontal-rule-node.scss";
@@ -47,6 +49,7 @@ import "@/components/tiptap-node/image-node/image-node.scss";
 import "@/components/tiptap-node/heading-node/heading-node.scss";
 import "@/components/tiptap-node/paragraph-node/paragraph-node.scss";
 import "@/components/tiptap-ui/global/global.scss";
+import "@/components/tiptap-node/emoji-node/emoji-styles.scss";
 
 // --- Tiptap UI ---
 import { HeadingDropdownMenu } from "@/components/tiptap-ui/heading-dropdown-menu";
@@ -122,6 +125,7 @@ import FloatingTableMenu from "@/components/tiptap-ui/table-button/floating-tabl
 import CustomTableCell from "@/components/tiptap-ui/table-button/table-cell";
 import CustomTableHeader from "@/components/tiptap-ui/table-button/table-header";
 import TextColorMenu from "@/components/tiptap-ui/text-color-button/text-color-button";
+import EmojiButton from "@/components/tiptap-ui/emoji-button";
 
 const MainToolbarContent = ({
   isFileUpload,
@@ -142,25 +146,10 @@ const MainToolbarContent = ({
       <ToolbarSeparator />
 
       <ToolbarGroup>
-        <TextColorMenu />
-
         <FontSizeDropdown />
         <FontFamilyDropdown editor={editor} />
         <HeadingDropdownMenu levels={[1, 2, 3, 4]} portal={isMobile} />
       </ToolbarGroup>
-      <ToolbarSeparator />
-
-      <ToolbarGroup>
-        <TableDropdownMenu />
-
-        <ListDropdownMenu
-          types={["bulletList", "orderedList", "taskList"]}
-          portal={isMobile}
-        />
-        <BlockquoteButton />
-        <CodeBlockButton />
-      </ToolbarGroup>
-
       <ToolbarSeparator />
 
       <ToolbarGroup>
@@ -174,14 +163,22 @@ const MainToolbarContent = ({
         ) : (
           <ColorHighlightPopoverButton onClick={onHighlighterClick} />
         )}
-        {!isMobile ? <LinkPopover /> : <LinkButton onClick={onLinkClick} />}
+        <EmojiButton />
       </ToolbarGroup>
 
       <ToolbarSeparator />
 
       <ToolbarGroup>
-        <MarkButton type="superscript" />
-        <MarkButton type="subscript" />
+        <TextColorMenu />
+
+        <ListDropdownMenu
+          types={["bulletList", "orderedList", "taskList"]}
+          portal={isMobile}
+        />
+        <TableDropdownMenu />
+
+        <BlockquoteButton />
+        <CodeBlockButton />
       </ToolbarGroup>
 
       <ToolbarSeparator />
@@ -196,6 +193,14 @@ const MainToolbarContent = ({
       <ToolbarSeparator />
 
       <ToolbarGroup>
+        <MarkButton type="superscript" />
+        <MarkButton type="subscript" />
+      </ToolbarGroup>
+
+      <ToolbarSeparator />
+
+      <ToolbarGroup>
+        {!isMobile ? <LinkPopover /> : <LinkButton onClick={onLinkClick} />}
         <ImageUploadButton />
         {isFileUpload && (
           <FileUploadButton
@@ -308,6 +313,11 @@ export function SimpleEditor({
             openOnClick: false,
             enableClickSelection: true,
           },
+        }),
+        Emoji.configure({
+          emojis: gitHubEmojis,
+          enableEmoticons: true,
+          suggestion: emojiSuggestion,
         }),
         Placeholder.configure({
           placeholder,

@@ -46,11 +46,11 @@ export default defineConfig({
       formats: ["iife"],
     },
     outDir: "dist",
-    minify: "esbuild",
+    minify: "terser", // Switch to terser for better compression
     target: ["es2015", "chrome79", "firefox72", "safari13"],
     sourcemap: false,
     reportCompressedSize: true,
-    cssCodeSplit: true,
+    cssCodeSplit: false, // Bundle CSS with JS for smaller total size
     rollupOptions: {
       output: {
         exports: "default",
@@ -59,10 +59,20 @@ export default defineConfig({
         format: "iife",
         compact: true,
         manualChunks: undefined,
+        // Additional compression options
+        inlineDynamicImports: true,
       },
       treeshake: {
         propertyReadSideEffects: false,
         unknownGlobalSideEffects: false,
+        // More aggressive tree shaking
+        moduleSideEffects: false,
+      },
+      // Additional optimization
+      onwarn(warning, warn) {
+        // Suppress certain warnings that don't affect functionality
+        if (warning.code === "THIS_IS_UNDEFINED") return;
+        warn(warning);
       },
     },
   },

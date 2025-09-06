@@ -1,4 +1,4 @@
-# 📝 Akhlaq Digital Edit[📖 View Docs](https://akhlaq-digital-editor.vercel.app/docs) · [🎯 Live Demo](https://akhlaq-digital-editor.vercel.app/example) · [📧 Support](mailto:akhlaqdigital@gmail.com)r
+# 📝 Akhlaq Digital Edit[📖 View Docs](https://akhlaq-digital-editor.vercel.app/docs) · [🎯 Live Demo](https://akhlaq-digital-editor.vercel.app/example) · [📧 Support](mailto:akhlaqdigital@gmail.com)
 
 <div align="center">
 

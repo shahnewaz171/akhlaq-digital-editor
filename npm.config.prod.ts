@@ -19,7 +19,7 @@ const config = () =>
         fileName: () => "editor.production.js",
       },
       outDir: "npm/cjs/prod",
-      minify: "esbuild",
+      minify: "terser", // Switch to terser for better compression
       target: ["es2015", "chrome79", "firefox72", "safari13"],
       sourcemap: false,
       reportCompressedSize: true,
@@ -39,10 +39,19 @@ const config = () =>
           },
           exports: "named",
           compact: true,
+          // Additional compression
+          inlineDynamicImports: true,
         },
         treeshake: {
           propertyReadSideEffects: false,
           unknownGlobalSideEffects: false,
+          // More aggressive tree shaking
+          moduleSideEffects: false,
+        },
+        // Suppress non-critical warnings
+        onwarn(warning, warn) {
+          if (warning.code === "THIS_IS_UNDEFINED") return;
+          warn(warning);
         },
       },
     },

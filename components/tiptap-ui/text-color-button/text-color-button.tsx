@@ -12,7 +12,6 @@ import { ChevronDownIcon } from "@/components/tiptap-icons/chevron-down-icon";
 import { CheckIcon } from "@/components/tiptap-icons/check-icon";
 import { useTiptapEditor } from "@/hooks/use-tiptap-editor";
 import FontSizeIcon from "@/components/tiptap-icons/font-size-icon";
-import { ToolbarSeparator } from "@/components/tiptap-ui-primitive/toolbar";
 
 // 7x3 grid of colors (21 total)
 const TEXT_COLORS = [
@@ -54,96 +53,93 @@ function TextColorMenu({ editor: providedEditor }: { editor?: Editor }) {
   );
 
   return (
-    <>
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button
-            type="button"
-            data-style="ghost"
-            aria-label="Text color"
-            className="p-2 cursor-pointer flex items-center justify-center gap-1"
-            tooltip="Text color"
-            data-active-state={isSelectCellColor ? "on" : "off"}
-            style={{
-              border: "none",
-              padding: 0,
-              minWidth: 0,
-              boxShadow: "none",
-            }}
-          >
-            <span className="relative inline-block font-bold text-[14px] leading-[16px]">
-              <FontSizeIcon className="tiptap-button-icon" />
-              <span
-                className="absolute bottom-[-2px] left-0 right-0 h-[3px]"
-                style={{
-                  backgroundColor:
-                    editor.getAttributes("textStyle")?.color || "#000000",
-                }}
-              />
-            </span>
-            <ChevronDownIcon className="tiptap-button-icon" />
-          </Button>
-        </DropdownMenuTrigger>
-
-        {/* dropdown content */}
-        <DropdownMenuContent
-          align="start"
-          className="p-2 bg-white rounded-md"
-          style={{ boxShadow: "0 4px 24px 0 rgba(0,0,0,0.12)" }}
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button
+          type="button"
+          data-style="ghost"
+          aria-label="Text color"
+          className="!p-1 !pl-2 cursor-pointer flex items-center justify-center gap-1"
+          tooltip="Text color"
+          data-active-state={isSelectCellColor ? "on" : "off"}
+          style={{
+            border: "none",
+            padding: 0,
+            minWidth: 0,
+            boxShadow: "none",
+          }}
         >
-          <div className="grid grid-cols-7 gap-1.5">
-            {TEXT_COLORS.map((item) => {
-              const isCellYellow = editor.isActive("textStyle", {
-                color: item.color,
-              });
+          <span className="relative inline-block font-bold text-[14px] leading-[16px]">
+            <FontSizeIcon className="tiptap-button-icon" />
+            <span
+              className="absolute bottom-[-2px] left-0 right-0 h-[3px]"
+              style={{
+                backgroundColor:
+                  editor.getAttributes("textStyle")?.color || "#000000",
+              }}
+            />
+          </span>
+          <ChevronDownIcon className="tiptap-button-icon" />
+        </Button>
+      </DropdownMenuTrigger>
 
-              return (
-                <DropdownMenuItem asChild key={item.color}>
-                  <Button
-                    type="button"
-                    data-style="ghost"
-                    aria-label={item.name}
-                    className="cursor-pointer !p-0"
-                    tooltip={item.name}
-                    style={{
-                      background: item.color,
-                      borderRadius: "4px",
-                      height: 26,
-                      width: 26,
-                      minWidth: 0,
-                      boxShadow: "0 0 0 1px #e5e7eb",
-                    }}
-                    onClick={() => setColor(item.color)}
-                  >
-                    {isCellYellow && (
-                      <CheckIcon className=" text-black font-semibold" />
-                    )}
-                  </Button>
-                </DropdownMenuItem>
-              );
-            })}
-          </div>
+      {/* dropdown content */}
+      <DropdownMenuContent
+        align="start"
+        className="p-2 bg-white rounded-md"
+        style={{ boxShadow: "0 4px 24px 0 rgba(0,0,0,0.12)" }}
+      >
+        <div className="grid grid-cols-7 gap-1.5">
+          {TEXT_COLORS.map((item) => {
+            const isCellYellow = editor.isActive("textStyle", {
+              color: item.color,
+            });
 
-          {/* remove cell background */}
-          <div className="flex justify-center mt-2">
-            <Button
-              onClick={() => editor.chain().focus().unsetColor().run()}
-              aria-label="Remove color"
-              tooltip="Remove color"
-              type="button"
-              role="menuitem"
-              data-style="ghost"
-              className="cursor-pointer"
-              data-testid="unsetColor"
-              style={{ height: 28, width: 28, minWidth: 0, borderRadius: 4 }}
-            >
-              <BanIcon className="tiptap-button-icon" />
-            </Button>
-          </div>
-        </DropdownMenuContent>
-      </DropdownMenu>
-      <ToolbarSeparator />
-    </>
+            return (
+              <DropdownMenuItem asChild key={item.color}>
+                <Button
+                  type="button"
+                  data-style="ghost"
+                  aria-label={item.name}
+                  className="cursor-pointer !p-0"
+                  tooltip={item.name}
+                  style={{
+                    background: item.color,
+                    borderRadius: "4px",
+                    height: 26,
+                    width: 26,
+                    minWidth: 0,
+                    boxShadow: "0 0 0 1px #e5e7eb",
+                  }}
+                  onClick={() => setColor(item.color)}
+                >
+                  {isCellYellow && (
+                    <CheckIcon className=" text-black font-semibold" />
+                  )}
+                </Button>
+              </DropdownMenuItem>
+            );
+          })}
+        </div>
+
+        {/* remove cell background */}
+        <div className="flex justify-center mt-2">
+          <Button
+            onClick={() => editor.chain().focus().unsetColor().run()}
+            aria-label="Remove color"
+            tooltip="Remove color"
+            type="button"
+            role="menuitem"
+            data-style="ghost"
+            className="cursor-pointer"
+            data-testid="unsetColor"
+            style={{ height: 28, width: 28, minWidth: 0, borderRadius: 4 }}
+          >
+            <BanIcon className="tiptap-button-icon" />
+          </Button>
+        </div>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }
 
