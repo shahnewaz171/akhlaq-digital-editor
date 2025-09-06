@@ -21,13 +21,7 @@
   "public": true,
   "files": [
     "dist",
-    "npm/ad-editor.js",
-    "npm/ad-editor.d.ts",
-    "npm/cjs/prod",
-    "npm/components",
-    "npm/hooks",
-    "npm/lib",
-    "npm/utils",
+    "npm",
     "README.md",
     "CDN-README.md",
     "NPM-README.md"
