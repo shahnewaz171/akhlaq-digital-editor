@@ -13,6 +13,7 @@
     "typescript",
     "cdn",
     "mentions",
+    "emoji",
     "markdown"
   ],
   "main": "npm/ad-editor.js",

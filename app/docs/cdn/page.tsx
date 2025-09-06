@@ -144,6 +144,14 @@ const CDNDocumentationPage = () => {
                     <td className="p-3">Enable file upload features</td>
                   </tr>
                   <tr className="border-b">
+                    <td className="p-3 font-mono">isShowEmoji</td>
+                    <td className="p-3 font-mono">boolean</td>
+                    <td className="p-3 font-mono">true</td>
+                    <td className="p-3">
+                      Enable emoji picker with categorized emojis
+                    </td>
+                  </tr>
+                  <tr className="border-b">
                     <td className="p-3 font-mono">isBottomToolbar</td>
                     <td className="p-3">boolean</td>
                     <td className="p-3 font-mono">false</td>
@@ -222,6 +230,7 @@ const CDNDocumentationPage = () => {
         content: '<h1>Welcome!</h1><p>Start writing...</p>',
         placeholder: 'Type your content here...',
         isShowMention: true,
+        isShowEmoji: true,
         isFileUpload: true,
         mentions: [
           { id: 1, label: 'John Doe' },

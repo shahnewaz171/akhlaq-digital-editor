@@ -93,7 +93,7 @@ Works with React, Vue, Angular, or vanilla JS
 <td>
 
 📋 **Rich Content Support**  
-Tables, images, mentions, code blocks, and more
+Tables, images, mentions, emojis, code blocks, and more
 
 🎯 **Accessibility First**  
 WCAG compliant with keyboard navigation
@@ -139,6 +139,7 @@ function MyApp() {
       onChange={setContent}
       placeholder="Start writing..."
       isShowMention={true}
+      isShowEmoji={true}
       isFileUpload={true}
     />
   );
@@ -197,6 +198,7 @@ function MyApp() {
 | `placeholder`          | `string`   | `"Enter your content here"` | Placeholder text when editor is empty                             |
 | `className`            | `string`   | `""`                        | Additional CSS classes for styling                                |
 | `isShowMention`        | `boolean`  | `true`                      | Enable @mention functionality                                     |
+| `isShowEmoji`          | `boolean`  | `true`                      | Enable emoji feature                                              |
 | `isFileUpload`         | `boolean`  | `true`                      | Enable file upload features                                       |
 | `isBottomToolbar`      | `boolean`  | `false`                     | Position toolbar at bottom                                        |
 | `mentions`             | `array`    | `[]`                        | Array of mention suggestions                                      |
@@ -315,6 +317,7 @@ This editor is built on top of industry-leading open-source technologies:
 ### Key Extensions
 
 - **Mentions**: @user functionality with customizable suggestions
+- **Emojis**: Rich emoji picker with categorized emojis (😊 🍎 🌸 ⚽ 🏠 💻 🎉 ❤️ 🔥)
 - **File Upload**: Drag & drop file handling with progress tracking
 - **Image Handling**: Resizable images with context menus
 - **Tables**: Full table editing with resize capabilities

@@ -200,6 +200,17 @@ import { Editor } from '@akhlaqdigital/editor';
               </div>
 
               <div className="bg-white rounded-lg shadow-md p-4 sm:p-6">
+                <div className="text-2xl sm:text-3xl mb-3 sm:mb-4">😊</div>
+                <h3 className="text-lg sm:text-xl font-semibold mb-2">
+                  Emoji Picker
+                </h3>
+                <p className="text-gray-600 text-xs sm:text-sm">
+                  Rich emoji selection with 9 categories: smileys, food, nature,
+                  activities, travel, objects, celebrations, symbols, and flags.
+                </p>
+              </div>
+
+              <div className="bg-white rounded-lg shadow-md p-4 sm:p-6">
                 <div className="text-2xl sm:text-3xl mb-3 sm:mb-4">🔗</div>
                 <h3 className="text-lg sm:text-xl font-semibold mb-2">
                   Link Management

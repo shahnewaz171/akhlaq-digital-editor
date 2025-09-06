@@ -22,6 +22,7 @@ The `init()` method accepts a configuration object with the following options:
 | Option              | Type      | Default | Description                                                  |
 | ------------------- | --------- | ------- | ------------------------------------------------------------ |
 | `isShowMention`     | `boolean` | `true`  | Enable @mention functionality                                |
+| `isShowEmoji`       | `boolean` | `true`  | Enable emoji picker with categorized emojis                  |
 | `isFileUpload`      | `boolean` | `true`  | Enable file upload features                                  |
 | `isBottomToolbar`   | `boolean` | `false` | Position toolbar at bottom instead of top                    |
 | `mentions`          | `array`   | `[]`    | Array of mention suggestions `[{id: number, label: string}]` |
@@ -46,6 +47,7 @@ const editor = window.AkhlaqDigitalEditor.init({
 
   // Feature toggles
   isShowMention: true,
+  isShowEmoji: true,
   isFileUpload: true,
   isBottomToolbar: false,
 

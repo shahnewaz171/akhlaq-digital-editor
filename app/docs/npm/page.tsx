@@ -117,6 +117,7 @@ function AdvancedEditor() {
     onChange: setContent,
     placeholder: 'Write something amazing...',
     isShowMention: true,
+    isShowEmoji: true,
     isFileUpload: true,
     mentions: [
       { id: 1, label: 'John Doe', email: 'john@example.com' },
@@ -275,6 +276,14 @@ export default function EditorPage() {
                     <td className="p-3">Enable file upload features</td>
                   </tr>
                   <tr className="border-b">
+                    <td className="p-3 font-mono">isShowEmoji</td>
+                    <td className="p-3">boolean</td>
+                    <td className="p-3 font-mono">true</td>
+                    <td className="p-3">
+                      Enable emoji picker with categorized emojis
+                    </td>
+                  </tr>
+                  <tr className="border-b">
                     <td className="p-3 font-mono">isBottomToolbar</td>
                     <td className="p-3">boolean</td>
                     <td className="p-3 font-mono">false</td>
@@ -338,6 +347,7 @@ function MyComponent() {
     onChange: (html) => console.log(html),
     placeholder: 'Type here...',
     isShowMention: true,
+    isShowEmoji: true,
     mentions: [
       { id: 1, label: 'User 1' },
       { id: 2, label: 'User 2' }

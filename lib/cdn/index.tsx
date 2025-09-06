@@ -39,6 +39,7 @@ export interface EditorInitOptions {
 
   // Features
   isShowMention?: boolean;
+  isShowEmoji?: boolean;
   isFileUpload?: boolean;
   isBottomToolbar?: boolean;
   acceptedFileTypes?: string;
@@ -227,6 +228,7 @@ class EditorManager {
         className: options.className,
         isShowMention: options.isShowMention !== false, // Default to true
         isFileUpload: options.isFileUpload !== false, // Default to true
+        isShowEmoji: options.isShowEmoji !== false, // Default to true
         isBottomToolbar: options.isBottomToolbar || false,
         acceptedFileTypes: options.acceptedFileTypes || "image/*",
         mentions: options.mentions || [],
@@ -410,6 +412,7 @@ class EditorManager {
               placeholder={latestInstance.options.placeholder}
               className={latestInstance.options.className}
               isShowMention={latestInstance.options.isShowMention}
+              isShowEmoji={latestInstance.options.isShowEmoji}
               isFileUpload={latestInstance.options.isFileUpload}
               isBottomToolbar={latestInstance.options.isBottomToolbar}
               acceptedFileTypes={latestInstance.options.acceptedFileTypes}
@@ -457,6 +460,7 @@ const autoInit = () => {
         placeholder: scriptTag.dataset.placeholder,
         className: scriptTag.dataset.className,
         isShowMention: scriptTag.dataset.mentions === "true",
+        isShowEmoji: scriptTag.dataset.emoji === "true",
         isFileUpload: scriptTag.dataset.fileUpload === "true",
         isBottomToolbar: scriptTag.dataset.bottomToolbar === "true",
         acceptedFileTypes: scriptTag.dataset.acceptedFileTypes,
@@ -517,6 +521,7 @@ if (typeof window !== "undefined") {
         placeholder: editorProps?.placeholder,
         className: editorProps?.className,
         isShowMention: editorProps?.isShowMention,
+        isShowEmoji: editorProps?.isShowEmoji,
         isFileUpload: editorProps?.isFileUpload,
         isBottomToolbar: editorProps?.isBottomToolbar,
         acceptedFileTypes: editorProps?.acceptedFileTypes,

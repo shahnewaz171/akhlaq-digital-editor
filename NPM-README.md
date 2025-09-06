@@ -50,6 +50,7 @@ function MyApp() {
 | Prop                | Type      | Default | Description                                                  |
 | ------------------- | --------- | ------- | ------------------------------------------------------------ |
 | `isShowMention`     | `boolean` | `true`  | Enable @mention functionality                                |
+| `isShowEmoji`       | `boolean` | `true`  | Enable emoji picker with categorized emojis                  |
 | `isFileUpload`      | `boolean` | `true`  | Enable file upload features                                  |
 | `isBottomToolbar`   | `boolean` | `false` | Position toolbar at bottom instead of top                    |
 | `mentions`          | `array`   | `[]`    | Array of mention suggestions `[{id: number, label: string}]` |
@@ -114,7 +115,7 @@ import { SimpleEditor } from '@akhlaqdigital/editor';
 function AdvancedEditor() {
   const [content, setContent] = useState(`
     <h2>Welcome to the Editor!</h2>
-    <p>This editor supports <strong>rich formatting</strong>, @mentions, and file uploads.</p>
+    <p>This editor supports <strong>rich formatting</strong>, @mentions, emojis 😊, and file uploads.</p>
   `);
 
   // Sample mentions data
@@ -725,6 +726,7 @@ This package is built on a foundation of proven, industry-standard technologies:
 ### Key Features & Extensions
 
 - **Mentions**: Real-time @user suggestions with customizable data sources
+- **Emoji Picker**: Comprehensive emoji selection with 9 categories (😊 🍎 🌸 ⚽ 🏠 💻 🎉 ❤️ 🇺🇸)
 - **File Handling**: Drag & drop uploads with progress tracking and error handling
 - **Tables**: Full-featured table editing with resizing and formatting
 - **Rich Formatting**: Complete text formatting suite (bold, italic, headers, lists, etc.)

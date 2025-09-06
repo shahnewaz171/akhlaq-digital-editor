@@ -26,6 +26,7 @@ export interface ConfigParams {
 export interface SimpleEditorProps {
   isShowMention?: boolean;
   isFileUpload?: boolean;
+  isShowEmoji?: boolean;
   isBottomToolbar?: boolean;
   acceptedFileTypes?: string;
   content?: string | null;
@@ -45,6 +46,7 @@ export interface SimpleEditorProps {
 
 export interface MainToolbarParams {
   isFileUpload: boolean;
+  isShowEmoji: boolean;
   onHighlighterClick: () => void;
   onLinkClick: () => void;
   isMobile: boolean;

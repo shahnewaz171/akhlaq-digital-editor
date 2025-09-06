@@ -129,6 +129,7 @@ import EmojiButton from "@/components/tiptap-ui/emoji-button";
 
 const MainToolbarContent = ({
   isFileUpload,
+  isShowEmoji,
   onHighlighterClick,
   onLinkClick,
   isMobile,
@@ -163,7 +164,7 @@ const MainToolbarContent = ({
         ) : (
           <ColorHighlightPopoverButton onClick={onHighlighterClick} />
         )}
-        <EmojiButton />
+        {isShowEmoji && <EmojiButton />}
       </ToolbarGroup>
 
       <ToolbarSeparator />
@@ -252,6 +253,7 @@ const MobileToolbarContent = ({
 export function SimpleEditor({
   isShowMention = true,
   isFileUpload = true,
+  isShowEmoji = true,
   isBottomToolbar = false,
   acceptedFileTypes = "",
   content = null,
@@ -285,10 +287,14 @@ export function SimpleEditor({
   // passing key to force remount the editor when extensions dependencies change
   const editorKey = React.useMemo(
     () =>
-      [isShowMention, isFileUpload, placeholder, JSON.stringify(mentions)].join(
-        "-"
-      ),
-    [isShowMention, isFileUpload, placeholder, mentions]
+      [
+        isShowMention,
+        isShowEmoji,
+        isFileUpload,
+        placeholder,
+        JSON.stringify(mentions),
+      ].join("-"),
+    [isShowMention, isShowEmoji, isFileUpload, placeholder, mentions]
   );
 
   // editor instance
@@ -314,11 +320,15 @@ export function SimpleEditor({
             enableClickSelection: true,
           },
         }),
-        Emoji.configure({
-          emojis: gitHubEmojis,
-          enableEmoticons: true,
-          suggestion: emojiSuggestion,
-        }),
+        ...(isShowEmoji
+          ? [
+              Emoji.configure({
+                emojis: gitHubEmojis,
+                enableEmoticons: true,
+                suggestion: emojiSuggestion,
+              }),
+            ]
+          : []),
         Placeholder.configure({
           placeholder,
         }),
@@ -579,6 +589,7 @@ export function SimpleEditor({
               {mobileView === "main" ? (
                 <MainToolbarContent
                   isFileUpload={isFileUpload}
+                  isShowEmoji={isShowEmoji}
                   onHighlighterClick={() => setMobileView("highlighter")}
                   onLinkClick={() => setMobileView("link")}
                   isMobile={isMobile}
@@ -639,6 +650,7 @@ export function SimpleEditor({
               {mobileView === "main" ? (
                 <MainToolbarContent
                   isFileUpload={isFileUpload}
+                  isShowEmoji={isShowEmoji}
                   onHighlighterClick={() => setMobileView("highlighter")}
                   onLinkClick={() => setMobileView("link")}
                   isMobile={isMobile}
