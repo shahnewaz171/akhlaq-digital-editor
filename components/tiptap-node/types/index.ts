@@ -24,7 +24,6 @@ export interface ConfigParams {
 }
 
 export interface SimpleEditorProps {
-  envConfig?: ConfigParams;
   isShowMention?: boolean;
   isFileUpload?: boolean;
   isBottomToolbar?: boolean;
@@ -34,6 +33,7 @@ export interface SimpleEditorProps {
   placeholder?: string;
   mentions?: any[];
   onChange?: (content: string | null) => void;
+  onInit?: (editor: any) => void; // Add onInit callback
   handleImageInsertion?: ({
     file,
     onProgress,
@@ -53,7 +53,13 @@ export interface MainToolbarParams {
   handleFilesChange: (files: File[]) => Promise<void>;
 }
 
-export interface GetImgixFileURLParams {
+export interface ImageComponentParams {
+  alt: string;
+  className?: string;
+  generatedUrl?: string;
+  src?: string;
+  defaultImageName?: string;
+  textSize?: string;
   isPrivate?: boolean;
   height?: number;
   width?: number;
@@ -63,20 +69,18 @@ export interface GetImgixFileURLParams {
   quality?: number;
 }
 
-export interface ImageComponentParams extends GetImgixFileURLParams {
-  alt: string;
-  className?: string;
-  generatedUrl?: string;
-  src?: string;
-  defaultImageName?: string;
-  textSize?: string;
-}
-
-export interface ImgixFileURLWIthEnvParams extends GetImgixFileURLParams {
-  envConfig: ConfigParams;
-}
-
 export interface EditorEnvContextType {
   envConfig: ConfigParams;
   setEnvConfig: (config: ConfigParams) => void;
+}
+
+export interface ImgixFileURLWIthEnvParams {
+  isPrivate?: boolean;
+  height?: number;
+  path?: string;
+  rotate?: number;
+  width?: number;
+  fit?: string;
+  quality?: number;
+  envConfig?: ConfigParams;
 }

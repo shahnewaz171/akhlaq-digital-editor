@@ -2,8 +2,6 @@
 
 import Image from "next/image";
 import { memo, useEffect, useState } from "react";
-import { getImgixFileURL } from "@/components/image/imgix-server";
-import { useEditorEnv } from "@/components/tiptap-templates/use-editor-env-context";
 import type { ImageComponentParams } from "@/components/tiptap-node/types";
 
 const ImageComponent: React.FC<ImageComponentParams> = ({
@@ -13,19 +11,13 @@ const ImageComponent: React.FC<ImageComponentParams> = ({
   height = 500,
   path,
   src = "",
-  rotate,
   width = 500,
   defaultImageName = "",
   textSize = "text-10",
-  fit = "scale",
   quality = 100,
-  isPrivate = true,
 }) => {
   const [imageUrl, setImageUrl] = useState("");
   const [notFound, setNotFound] = useState(false);
-
-  const { envConfig } = useEditorEnv();
-  const { cdnDomain } = envConfig || {};
 
   // generated image path
   const imagePath = generatedUrl || imageUrl || src;
@@ -33,18 +25,8 @@ const ImageComponent: React.FC<ImageComponentParams> = ({
   const handleFetchImage = async () => {
     if (generatedUrl || !path || notFound) return;
 
-    const url = isPrivate
-      ? await getImgixFileURL({
-          isPrivate,
-          height,
-          path,
-          rotate,
-          width,
-          fit,
-          quality,
-          envConfig,
-        })
-      : `https://${cdnDomain}-public.imgix.net/${path}?h=${height}&w=${width}&fit=${fit}&q=${quality}`;
+    // For CDN usage, use direct path without imgix processing
+    const url = src || path || generatedUrl;
 
     if (url) {
       setImageUrl(url);

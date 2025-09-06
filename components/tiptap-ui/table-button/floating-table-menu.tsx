@@ -80,7 +80,7 @@ function FloatingTableMenu({
       hidden={!isFocusedEditor}
       options={{ placement: "bottom-start" }}
     >
-      <Card className="bg-white z-[1]">
+      <Card className="bg-white z-[10]">
         <CardBody>
           <div className="space-y-2">
             {/* Row 1 */}

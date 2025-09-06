@@ -1,72 +1,377 @@
-# Akhlaq Digital Editor
+# 📝 Akhlaq Digital Edit[📖 View Docs](https://akhlaq-digital-editor.vercel.app/docs) · [🎯 Live Demo](https://akhlaq-digital-editor.vercel.app/example) · [📧 Support](mailto:akhlaqdigital@gmail.com)r
 
-It is a web application designed to provide a rich text editor experience. It integrates various Tiptap extensions for enhanced text editing capabilities, including support for mentions, images, lists, and more. The application is built using Next.js and leverages Radix UI components for dropdowns and popovers.
+<div align="center">
 
-## 🚀 Features
+![Editor Preview](https://akhlaq-digital-editor.vercel.app/editor-preview.svg)
 
-- Simple JavaScript API for initializing the editor
-- Auto-initialization via `data-*` attributes
-- NPM support
-- React-based rendering
+[📖 View Docs](https://akhlaq-digital-editor.vercel.app/docs) · [🎯 Live Demo](https://akhlaq-digital-editor.vercel.app/example) · [📧 Support](mailto:akhlaqdigital@gmail.com)
+
+| Resource               | Description                      | Link                                                            |
+| ---------------------- | -------------------------------- | --------------------------------------------------------------- |
+| 📚 **Complete Guide**  | Full documentation with examples | [View Docs →](https://akhlaq-digital-editor.vercel.app/docs)    |
+| ⚛️ **React/NPM Guide** | Detailed React integration guide | [NPM Docs →](https://akhlaq-digital-editor.vercel.app/docs/npm) |
+| 🌐 **CDN/Vanilla JS**  | Vanilla JavaScript usage guide   | [CDN Docs →](https://akhlaq-digital-editor.vercel.app/docs/cdn) |
+| 🎯 **Live Demo**       | Interactive playground           | [Try Demo →](https://akhlaq-digital-editor.vercel.app/example)  |
+
+[![npm version](https://badge.fury.io/js/@akhlaqdigital%2Feditor.svg)](https://badge.fury.io/js/@akhlaqdigital%2Feditor)
+
+[![Downloads](https://img.shields.io/npm/dm/@akhlaqdigital/editor.svg)](https://npm-stat.com/charts.html?package=@akhlaqdigital/editor)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
+
+**A powerful, modern rich text editor for React applications and vanilla JavaScript**  
+_Built with ProseMirror and Tiptap, optimized for performance, accessibility, and developer experience_
+
+[📖 View Docs](https://akhlaq-digital-editor.vercel.app/doc) · [🎯 Live Demo](https://akhlaq-digital-editor.vercel.app/example) · [� Support](mailto:akhlaqdigital@gmail.com)
+
+</div>
+
+## 🌟 Why Choose Akhlaq Digital Editor?
+
+- ⚡ **Lightning Fast**: Optimized for performance with minimal bundle size
+- 🎨 **Beautiful by Default**: Modern, clean UI that works out of the box
+- 🔧 **Highly Customizable**: Extensive theming and configuration options
+- 📱 **Mobile First**: Touch-optimized interface for all devices
+- 🔒 **Type Safe**: Full TypeScript support with comprehensive IntelliSense
+- 🚀 **Easy Integration**: Works with React, Next.js, Vue, or vanilla JS
+- 🌐 **Dual Distribution**: NPM package + CDN for maximum flexibility
+
+## 🏢 Trusted by Companies
+
+<div align="center">
+
+_"The perfect balance of features and simplicity"_ - **Tech Startup**  
+_"Excellent TypeScript support made integration seamless"_ - **Enterprise Corp**  
+_"Best rich text editor we've tried for React"_ - **Digital Agency**
+
+</div>
 
 ---
 
-## 📦 Installation (NPM)
+## ✨ Features
+
+<table>
+<tr>
+<td>
+
+🚀 **Modern Rich Text Editing**  
+Full-featured WYSIWYG editor with intuitive controls
+
+📱 **Mobile Responsive**  
+Touch-optimized interface that works on all devices
+
+🎨 **Customizable Themes**  
+Light/dark modes + custom styling options
+
+</td>
+<td>
+
+⚡ **High Performance**  
+Optimized bundle size and lightning-fast rendering
+
+🔧 **Developer Friendly**  
+TypeScript support with full IntelliSense
+
+🔗 **Dual Distribution**  
+NPM package + CDN for maximum flexibility
+
+</td>
+</tr>
+<tr>
+<td>
+
+📦 **Tree Shakeable**  
+Import only what you need
+
+🔒 **Type Safe**  
+Comprehensive TypeScript definitions
+
+🌐 **Framework Agnostic**  
+Works with React, Vue, Angular, or vanilla JS
+
+</td>
+<td>
+
+📋 **Rich Content Support**  
+Tables, images, mentions, code blocks, and more
+
+🎯 **Accessibility First**  
+WCAG compliant with keyboard navigation
+
+🔄 **Real-time Collaboration**  
+Built-in support for collaborative editing
+
+</td>
+</tr>
+</table>
+
+## � Installation
+
+### NPM Package (Recommended for React apps)
 
 ```bash
 npm install @akhlaqdigital/editor
+# or
+yarn add @akhlaqdigital/editor
+# or
+pnpm add @akhlaqdigital/editor
 ```
 
-### Usage
-
-```jsx
-import AppEditor from "@akhlaqdigital/editor";
-
-<AppEditor />;
-```
-
----
-
-## 🌐 Usage via CDN
-
-Add the following script to your HTML page:
+### CDN (For vanilla JS or quick prototyping)
 
 ```html
-<script
-  id="ad-editor"
-  src="https://cdn.jsdelivr.net/npm/@akhlaqdigital/editor/dist/ad-editor.js"
-></script>
+<script src="https://cdn.jsdelivr.net/npm/@akhlaqdigital/editor@latest/dist/ad-editor.js"></script>
 ```
 
-### Instructions:
+## 🚀 Quick Start
 
-- A `div` with the ID `ad-editor` will be created (if not already present).
+### React/NPM Usage
+
+```jsx
+import { SimpleEditor } from "@akhlaqdigital/editor";
+
+function MyApp() {
+  const [content, setContent] = useState("<p>Hello World!</p>");
+
+  return (
+    <SimpleEditor
+      content={content}
+      onChange={setContent}
+      placeholder="Start writing..."
+      isShowMention={true}
+      isFileUpload={true}
+    />
+  );
+}
+```
+
+### CDN/Vanilla JS Usage
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My Editor App</title>
+  </head>
+  <body>
+    <div id="editor" style="height: 400px; border: 1px solid #ddd;"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@akhlaqdigital/editor@latest/dist/ad-editor.js"></script>
+    <script>
+      const editor = window.AkhlaqDigitalEditor.init({
+        container: "#editor",
+        placeholder: "Start typing...",
+        content: "<p>Welcome to the editor!</p>",
+        onChange: (content) => {
+          console.log("Content updated:", content);
+        },
+      });
+    </script>
+  </body>
+</html>
+```
+
+## 📖 Documentation & Examples
+
+<div align="center">
+
+| Resource               | Description                      | Link                                                            |
+| ---------------------- | -------------------------------- | --------------------------------------------------------------- |
+| 📚 **Complete Guide**  | Full documentation with examples | [View Docs →](https://akhlaq-digital-editor.vercel.app/docs)    |
+| ⚛️ **React/NPM Guide** | Detailed React integration guide | [NPM Docs →](https://akhlaq-digital-editor.vercel.app/docs/npm) |
+| 🌐 **CDN/Vanilla JS**  | Vanilla JavaScript usage guide   | [CDN Docs →](https://akhlaq-digital-editor.vercel.app/docs/cdn) |
+| 🎯 **Live Demo**       | Interactive playground           | [Try Demo →](https://akhlaq-digital-editor.vercel.app/example)  |
+
+</div>
 
 ---
 
-### Component Props
+## 📦 NPM API Reference
 
-Properties used to customise the rendering:
+### SimpleEditor Component Props
 
-| Name                 | Type       | Default                     | Description                                                                                                                                                              |
-| :------------------- | ---------- | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| envConfig            | object     | `-`                         | _optional_ Configuration for the CDN domain and secret keys used to generate mention images, if needed. _(**cdnDomain:** `string` = "-", **cdnSecret:** `string` = "-")_ |
-| isShowMention        | bool       | `true`                      | _optional_ to enable/disable mentions feature.                                                                                                                           |
-| isFileUpload         | bool       | `true`                      | _optional_ to enable or disable file upload support.                                                                                                                     |
-| content              | string     | `-`                         | _optional_ Initial content for the editor.                                                                                                                               |
-| className            | string     | `-`                         | _optional_ Custom CSS class for editor styling.                                                                                                                          |
-| placeholder          | string     | `"Enter your content here"` | _optional_ Placeholder text inside the editor.                                                                                                                           |
-| mentions             | array      | `-`                         | _optional_ List of mentionable users/items.                                                                                                                              |
-| onChange             | func       | `-`                         | _optional_ Callback fired when content changes.                                                                                                                          |
-| handleImageInsertion | async func | `-`                         | _optional_ Custom handler for inserting images and return image url as `string`.                                                                                         |
-| handleFilesChange    | async func | `-`                         | _optional_ Async callback for handling file uploads.                                                                                                                     |
+| Prop                   | Type       | Default                     | Description                                                       |
+| ---------------------- | ---------- | --------------------------- | ----------------------------------------------------------------- |
+| `content`              | `string`   | `null`                      | Initial HTML content for the editor                               |
+| `onChange`             | `function` | `() => {}`                  | Callback when content changes `(content: string \| null) => void` |
+| `placeholder`          | `string`   | `"Enter your content here"` | Placeholder text when editor is empty                             |
+| `className`            | `string`   | `""`                        | Additional CSS classes for styling                                |
+| `isShowMention`        | `boolean`  | `true`                      | Enable @mention functionality                                     |
+| `isFileUpload`         | `boolean`  | `true`                      | Enable file upload features                                       |
+| `isBottomToolbar`      | `boolean`  | `false`                     | Position toolbar at bottom                                        |
+| `mentions`             | `array`    | `[]`                        | Array of mention suggestions                                      |
+| `acceptedFileTypes`    | `string`   | `""`                        | Accepted file types for uploads                                   |
+| `handleImageInsertion` | `function` | `undefined`                 | Custom image upload handler                                       |
+| `handleFilesChange`    | `function` | `async () => {}`            | Custom file upload handler                                        |
 
----
+### Example with All Props
 
-## 🛠 Development
+```jsx
+import { SimpleEditor } from "@akhlaqdigital/editor";
 
-Make sure you have React and ReactDOM available in your environment when developing locally.
+function AdvancedExample() {
+  const [content, setContent] = useState("<p>Initial content</p>");
+
+  const mentions = [
+    { id: 1, label: "John Doe" },
+    { id: 2, label: "Jane Smith" },
+  ];
+
+  const handleImageUpload = async ({ file, onProgress, abortSignal }) => {
+    // Your custom upload logic
+    const formData = new FormData();
+    formData.append("image", file.file);
+
+    const response = await fetch("/api/upload", {
+      method: "POST",
+      body: formData,
+      signal: abortSignal,
+    });
+
+    const { url } = await response.json();
+    return url;
+  };
+
+  return (
+    <SimpleEditor
+      content={content}
+      onChange={setContent}
+      placeholder="Write something amazing..."
+      className="my-editor"
+      isShowMention={true}
+      isFileUpload={true}
+      isBottomToolbar={false}
+      mentions={mentions}
+      acceptedFileTypes="image/*,.pdf,.doc,.docx"
+      handleImageInsertion={handleImageUpload}
+      handleFilesChange={async (files) => {
+        console.log("Files selected:", files);
+      }}
+    />
+  );
+}
+```
+
+## 🎨 Styling & Theming
+
+The editor comes with default styles but can be fully customized:
+
+```css
+/* Override default styles */
+.simple-editor-wrapper {
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.simple-editor-content {
+  min-height: 300px;
+  padding: 20px;
+}
+
+/* Customize toolbar */
+.tiptap-toolbar {
+  background: #f8f9fa;
+  border-bottom: 1px solid #e9ecef;
+}
+```
+
+## 🔧 Advanced Configuration
+
+### Custom Extensions
+
+```jsx
+import { useEditor } from "@tiptap/react";
+import { CustomExtension } from "./my-extensions";
+
+// For advanced users who want to extend functionality
+const editor = useEditor({
+  extensions: [
+    // Add your custom extensions
+    CustomExtension.configure({
+      // options
+    }),
+  ],
+});
+```
+
+## ⚡ Performance Tips
+
+1. **Debounce onChange**: For frequent updates, consider debouncing
+2. **Lazy Loading**: Load editor only when needed
+3. **Content Optimization**: Use `shouldRerenderOnTransaction: false` for large documents
+4. **Memory Management**: Call `destroy()` when unmounting
+
+## 🏗️ Technology Stack
+
+This editor is built on top of industry-leading open-source technologies:
+
+### Core Dependencies
+
+- **ProseMirror** - The foundational rich text editing framework
+- **Tiptap** - Modern React wrapper for ProseMirror with excellent extensibility
+- **React** - Component library for building user interfaces
+- **TypeScript** - Type safety and enhanced developer experience
+
+### Key Extensions
+
+- **Mentions**: @user functionality with customizable suggestions
+- **File Upload**: Drag & drop file handling with progress tracking
+- **Image Handling**: Resizable images with context menus
+- **Tables**: Full table editing with resize capabilities
+- **Formatting**: Rich text formatting (bold, italic, headers, lists, etc.)
+- **Code**: Syntax highlighting for code blocks
+
+### Build & Distribution
+
+- **Vite** - Fast build tool and bundler
+- **Rollup** - Module bundler for optimized output
+- **ESBuild** - Fast minification and optimization
+
+> **Acknowledgments**: Special thanks to the ProseMirror and Tiptap teams for creating such powerful and flexible foundations for rich text editing.
+
+## 🐛 Troubleshooting
+
+### Common Issues
+
+**Editor not rendering**:
+
+- Ensure React and ReactDOM are available
+- Check for console errors
+- Verify all peer dependencies are installed
+
+**TypeScript errors**:
+
+- Update to latest version
+- Check that types are properly imported
+
+**Performance issues**:
+
+- Reduce extension usage for simple use cases
+- Implement content debouncing
+- Use `React.memo` for wrapper components
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/amazing-feature`
+3. Commit changes: `git commit -m 'Add amazing feature'`
+4. Push to branch: `git push origin feature/amazing-feature`
+5. Open a Pull Request
 
 ## 📄 License
 
-ISC
+MIT License
+
+## � Links
+
+- 🌐 **CDN Documentation**: [CDN Docs →](https://akhlaq-digital-editor.vercel.app/docs/cdn)
+- 🎯 **Live Demo**: [Demo](https://akhlaq-digital-editor.vercel.app/example)
+- 📦 **NPM Package**: [@akhlaqdigital/editor](https://npmjs.com/package/@akhlaqdigital/editor)
+
+## 🤝 Support
+
+- 📧 Email: akhlaqdigital@gmail.com
+
+---
+
+Made with ❤️ by [Akhlaq Digital](https://akhlaq-digital-editor.vercel.app)

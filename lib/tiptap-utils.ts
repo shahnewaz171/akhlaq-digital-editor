@@ -3,6 +3,7 @@ import type {
   HandleImageUploadParams,
 } from "@/components/tiptap-node/types";
 import { bytesToMB } from "@/utils";
+import AKHLAQ_PLACEHOLDER_IMAGE from "@/utils/akhlaq-placeholder";
 import toastAlert from "@/utils/toastConfig";
 import type { Node as TiptapNode } from "@tiptap/pm/model";
 import { NodeSelection } from "@tiptap/pm/state";
@@ -290,7 +291,7 @@ export const handleImageUpload = async ({
     onProgress?.({ progress });
   }
 
-  return file_url || "/akhlaq-placeholder.svg";
+  return file_url || AKHLAQ_PLACEHOLDER_IMAGE;
 };
 
 export const handleFileUpload = (

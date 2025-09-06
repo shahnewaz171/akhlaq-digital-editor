@@ -1,0 +1,19 @@
+<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="8" cy="8" r="8" fill="#3B82F6"/>
+  
+  <!-- Editor document icon -->
+  <rect x="4" y="3" width="8" height="10" rx="1" fill="#FFFFFF"/>
+  
+  <!-- Text lines -->
+  <rect x="5" y="5" width="4" height="0.75" rx="0.375" fill="#3B82F6"/>
+  <rect x="5" y="6.5" width="6" height="0.75" rx="0.375" fill="#6B7280"/>
+  <rect x="5" y="8" width="5" height="0.75" rx="0.375" fill="#6B7280"/>
+  <rect x="5" y="9.5" width="5.5" height="0.75" rx="0.375" fill="#6B7280"/>
+  
+  <!-- Cursor -->
+  <rect x="9" y="9.5" width="0.5" height="1.5" fill="#3B82F6"/>
+  
+  <!-- Pen/edit icon -->
+  <path d="M10 4L12 6L11 7L9 5L10 4Z" fill="#F59E0B"/>
+</svg>

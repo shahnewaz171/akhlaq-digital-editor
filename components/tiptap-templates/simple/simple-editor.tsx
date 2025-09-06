@@ -5,7 +5,6 @@ import { Editor, EditorContent, EditorContext, useEditor } from "@tiptap/react";
 
 // --- Tiptap Core Extensions ---
 import { StarterKit } from "@tiptap/starter-kit";
-import { Image } from "@tiptap/extension-image";
 import { TaskItem, TaskList } from "@tiptap/extension-list";
 import { TextAlign } from "@tiptap/extension-text-align";
 import { Typography } from "@tiptap/extension-typography";
@@ -100,9 +99,9 @@ import {
   shouldShowFileSizeLimitWarning,
 } from "@/lib/tiptap-utils";
 import { getMentionSuggestion } from "@/lib/mention-suggestion";
-import { useEditorEnv } from "@/components/tiptap-templates/use-editor-env-context";
 
 // --- utils ---
+import AKHLAQ_PLACEHOLDER_IMAGE from "@/utils/akhlaq-placeholder";
 import toastAlert from "@/utils/toastConfig";
 
 // --- Styles ---
@@ -246,7 +245,6 @@ const MobileToolbarContent = ({
 );
 
 export function SimpleEditor({
-  envConfig,
   isShowMention = true,
   isFileUpload = true,
   isBottomToolbar = false,
@@ -256,13 +254,10 @@ export function SimpleEditor({
   placeholder = "Enter your content here",
   mentions = [],
   onChange = () => {},
+  onInit, // Add onInit prop
   handleImageInsertion,
   handleFilesChange = async () => {},
 }: SimpleEditorProps) {
-  // env
-  const { envConfig: contextEnvConfig, setEnvConfig } = useEditorEnv();
-  const { cdnDomain, cdnSecret } = contextEnvConfig || {};
-
   // states
   const [mobileView, setMobileView] = React.useState<
     "main" | "highlighter" | "link"
@@ -347,7 +342,6 @@ export function SimpleEditor({
             });
           },
         }),
-        Image,
         TextStyle,
         Color,
         BackgroundColor,
@@ -355,6 +349,8 @@ export function SimpleEditor({
         FontSizeExtension,
         TableKit.configure({
           table: { resizable: true },
+          tableHeader: false,
+          tableCell: false,
         }),
         CustomTableHeader,
         CustomTableCell,
@@ -426,7 +422,7 @@ export function SimpleEditor({
             context,
           }: HandleImagePasteAndDropParams) => {
             if (!handleImageInsertion) {
-              return "/akhlaq-placeholder.svg";
+              return AKHLAQ_PLACEHOLDER_IMAGE;
             }
 
             const image_url = await handleImageInsertion({
@@ -520,6 +516,12 @@ export function SimpleEditor({
       onFocus: () => {
         setIsFocusedEditor(true);
       },
+      onCreate: ({ editor }) => {
+        // Call onInit callback when editor is created
+        if (onInit) {
+          onInit(editor);
+        }
+      },
     },
     [editorKey]
   );
@@ -529,16 +531,6 @@ export function SimpleEditor({
 
   // handle outside click to blur editor
   useEditorOutsideBlur(editor, setIsFocusedEditor);
-
-  // initiate envs
-  React.useLayoutEffect(() => {
-    if (envConfig) {
-      setEnvConfig({
-        cdnDomain: cdnDomain || "",
-        cdnSecret: cdnSecret || "",
-      });
-    }
-  }, [cdnDomain, cdnSecret]);
 
   // editor view
   React.useEffect(() => {

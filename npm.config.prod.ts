@@ -19,6 +19,10 @@ const config = () =>
         fileName: () => "editor.production.js",
       },
       outDir: "npm/cjs/prod",
+      minify: "esbuild",
+      target: ["es2015", "chrome79", "firefox72", "safari13"],
+      sourcemap: false,
+      reportCompressedSize: true,
       rollupOptions: {
         external: [
           "react",
@@ -34,6 +38,11 @@ const config = () =>
             "react-dom/client": "ReactDOMClient",
           },
           exports: "named",
+          compact: true,
+        },
+        treeshake: {
+          propertyReadSideEffects: false,
+          unknownGlobalSideEffects: false,
         },
       },
     },

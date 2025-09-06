@@ -19,6 +19,10 @@ const config = () =>
         fileName: () => "editor.development.js",
       },
       outDir: "npm/cjs/dev",
+      minify: false,
+      target: ["es2015", "chrome79", "firefox72", "safari13"],
+      sourcemap: true,
+      reportCompressedSize: false,
       rollupOptions: {
         external: [
           "react",
@@ -34,7 +38,9 @@ const config = () =>
             "react-dom/client": "ReactDOMClient",
           },
           exports: "named",
+          compact: false,
         },
+        treeshake: false,
       },
     },
     define: {

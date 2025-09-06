@@ -1,0 +1,35 @@
+<svg width="192" height="192" viewBox="0 0 192 192" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="96" cy="96" r="96" fill="#3B82F6"/>
+  
+  <!-- Editor document icon -->
+  <rect x="48" y="36" width="96" height="120" rx="12" fill="#FFFFFF"/>
+  
+  <!-- Header bar -->
+  <rect x="48" y="36" width="96" height="24" rx="12" fill="#F1F5F9"/>
+  <rect x="48" y="60" width="96" height="1" fill="#E2E8F0"/>
+  
+  <!-- Toolbar buttons -->
+  <circle cx="72" cy="48" r="4" fill="#6B7280"/>
+  <circle cx="84" cy="48" r="4" fill="#6B7280"/>
+  <circle cx="96" cy="48" r="4" fill="#6B7280"/>
+  
+  <!-- Text lines -->
+  <rect x="60" y="78" width="48" height="6" rx="3" fill="#1E293B"/>
+  <rect x="60" y="90" width="72" height="4" rx="2" fill="#6B7280"/>
+  <rect x="60" y="102" width="66" height="4" rx="2" fill="#6B7280"/>
+  <rect x="60" y="114" width="60" height="4" rx="2" fill="#6B7280"/>
+  
+  <!-- Bullet points -->
+  <circle cx="64" cy="132" r="2" fill="#3B82F6"/>
+  <rect x="72" y="129" width="48" height="4" rx="2" fill="#6B7280"/>
+  <circle cx="64" cy="144" r="2" fill="#3B82F6"/>
+  <rect x="72" y="141" width="42" height="4" rx="2" fill="#6B7280"/>
+  
+  <!-- Cursor -->
+  <rect x="108" y="141" width="2" height="12" fill="#3B82F6"/>
+  
+  <!-- Pen/edit icon -->
+  <path d="M120 48L144 72L132 84L108 60L120 48Z" fill="#F59E0B"/>
+  <rect x="111" y="57" width="6" height="24" rx="3" fill="#F59E0B" transform="rotate(45 114 69)"/>
+</svg>

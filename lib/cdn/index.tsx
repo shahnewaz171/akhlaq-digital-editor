@@ -2,102 +2,561 @@ import React from "react";
 import { createRoot, Root } from "react-dom/client";
 
 // editor
-import AppEditor from "../../components/tiptap-templates";
+import AppEditor from "@/components/tiptap-templates";
 import "../../app/globals.css";
 
 // types
-import type {
-  ConfigParams,
-  SimpleEditorProps,
-} from "../../components/tiptap-node/types";
+import type { SimpleEditorProps } from "@/components/tiptap-node/types";
 
-// inject type
+// version from package.json (injected at build time)
+declare const __PACKAGE_VERSION__: string;
+const PACKAGE_VERSION = __PACKAGE_VERSION__;
+
+// Enhanced global interface for better vanilla JS integration
 declare global {
   interface Window {
-    EditorInit: {
-      init: (
-        editorProps?: Partial<SimpleEditorProps>,
-        envConfig?: Partial<ConfigParams>
-      ) => void;
-      destroy?: () => void;
-      version?: string;
-    };
-    EDITOR_PROPS?: Partial<SimpleEditorProps>;
+    AkhlaqDigitalEditor: AkhlaqDigitalEditorAPI;
+    AKHLAQ_EDITOR_CONFIG?: EditorInitOptions;
   }
 }
 
-// unique container ID for the editor
-const EDITOR_CONTAINER_ID = "ad-editor-container";
+// Legacy support - separate interface to avoid conflicts
+interface LegacyEditorInit {
+  init: (editorProps?: Partial<SimpleEditorProps>) => void;
+  destroy?: () => void;
+  version?: string;
+}
 
-// react root
-let root: Root | null = null;
+// Export types for better TypeScript support
+export interface EditorInitOptions {
+  // Container options
+  container?: string | HTMLElement;
 
-/**
- * initializes the editor into a container.
- */
-export const initEditor = (
-  editorProps?: Partial<SimpleEditorProps>,
-  envConfig?: Partial<ConfigParams>
-) => {
-  let container = document.getElementById(EDITOR_CONTAINER_ID);
+  // Editor configuration
+  content?: string | null;
+  placeholder?: string;
+  className?: string;
 
-  if (!container) {
-    container = document.createElement("div");
-    container.id = EDITOR_CONTAINER_ID;
-    document.body.appendChild(container);
+  // Features
+  isShowMention?: boolean;
+  isFileUpload?: boolean;
+  isBottomToolbar?: boolean;
+  acceptedFileTypes?: string;
+  mentions?: any[];
+
+  // Callbacks
+  onChange?: (content: string | null) => void;
+  onInit?: (instance: EditorInstance) => void;
+  onDestroy?: () => void;
+
+  // Upload handlers
+  handleImageInsertion?: (params: any) => Promise<string | null>;
+  handleFilesChange?: (files: any[]) => Promise<void>;
+
+  // Auto-initialization (for script tag usage)
+  autoInit?: boolean;
+}
+
+// Editor instance interface
+export interface EditorInstance {
+  getContent: () => string | null;
+  setContent: (content: string) => void;
+  focus: () => void;
+  blur: () => void;
+  destroy: () => void;
+  getContainer: () => HTMLElement | null;
+  isDestroyed: () => boolean;
+}
+
+// Event types
+export type EditorEvent = "init" | "destroy" | "change" | "focus" | "blur";
+export type EditorEventCallback = (data?: any) => void;
+
+// Main API interface for better TypeScript support
+export interface AkhlaqDigitalEditorAPI {
+  // Core methods
+  init: (options?: EditorInitOptions) => EditorInstance;
+  destroy: () => void;
+  destroyAll: () => void;
+
+  // Utility methods
+  version: string;
+  isInitialized: () => boolean;
+  getInstance: () => EditorInstance | null;
+
+  // Events
+  on: (event: EditorEvent, callback: EditorEventCallback) => void;
+  off: (event: EditorEvent, callback: EditorEventCallback) => void;
+}
+
+// Internal state management
+class EditorManager {
+  private instances: Map<
+    string,
+    {
+      root: Root;
+      container: HTMLElement;
+      options: EditorInitOptions;
+      lastRender: number;
+      isRendering: boolean;
+      editorRef?: any; // Store reference to the actual Tiptap editor
+    }
+  > = new Map();
+  private eventListeners: Map<EditorEvent, EditorEventCallback[]> = new Map();
+  private static instance: EditorManager | null = null;
+
+  static getInstance(): EditorManager {
+    if (!EditorManager.instance) {
+      EditorManager.instance = new EditorManager();
+    }
+    return EditorManager.instance;
   }
 
-  if (!root) {
-    root = createRoot(container);
+  private generateId(): string {
+    return `ad-editor-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
   }
 
-  root.render(
-    <React.StrictMode>
-      <AppEditor {...editorProps} envConfig={envConfig} />
-    </React.StrictMode>
-  );
-};
-
-/**
- * destroys the editor and cleans up the container.
- */
-export const destroyEditor = () => {
-  if (root) {
-    root.unmount();
-    root = null;
-    const container = document.getElementById(EDITOR_CONTAINER_ID);
-    if (container) container.remove();
+  private emit(event: EditorEvent, data?: any) {
+    const listeners = this.eventListeners.get(event) || [];
+    listeners.forEach((callback) => {
+      try {
+        callback(data);
+      } catch (error) {
+        console.error(`Error in ${event} event listener:`, error);
+      }
+    });
   }
-};
 
-/**
- * auto-initialize if script tag is loaded with data attributes.
- */
+  // Performance optimization: debounced render to prevent excessive re-renders
+  private debounceRender(instanceId: string, renderFn: () => void, delay = 16) {
+    const instance = this.instances.get(instanceId);
+    if (!instance) return;
+
+    const now = Date.now();
+    if (instance.isRendering || now - instance.lastRender < delay) {
+      return;
+    }
+
+    instance.isRendering = true;
+    requestAnimationFrame(() => {
+      try {
+        renderFn();
+        instance.lastRender = Date.now();
+      } finally {
+        instance.isRendering = false;
+      }
+    });
+  }
+
+  on(event: EditorEvent, callback: EditorEventCallback) {
+    if (!this.eventListeners.has(event)) {
+      this.eventListeners.set(event, []);
+    }
+    this.eventListeners.get(event)!.push(callback);
+  }
+
+  off(event: EditorEvent, callback: EditorEventCallback) {
+    const listeners = this.eventListeners.get(event) || [];
+    const index = listeners.indexOf(callback);
+    if (index > -1) {
+      listeners.splice(index, 1);
+    }
+  }
+
+  init(options: EditorInitOptions = {}): EditorInstance {
+    try {
+      // Container resolution
+      let container: HTMLElement;
+
+      if (options.container) {
+        if (typeof options.container === "string") {
+          const element = document.querySelector(
+            options.container
+          ) as HTMLElement;
+          if (!element) {
+            throw new Error(`Container not found: ${options.container}`);
+          }
+          container = element;
+        } else {
+          container = options.container;
+        }
+      } else {
+        // Create default container
+        container = document.createElement("div");
+        container.className = "akhlaq-digital-editor";
+        document.body.appendChild(container);
+      }
+
+      // Generate unique instance ID
+      const instanceId = this.generateId();
+
+      // Create React root
+      const root = createRoot(container);
+
+      // Track current content for getContent
+      let currentContent = options.content || null;
+      let tiptapEditor: any = null; // Store reference to the actual Tiptap editor
+
+      // Enhanced onChange handler that tracks content
+      const handleContentChange = (content: string | null) => {
+        currentContent = content;
+        if (options.onChange) {
+          options.onChange(content);
+        }
+        this.emit("change", { content, instanceId });
+      };
+
+      // Enhanced onInit handler that captures the editor reference
+      const handleEditorInit = (editorInstance: any) => {
+        tiptapEditor = editorInstance;
+        // Update the stored instance with the editor reference
+        const instanceData = this.instances.get(instanceId);
+        if (instanceData) {
+          instanceData.editorRef = editorInstance;
+        }
+        if (options.onInit) {
+          options.onInit(editorInstance);
+        }
+        this.emit("init", { editor: editorInstance, instanceId });
+      };
+
+      // Prepare editor props
+      const editorProps: Partial<SimpleEditorProps> = {
+        content: currentContent,
+        placeholder: options.placeholder || "Start writing...",
+        className: options.className,
+        isShowMention: options.isShowMention !== false, // Default to true
+        isFileUpload: options.isFileUpload !== false, // Default to true
+        isBottomToolbar: options.isBottomToolbar || false,
+        acceptedFileTypes: options.acceptedFileTypes || "image/*",
+        mentions: options.mentions || [],
+        onChange: handleContentChange,
+        onInit: handleEditorInit, // Pass the enhanced onInit handler
+        handleImageInsertion: options.handleImageInsertion,
+        handleFilesChange: options.handleFilesChange,
+      };
+
+      // Render editor
+      root.render(<AppEditor {...editorProps} />);
+
+      // Store instance with performance tracking
+      this.instances.set(instanceId, {
+        root,
+        container,
+        options: {
+          ...options,
+          onChange: handleContentChange, // Store the enhanced handler
+        },
+        lastRender: Date.now(),
+        isRendering: false,
+        editorRef: tiptapEditor, // Store the editor reference
+      });
+
+      // Create instance API
+      const instance: EditorInstance = {
+        getContent: () => {
+          // Get the current editor reference from the stored instance
+          const instanceData = this.instances.get(instanceId);
+          const currentEditor = instanceData?.editorRef;
+
+          // Use the actual Tiptap editor if available for fresh content
+          if (currentEditor && currentEditor.getHTML) {
+            return currentEditor.getHTML();
+          }
+          // Fallback: return the tracked current content
+          return currentContent;
+        },
+        setContent: (content: string) => {
+          currentContent = content;
+
+          // Get the current editor reference from the stored instance
+          const instanceData = this.instances.get(instanceId);
+          const currentEditor = instanceData?.editorRef;
+
+          // Use the actual Tiptap editor if available, otherwise fall back to re-render
+          if (currentEditor && currentEditor.commands) {
+            currentEditor.commands.setContent(content);
+          } else {
+            // Fallback: update props and re-render
+            editorProps.content = content;
+            this.debounceRender(instanceId, () => {
+              root.render(<AppEditor {...editorProps} />);
+            });
+          }
+        },
+        focus: () => {
+          // Get the current editor reference from the stored instance
+          const instanceData = this.instances.get(instanceId);
+          const currentEditor = instanceData?.editorRef;
+
+          // Use the actual Tiptap editor if available
+          if (currentEditor && currentEditor.commands) {
+            currentEditor.commands.focus();
+          } else {
+            // Fallback: find contenteditable element
+            const editorElement = container.querySelector(
+              '[contenteditable="true"]'
+            ) as HTMLElement;
+            editorElement?.focus();
+          }
+          this.emit("focus", { instanceId });
+        },
+        blur: () => {
+          const editorElement = container.querySelector(
+            '[contenteditable="true"]'
+          ) as HTMLElement;
+          editorElement?.blur();
+          this.emit("blur", { instanceId });
+        },
+        destroy: () => {
+          this.destroyInstance(instanceId);
+        },
+        getContainer: () => container,
+        isDestroyed: () => !this.instances.has(instanceId),
+      };
+
+      // Call onInit callback
+      if (options.onInit) {
+        options.onInit(instance);
+      }
+
+      // Emit init event
+      this.emit("init", { instance, instanceId });
+
+      return instance;
+    } catch (error) {
+      console.error("Failed to initialize Akhlaq Digital Editor:", error);
+      throw error;
+    }
+  }
+
+  destroyInstance(instanceId: string) {
+    const instance = this.instances.get(instanceId);
+    if (instance) {
+      try {
+        // Use setTimeout to avoid unload event conflicts
+        setTimeout(() => {
+          try {
+            instance.root.unmount();
+          } catch (error) {
+            // Silently handle unmount errors (like unload permission violations)
+            const errorMessage =
+              error instanceof Error ? error.message : String(error);
+            console.warn(
+              "Editor unmount warning (safe to ignore):",
+              errorMessage
+            );
+          }
+        }, 0);
+
+        // Call onDestroy callback
+        if (instance.options.onDestroy) {
+          instance.options.onDestroy();
+        }
+
+        // Emit destroy event
+        this.emit("destroy");
+
+        this.instances.delete(instanceId);
+      } catch (error) {
+        console.error("Error destroying editor instance:", error);
+      }
+    }
+  }
+
+  destroy() {
+    // Destroy the most recent instance (for backward compatibility)
+    const instances = Array.from(this.instances.keys());
+    if (instances.length > 0) {
+      this.destroyInstance(instances[instances.length - 1]);
+    }
+  }
+
+  destroyAll() {
+    const instances = Array.from(this.instances.keys());
+    instances.forEach((id) => this.destroyInstance(id));
+  }
+
+  isInitialized(): boolean {
+    return this.instances.size > 0;
+  }
+
+  getInstance(): EditorInstance | null {
+    const instanceEntries = Array.from(this.instances.entries());
+    if (instanceEntries.length === 0) return null;
+
+    // Return the most recent instance
+    const [instanceId, latestInstance] =
+      instanceEntries[instanceEntries.length - 1];
+
+    return {
+      getContent: () => {
+        // Try to get content from the actual editor element
+        const editorElement = latestInstance.container.querySelector(
+          '[contenteditable="true"]'
+        ) as HTMLElement;
+        if (editorElement) {
+          return editorElement.innerHTML || null;
+        }
+        return latestInstance.options.content || null;
+      },
+      setContent: (content: string) => {
+        // Update the stored options and re-render
+        latestInstance.options.content = content;
+        this.debounceRender(instanceId, () => {
+          latestInstance.root.render(
+            <AppEditor
+              content={content}
+              placeholder={latestInstance.options.placeholder}
+              className={latestInstance.options.className}
+              isShowMention={latestInstance.options.isShowMention}
+              isFileUpload={latestInstance.options.isFileUpload}
+              isBottomToolbar={latestInstance.options.isBottomToolbar}
+              acceptedFileTypes={latestInstance.options.acceptedFileTypes}
+              mentions={latestInstance.options.mentions}
+              onChange={latestInstance.options.onChange}
+              handleImageInsertion={latestInstance.options.handleImageInsertion}
+              handleFilesChange={latestInstance.options.handleFilesChange}
+            />
+          );
+        });
+      },
+      focus: () => {
+        const editorElement = latestInstance.container.querySelector(
+          '[contenteditable="true"]'
+        ) as HTMLElement;
+        editorElement?.focus();
+        this.emit("focus", { instanceId });
+      },
+      blur: () => {
+        const editorElement = latestInstance.container.querySelector(
+          '[contenteditable="true"]'
+        ) as HTMLElement;
+        editorElement?.blur();
+        this.emit("blur", { instanceId });
+      },
+      destroy: () => this.destroyInstance(instanceId),
+      getContainer: () => latestInstance.container,
+      isDestroyed: () => !this.instances.has(instanceId),
+    };
+  }
+}
+
+// Auto-initialization function
 const autoInit = () => {
-  const scriptTag = document.getElementById("ad-editor");
+  try {
+    // Check for script tag configuration
+    const scriptTag = document.querySelector(
+      "script[data-akhlaq-editor]"
+    ) as HTMLScriptElement;
 
-  if (scriptTag) {
-    const cdnDomain = scriptTag.getAttribute("cdn-domain") || "";
-    const cdnSecret = scriptTag.getAttribute("cdn-secret") || "";
+    if (scriptTag) {
+      const config: EditorInitOptions = {
+        container: scriptTag.dataset.container,
+        content: scriptTag.dataset.content,
+        placeholder: scriptTag.dataset.placeholder,
+        className: scriptTag.dataset.className,
+        isShowMention: scriptTag.dataset.mentions === "true",
+        isFileUpload: scriptTag.dataset.fileUpload === "true",
+        isBottomToolbar: scriptTag.dataset.bottomToolbar === "true",
+        acceptedFileTypes: scriptTag.dataset.acceptedFileTypes,
+        autoInit: true,
+      };
 
-    const editorProps = window.EDITOR_PROPS || {};
+      // Merge with global config
+      const globalConfig = window.AKHLAQ_EDITOR_CONFIG || {};
+      const finalConfig = { ...globalConfig, ...config };
 
-    initEditor(editorProps, { cdnDomain, cdnSecret });
+      if (finalConfig.autoInit !== false) {
+        EditorManager.getInstance().init(finalConfig);
+      }
+    }
+  } catch (error) {
+    console.error("Auto-initialization failed:", error);
   }
 };
 
-// expose globally for CDN usage
+// Initialize when DOM is ready
+const initWhenReady = () => {
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", autoInit, { once: true });
+  } else {
+    autoInit();
+  }
+};
+
+// Expose global API
 if (typeof window !== "undefined") {
-  window.EditorInit = {
-    init: initEditor,
-    destroy: destroyEditor,
-    version: process.env.NEXT_PUBLIC_PACKAGE_VERSION,
+  const manager = EditorManager.getInstance();
+
+  // Modern API with proper typing
+  const api: AkhlaqDigitalEditorAPI = {
+    init: (options?: EditorInitOptions) => manager.init(options || {}),
+    destroy: () => manager.destroy(),
+    destroyAll: () => manager.destroyAll(),
+    version: PACKAGE_VERSION,
+    isInitialized: () => manager.isInitialized(),
+    getInstance: () => manager.getInstance(),
+    on: (event: EditorEvent, callback: EditorEventCallback) =>
+      manager.on(event, callback),
+    off: (event: EditorEvent, callback: EditorEventCallback) =>
+      manager.off(event, callback),
   };
 
-  // auto-initialize if data attributes are present
-  if (document.readyState === "complete") {
-    autoInit();
-  } else {
-    window.addEventListener("load", autoInit, { once: true });
-  }
+  // Assign to window - this is the main API
+  window.AkhlaqDigitalEditor = api;
+
+  // Also assign to global for better CDN compatibility
+  (globalThis as any).AkhlaqDigitalEditor = api;
+
+  // Legacy API (for backward compatibility)
+  const legacyAPI: LegacyEditorInit = {
+    init: (editorProps?: Partial<SimpleEditorProps>) => {
+      const options: EditorInitOptions = {
+        content: editorProps?.content || null,
+        placeholder: editorProps?.placeholder,
+        className: editorProps?.className,
+        isShowMention: editorProps?.isShowMention,
+        isFileUpload: editorProps?.isFileUpload,
+        isBottomToolbar: editorProps?.isBottomToolbar,
+        acceptedFileTypes: editorProps?.acceptedFileTypes,
+        mentions: editorProps?.mentions,
+        onChange: editorProps?.onChange,
+        handleImageInsertion: editorProps?.handleImageInsertion,
+        handleFilesChange: editorProps?.handleFilesChange,
+      };
+      manager.init(options);
+    },
+    destroy: () => manager.destroy(),
+    version: PACKAGE_VERSION,
+  };
+
+  // Assign to window for backward compatibility
+  (window as any).EditorInit = legacyAPI;
+
+  // Auto-initialize
+  initWhenReady();
 }
+
+// Export default for CDN and module usage
+const defaultAPI = (() => {
+  if (typeof window !== "undefined" && window.AkhlaqDigitalEditor) {
+    return window.AkhlaqDigitalEditor;
+  }
+
+  const managerInstance = EditorManager.getInstance();
+  return {
+    init: (options?: EditorInitOptions) => managerInstance.init(options || {}),
+    destroy: () => managerInstance.destroy(),
+    destroyAll: () => managerInstance.destroyAll(),
+    version: PACKAGE_VERSION,
+    isInitialized: () => managerInstance.isInitialized(),
+    getInstance: () => managerInstance.getInstance(),
+    on: (event: EditorEvent, callback: EditorEventCallback) =>
+      managerInstance.on(event, callback),
+    off: (event: EditorEvent, callback: EditorEventCallback) =>
+      managerInstance.off(event, callback),
+  };
+})();
+
+export default defaultAPI;

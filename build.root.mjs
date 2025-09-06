@@ -14,4 +14,10 @@ if (process.env.NODE_ENV === 'production') {
 }
 `;
 
-writeFileSync(join(__dirname, "npm", "ad-editor.js"), content, "utf8");
+try {
+  writeFileSync(join(__dirname, "npm", "ad-editor.js"), content, "utf8");
+  console.log("✅ Root NPM file created successfully");
+} catch (error) {
+  console.error("❌ Failed to create root NPM file:", error);
+  process.exit(1);
+}

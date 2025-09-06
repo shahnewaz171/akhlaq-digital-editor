@@ -1,0 +1,26 @@
+# pnpm configuration for build scripts
+
+# Allow essential development dependencies to run build scripts
+
+scripts-prepend-node-path=true
+enable-pre-post-scripts=true
+
+# Note: The ignored build scripts warning is for these safe packages:
+
+# - @parcel/watcher: File watching for development
+
+# - @swc/core: Fast TypeScript/JavaScript transpiler
+
+# - @tailwindcss/oxide: TailwindCSS performance engine
+
+# - esbuild: Fast JavaScript bundler used by Vite
+
+# - sharp: Image processing library
+
+# - unrs-resolver: Universal resolver for module resolution
+
+#
+
+# These are standard, trusted tools that compile native binaries for performance.
+
+# The warning can be safely ignored as these packages are essential for builds.
