@@ -53,7 +53,7 @@ export default defineConfig({
     cssCodeSplit: false, // Bundle CSS with JS for smaller total size
     rollupOptions: {
       output: {
-        exports: "default",
+        exports: "none",
         extend: true,
         banner: `/*! Akhlaq Digital Editor - CDN Bundle v${PACKAGE_VERSION} */`,
         format: "iife",

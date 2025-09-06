@@ -564,4 +564,4 @@ const defaultAPI = (() => {
   };
 })();
 
-export default defaultAPI;
+// No export needed for IIFE format - globals are set above
