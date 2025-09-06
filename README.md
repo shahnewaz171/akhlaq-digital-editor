@@ -22,7 +22,7 @@
 **A powerful, modern rich text editor for React applications and vanilla JavaScript**  
 _Built with ProseMirror and Tiptap, optimized for performance, accessibility, and developer experience_
 
-[📖 View Docs](https://akhlaq-digital-editor.vercel.app/doc) · [🎯 Live Demo](https://akhlaq-digital-editor.vercel.app/example) · [� Support](mailto:akhlaqdigital@gmail.com)
+[📖 View Docs](https://akhlaq-digital-editor.vercel.app/docs) · [🎯 Live Demo](https://akhlaq-digital-editor.vercel.app/example) · [� Support](mailto:akhlaqdigital@gmail.com)
 
 </div>
 
