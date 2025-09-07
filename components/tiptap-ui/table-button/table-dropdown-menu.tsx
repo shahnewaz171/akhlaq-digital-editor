@@ -38,10 +38,8 @@ export function TableDropdownMenu({
     [onOpenChange]
   );
 
-  if (!editor || !editor.isEditable) return null;
-
   // check if in table
-  const isInTable = editor.isActive("table");
+  const isInTable = editor?.isActive("table");
 
   const exec = (fn: () => void) => {
     fn();
@@ -54,6 +52,8 @@ export function TableDropdownMenu({
         <Button
           type="button"
           data-style="ghost"
+          disabled={!editor?.isEditable}
+          data-disabled={!editor?.isEditable}
           data-active-state={isInTable ? "on" : "off"}
           role="button"
           tabIndex={-1}
@@ -62,7 +62,7 @@ export function TableDropdownMenu({
           onClick={() =>
             exec(() =>
               editor
-                .chain()
+                ?.chain()
                 .focus()
                 .insertTable({
                   rows: 3,

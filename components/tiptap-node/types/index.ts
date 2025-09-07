@@ -24,10 +24,13 @@ export interface ConfigParams {
 }
 
 export interface SimpleEditorProps {
+  isAutoFocus?: boolean;
+  isEditable?: boolean;
   isShowMention?: boolean;
   isFileUpload?: boolean;
   isShowEmoji?: boolean;
   isBottomToolbar?: boolean;
+  height?: number;
   acceptedFileTypes?: string;
   content?: string | null;
   className?: string;

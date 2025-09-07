@@ -116,6 +116,8 @@ function AdvancedEditor() {
     content,
     onChange: setContent,
     placeholder: 'Write something amazing...',
+    isAutoFocus: false,
+    isEditable: true,
     isShowMention: true,
     isShowEmoji: true,
     isFileUpload: true,
@@ -264,6 +266,18 @@ export default function EditorPage() {
                     </td>
                   </tr>
                   <tr className="border-b">
+                    <td className="p-3 font-mono">isShowAutoFocus</td>
+                    <td className="p-3">boolean</td>
+                    <td className="p-3 font-mono">false</td>
+                    <td className="p-3">Enable auto focus on editor</td>
+                  </tr>
+                  <tr className="border-b">
+                    <td className="p-3 font-mono">isEditable</td>
+                    <td className="p-3">boolean</td>
+                    <td className="p-3 font-mono">true</td>
+                    <td className="p-3">Enable editing capabilities</td>
+                  </tr>
+                  <tr className="border-b">
                     <td className="p-3 font-mono">isShowMention</td>
                     <td className="p-3">boolean</td>
                     <td className="p-3 font-mono">true</td>
@@ -288,6 +302,14 @@ export default function EditorPage() {
                     <td className="p-3">boolean</td>
                     <td className="p-3 font-mono">false</td>
                     <td className="p-3">Position toolbar at the bottom</td>
+                  </tr>
+                  <tr className="border-b">
+                    <td className="p-3 font-mono">height</td>
+                    <td className="p-3">number</td>
+                    <td className="p-3 font-mono">300</td>
+                    <td className="p-3">
+                      Initial height of the editor in pixels
+                    </td>
                   </tr>
                   <tr className="border-b">
                     <td className="p-3 font-mono">acceptedFileTypes</td>
@@ -346,6 +368,8 @@ function MyComponent() {
     content: '<p>Initial content</p>',
     onChange: (html) => console.log(html),
     placeholder: 'Type here...',
+    isAutoFocus: false,
+    isEditable: true,
     isShowMention: true,
     isShowEmoji: true,
     mentions: [

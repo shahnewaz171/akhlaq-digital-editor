@@ -21,10 +21,8 @@ function EmojiDropdown({ editor: providedEditor }: { editor?: Editor }) {
 
   const { editor } = useTiptapEditor(providedEditor);
 
-  if (!editor || !editor.isEditable) return null;
-
   const setEmoji = (emojiName: string) => {
-    editor.chain().focus().setEmoji(emojiName).run();
+    editor?.chain().focus().setEmoji(emojiName).run();
   };
 
   // navigation functions for categories
@@ -45,16 +43,18 @@ function EmojiDropdown({ editor: providedEditor }: { editor?: Editor }) {
   };
 
   // check if any emoji is currently active
-  const isEmojiSelected = editor.isActive("emoji");
+  const isEmojiSelected = editor?.isActive("emoji");
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
+      <DropdownMenuTrigger asChild disabled={!editor?.isEditable}>
         <Button
           type="button"
           data-style="ghost"
           aria-label="Emoji"
-          className="!p-1 cursor-pointer flex items-center justify-center gap-1"
+          disabled={!editor?.isEditable}
+          data-disabled={!editor?.isEditable}
+          className="!p-1 flex items-center justify-center gap-1"
           tooltip="Emoji"
           data-active-state={isEmojiSelected ? "on" : "off"}
           style={{
@@ -129,7 +129,7 @@ function EmojiDropdown({ editor: providedEditor }: { editor?: Editor }) {
             {EMOJI_CATEGORIES[
               selectedCategory as keyof typeof EMOJI_CATEGORIES
             ]?.emojis?.map((item: { emoji: string; name: string }) => {
-              const isActive = editor.isActive("emoji", { emoji: item.name });
+              const isActive = editor?.isActive("emoji", { emoji: item.name });
 
               return (
                 <DropdownMenuItem asChild key={item.name}>

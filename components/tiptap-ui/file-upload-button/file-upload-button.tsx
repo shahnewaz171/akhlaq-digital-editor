@@ -55,6 +55,8 @@ export const FileUploadButton = React.forwardRef<
       <Button
         type="button"
         data-style="ghost"
+        disabled={!editor?.isEditable}
+        data-disabled={!editor?.isEditable}
         role="button"
         tabIndex={-1}
         tooltip="Add file"

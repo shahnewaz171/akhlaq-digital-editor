@@ -44,11 +44,9 @@ export function FontSizeDropdown({
     [onOpenChange]
   );
 
-  if (!editor || !editor.isEditable) return null;
-
   // check is dropdown selected or not
   const isSelectDropdownItem = sizes.some((size) =>
-    editor.isActive("textStyle", { fontSize: size })
+    editor?.isActive("textStyle", { fontSize: size })
   );
 
   const exec = (fn: () => void) => {
@@ -58,9 +56,11 @@ export function FontSizeDropdown({
 
   return (
     <DropdownMenu open={open} onOpenChange={handleOnOpenChange}>
-      <DropdownMenuTrigger asChild>
+      <DropdownMenuTrigger asChild disabled={!editor?.isEditable}>
         <Button
           type="button"
+          disabled={!editor?.isEditable}
+          data-disabled={!editor?.isEditable}
           data-style="ghost"
           role="button"
           tabIndex={-1}
@@ -83,7 +83,7 @@ export function FontSizeDropdown({
           <CardBody>
             <ButtonGroup>
               {sizes.map((size) => {
-                const isActive = editor.isActive("textStyle", {
+                const isActive = editor?.isActive("textStyle", {
                   fontSize: size,
                 });
 
@@ -95,7 +95,7 @@ export function FontSizeDropdown({
                       className={cn("cursor-pointer", isActive && "is-active")}
                       onClick={() =>
                         exec(() =>
-                          editor.chain().focus().setFontSize(size).run()
+                          editor?.chain().focus().setFontSize(size).run()
                         )
                       }
                     >
@@ -111,7 +111,7 @@ export function FontSizeDropdown({
                   data-style="ghost"
                   className="cursor-pointer"
                   onClick={() =>
-                    exec(() => editor.chain().focus().unsetFontSize().run())
+                    exec(() => editor?.chain().focus().unsetFontSize().run())
                   }
                 >
                   Reset

@@ -60,7 +60,7 @@ export const HeadingDropdownMenu = React.forwardRef<
   ) => {
     const { editor } = useTiptapEditor(providedEditor);
     const [isOpen, setIsOpen] = React.useState(false);
-    const { isVisible, isActive, canToggle, Icon } = useHeadingDropdownMenu({
+    const { isActive, canToggle, Icon } = useHeadingDropdownMenu({
       editor,
       levels,
       hideWhenUnavailable,
@@ -75,13 +75,9 @@ export const HeadingDropdownMenu = React.forwardRef<
       [canToggle, editor, onOpenChange]
     );
 
-    if (!isVisible) {
-      return null;
-    }
-
     return (
       <DropdownMenu modal open={isOpen} onOpenChange={handleOpenChange}>
-        <DropdownMenuTrigger asChild>
+        <DropdownMenuTrigger asChild disabled={!canToggle}>
           <Button
             type="button"
             data-style="ghost"

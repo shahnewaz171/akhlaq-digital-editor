@@ -42,6 +42,7 @@ function MyApp() {
 | ------------- | ---------------- | --------------------------- | ----------------------------------------------------------------- |
 | `content`     | `string \| null` | `null`                      | Initial HTML content for the editor                               |
 | `onChange`    | `function`       | `() => {}`                  | Callback when content changes `(content: string \| null) => void` |
+| `onInit`      | `function`       | `undefined`                 | Callback when editor is initialized `(editor: any) => void`       |
 | `placeholder` | `string`         | `"Enter your content here"` | Placeholder text when editor is empty                             |
 | `className`   | `string`         | `""`                        | Additional CSS classes for styling                                |
 
@@ -49,10 +50,13 @@ function MyApp() {
 
 | Prop                | Type      | Default | Description                                                  |
 | ------------------- | --------- | ------- | ------------------------------------------------------------ |
+| `isAutoFocus`       | `boolean` | `false` | Enable auto focus feature                                    |
+| `isEditable`        | `boolean` | `true`  | Enable editable feature                                      |
 | `isShowMention`     | `boolean` | `true`  | Enable @mention functionality                                |
 | `isShowEmoji`       | `boolean` | `true`  | Enable emoji picker with categorized emojis                  |
 | `isFileUpload`      | `boolean` | `true`  | Enable file upload features                                  |
 | `isBottomToolbar`   | `boolean` | `false` | Position toolbar at bottom instead of top                    |
+| `height`            | `number`  | `300`   | Initial height of the editor in pixels                       |
 | `mentions`          | `array`   | `[]`    | Array of mention suggestions `[{id: number, label: string}]` |
 | `acceptedFileTypes` | `string`  | `""`    | Accepted file types for uploads (e.g., "image/\*,.pdf,.doc") |
 
@@ -198,6 +202,18 @@ function AdvancedEditor() {
     // debouncedSave(newContent);
   }, []);
 
+  // Editor initialization handler
+  const handleEditorInit = useCallback((editor) => {
+    console.log('📝 Editor initialized:', editor);
+
+    // Access editor instance for advanced operations
+    // editor.commands.focus();
+    // editor.commands.setContent(content);
+
+    // You can also store the editor instance
+    // setEditorInstance(editor);
+  }, []);
+
   return (
     <div className="editor-container">
       <h1>📝 Advanced Document Editor</h1>
@@ -206,10 +222,13 @@ function AdvancedEditor() {
         <SimpleEditor
           content={content}
           onChange={handleContentChange}
+          onInit={handleEditorInit}
           placeholder="Start writing your amazing content... Try @mention"
           className="advanced-editor"
 
           // Feature configuration
+          isAutoFocus={false}
+          isEditable={true}
           isShowMention={true}
           isFileUpload={true}
           isBottomToolbar={false}
@@ -319,6 +338,8 @@ function FormWithEditor() {
           content={formData.content}
           onChange={(content) => setFormData(prev => ({ ...prev, content: content || '' }))}
           placeholder="Write your post content..."
+          isAutoFocus={false}
+          isEditable={true}
           isShowMention={false}
           isFileUpload={true}
         />
@@ -613,6 +634,8 @@ const editorProps: SimpleEditorProps = {
     console.log("Content updated:", content);
   },
   placeholder: "Type here...",
+  isAutoFocus: false,
+  isEditable: true
   isShowMention: true,
   mentions: [
     { id: 1, label: "User 1" }, // ✅ Correctly typed

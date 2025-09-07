@@ -65,19 +65,12 @@ export const ImageUploadButton = React.forwardRef<
     ref
   ) => {
     const { editor } = useTiptapEditor(providedEditor);
-    const {
-      isVisible,
-      canInsert,
-      handleImage,
-      label,
-      isActive,
-      shortcutKeys,
-      Icon,
-    } = useImageUpload({
-      editor,
-      hideWhenUnavailable,
-      onInserted,
-    });
+    const { canInsert, handleImage, label, isActive, shortcutKeys, Icon } =
+      useImageUpload({
+        editor,
+        hideWhenUnavailable,
+        onInserted,
+      });
 
     const handleClick = React.useCallback(
       (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -87,10 +80,6 @@ export const ImageUploadButton = React.forwardRef<
       },
       [handleImage, onClick]
     );
-
-    if (!isVisible) {
-      return null;
-    }
 
     return (
       <Button

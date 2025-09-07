@@ -61,12 +61,11 @@ export function ListDropdownMenu({
   const { editor } = useTiptapEditor(providedEditor);
   const [isOpen, setIsOpen] = React.useState(false);
 
-  const { filteredLists, canToggle, isActive, isVisible, Icon } =
-    useListDropdownMenu({
-      editor,
-      types,
-      hideWhenUnavailable,
-    });
+  const { filteredLists, canToggle, isActive, Icon } = useListDropdownMenu({
+    editor,
+    types,
+    hideWhenUnavailable,
+  });
 
   const handleOnOpenChange = React.useCallback(
     (open: boolean) => {
@@ -76,13 +75,9 @@ export function ListDropdownMenu({
     [onOpenChange]
   );
 
-  if (!isVisible || !editor || !editor.isEditable) {
-    return null;
-  }
-
   return (
     <DropdownMenu open={isOpen} onOpenChange={handleOnOpenChange}>
-      <DropdownMenuTrigger asChild>
+      <DropdownMenuTrigger asChild disabled={!canToggle}>
         <Button
           type="button"
           data-style="ghost"

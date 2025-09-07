@@ -90,7 +90,7 @@ const FullDocumentationPage = () => {
                     <div className="bg-gray-900 text-gray-100 p-2 sm:p-3 rounded text-xs sm:text-sm mt-2 overflow-x-auto">
                       <code className="break-all">
                         &lt;script
-                        src=&quot;https://cdn.jsdelivr.net/npm/@akhlaqdigital/editor@latest/dist/ad-editor.js&quot;&gt;&lt;/script&gt;
+                        src=&quot;https://cdn.jsdelivr.net/npm/@akhlaqdigital/editor/dist/ad-editor.js&quot;&gt;&lt;/script&gt;
                       </code>
                     </div>
                   </div>
@@ -471,6 +471,26 @@ const { editor } = useTiptapEditor({
                       </tr>
                       <tr className="border-b">
                         <td className="p-2 sm:p-3 font-mono text-xs sm:text-sm">
+                          isAutoFocus
+                        </td>
+                        <td className="p-2 sm:p-3">boolean</td>
+                        <td className="p-2 sm:p-3 font-mono">false</td>
+                        <td className="p-2 sm:p-3">
+                          Enable auto focus on editor
+                        </td>
+                      </tr>
+                      <tr className="border-b">
+                        <td className="p-2 sm:p-3 font-mono text-xs sm:text-sm">
+                          isEditable
+                        </td>
+                        <td className="p-2 sm:p-3">boolean</td>
+                        <td className="p-2 sm:p-3 font-mono">true</td>
+                        <td className="p-2 sm:p-3">
+                          Enable editing capabilities
+                        </td>
+                      </tr>
+                      <tr className="border-b">
+                        <td className="p-2 sm:p-3 font-mono text-xs sm:text-sm">
                           isShowMention
                         </td>
                         <td className="p-2 sm:p-3">boolean</td>
@@ -755,6 +775,8 @@ function CustomEditor() {
         onChange={setComment}
         placeholder="Write a comment..."
         className="min-h-24"
+        isAutoFocus={false}
+        isEditable={true}
         isShowMention={true}
         mentions={userList}
         isFileUpload={false}

@@ -62,22 +62,15 @@ export const CodeBlockButton = React.forwardRef<
       children,
       ...buttonProps
     },
-    ref,
+    ref
   ) => {
     const { editor } = useTiptapEditor(providedEditor);
-    const {
-      isVisible,
-      canToggle,
-      isActive,
-      handleToggle,
-      label,
-      shortcutKeys,
-      Icon,
-    } = useCodeBlock({
-      editor,
-      hideWhenUnavailable,
-      onToggled,
-    });
+    const { canToggle, isActive, handleToggle, label, shortcutKeys, Icon } =
+      useCodeBlock({
+        editor,
+        hideWhenUnavailable,
+        onToggled,
+      });
 
     const handleClick = React.useCallback(
       (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -85,12 +78,8 @@ export const CodeBlockButton = React.forwardRef<
         if (event.defaultPrevented) return;
         handleToggle();
       },
-      [handleToggle, onClick],
+      [handleToggle, onClick]
     );
-
-    if (!isVisible) {
-      return null;
-    }
 
     return (
       <Button
@@ -119,7 +108,7 @@ export const CodeBlockButton = React.forwardRef<
         )}
       </Button>
     );
-  },
+  }
 );
 
 CodeBlockButton.displayName = "CodeBlockButton";

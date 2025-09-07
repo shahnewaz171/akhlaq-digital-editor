@@ -44,7 +44,6 @@ export function useEditorOutsideBlur(
 
       // Actual outside click → blur editor
       setIsFocused(false);
-      editor.commands.blur();
     };
 
     document.addEventListener("mousedown", handleClickOutside);

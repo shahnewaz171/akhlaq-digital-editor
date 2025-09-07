@@ -16,10 +16,7 @@ export default defineConfig({
     react({
       jsxImportSource: "react",
     }),
-    cssInjectedByJsPlugin({
-      topExecutionPriority: false,
-      relativeCSSInjection: true,
-    }),
+    cssInjectedByJsPlugin(),
     // Custom plugin to copy TypeScript definitions
     {
       name: "copy-types",

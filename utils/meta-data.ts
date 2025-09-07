@@ -111,12 +111,12 @@ export const getSoftwareAppSchemaMarkup = () => {
     },
     datePublished: "2024-01-01",
     dateModified: "2025-09-06",
-    version: "0.14.9",
+    version: "0.14.12",
     programmingLanguage: ["JavaScript", "TypeScript"],
     runtimePlatform: ["Web Browser", "Node.js"],
     codeRepository: "https://github.com/shahnewaz171/akhlaqdigital",
     downloadUrl: "https://npmjs.com/package/@akhlaqdigital/editor",
-    softwareVersion: "0.14.9",
+    softwareVersion: "0.14.12",
     releaseNotes:
       "Modern rich text editor with enhanced features and performance improvements",
   };

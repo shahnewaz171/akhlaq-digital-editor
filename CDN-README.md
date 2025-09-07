@@ -21,10 +21,13 @@ The `init()` method accepts a configuration object with the following options:
 
 | Option              | Type      | Default | Description                                                  |
 | ------------------- | --------- | ------- | ------------------------------------------------------------ |
+| `isAutoFocus`       | `boolean` | `false` | Enable auto focus feature                                    |
+| `isEditable`        | `boolean` | `true`  | Enable editable feature                                      |
 | `isShowMention`     | `boolean` | `true`  | Enable @mention functionality                                |
 | `isShowEmoji`       | `boolean` | `true`  | Enable emoji picker with categorized emojis                  |
 | `isFileUpload`      | `boolean` | `true`  | Enable file upload features                                  |
 | `isBottomToolbar`   | `boolean` | `false` | Position toolbar at bottom instead of top                    |
+| `height`            | `number`  | `300`   | Initial height of the editor in pixels                       |
 | `mentions`          | `array`   | `[]`    | Array of mention suggestions `[{id: number, label: string}]` |
 | `acceptedFileTypes` | `string`  | `""`    | Accepted file types for uploads (e.g., "image/\*,.pdf,.doc") |
 
@@ -46,6 +49,8 @@ const editor = window.AkhlaqDigitalEditor.init({
   className: 'my-custom-editor',
 
   // Feature toggles
+  isAutoFocus: false,
+  isEditable: true,
   isShowMention: true,
   isShowEmoji: true,
   isFileUpload: true,
@@ -119,7 +124,7 @@ const editor = window.AkhlaqDigitalEditor.init({
 ### 1. Include the CDN Script
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@akhlaqdigital/editor@latest/dist/ad-editor.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@akhlaqdigital/editor/dist/ad-editor.js"></script>
 ````
 
 ### 2. Create a Container
@@ -163,7 +168,7 @@ const editor = window.AkhlaqDigitalEditor.init({
   <body>
     <div id="editor" class="editor-container"></div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@akhlaqdigital/editor@latest/dist/ad-editor.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@akhlaqdigital/editor/dist/ad-editor.js"></script>
     <script>
       const editor = window.AkhlaqDigitalEditor.init({
         container: "#editor",
@@ -248,7 +253,7 @@ const editor = window.AkhlaqDigitalEditor.init({
     <div id="status" class="status">Status: Initializing...</div>
 
     <!-- CDN Script -->
-    <script src="https://cdn.jsdelivr.net/npm/@akhlaqdigital/editor@latest/dist/ad-editor.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@akhlaqdigital/editor/dist/ad-editor.js"></script>
 
     <script>
       let editor;
@@ -290,6 +295,8 @@ const editor = window.AkhlaqDigitalEditor.init({
             className: 'advanced-editor',
 
             // Feature configuration
+            isAutoFocus: false,
+            isEditable: true,
             isShowMention: true,
             isFileUpload: true,
             isBottomToolbar: false,
@@ -491,6 +498,8 @@ const editor = window.AkhlaqDigitalEditor.init({
 | `content`       | `string`   | `null`              | Initial HTML content                   |
 | `onChange`      | `function` | `undefined`         | Callback when content changes          |
 | `onInit`        | `function` | `undefined`         | Callback when editor is initialized    |
+| `isAutoFocus`   | `boolean`  | `false`             | Enable auto focus feature              |
+| `isEditable`    | `boolean`  | `true`              | Enable editable feature                |
 | `isShowMention` | `boolean`  | `true`              | Enable @mention functionality          |
 | `isFileUpload`  | `boolean`  | `true`              | Enable file upload features            |
 | `mentions`      | `array`    | `[]`                | Array of mention suggestions           |

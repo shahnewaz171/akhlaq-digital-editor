@@ -43,29 +43,29 @@ export function FontFamilyDropdown({
     [onOpenChange]
   );
 
-  if (!editor || !editor.isEditable) return null;
-
   // check is dropdown selected or not
   const isSelectDropdownItem = families.some((family) =>
-    editor.isActive("textStyle", { fontFamily: family })
+    editor?.isActive("textStyle", { fontFamily: family })
   );
 
   // change font
   const handleSelectFont = (font: string, isResetFont?: boolean) => {
     if (isResetFont) {
-      editor.chain().focus().unsetFontFamily().run();
+      editor?.chain().focus().unsetFontFamily().run();
     } else {
-      editor.chain().focus().setFontFamily(font).run();
+      editor?.chain().focus().setFontFamily(font).run();
     }
     setOpen(false);
   };
 
   return (
     <DropdownMenu open={open} onOpenChange={handleOnOpenChange}>
-      <DropdownMenuTrigger asChild>
+      <DropdownMenuTrigger asChild disabled={!editor?.isEditable}>
         <Button
           type="button"
           data-style="ghost"
+          disabled={!editor?.isEditable}
+          data-disabled={!editor?.isEditable}
           data-active-state={isSelectDropdownItem ? "on" : "off"}
           role="button"
           tabIndex={-1}
@@ -83,7 +83,7 @@ export function FontFamilyDropdown({
           <CardBody>
             <ButtonGroup className="gap-1 w-full">
               {families.map((family) => {
-                const isActive = editor.isActive("textStyle", {
+                const isActive = editor?.isActive("textStyle", {
                   fontFamily: family,
                 });
 

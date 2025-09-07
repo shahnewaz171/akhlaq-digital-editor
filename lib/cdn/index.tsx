@@ -38,10 +38,13 @@ export interface EditorInitOptions {
   className?: string;
 
   // Features
+  isAutoFocus?: boolean;
+  isEditable?: boolean;
   isShowMention?: boolean;
   isShowEmoji?: boolean;
   isFileUpload?: boolean;
   isBottomToolbar?: boolean;
+  height?: number;
   acceptedFileTypes?: string;
   mentions?: any[];
 
@@ -226,10 +229,13 @@ class EditorManager {
         content: currentContent,
         placeholder: options.placeholder || "Start writing...",
         className: options.className,
+        isAutoFocus: options.isAutoFocus || false,
+        isEditable: options.isEditable !== false, // Default to true
         isShowMention: options.isShowMention !== false, // Default to true
         isFileUpload: options.isFileUpload !== false, // Default to true
         isShowEmoji: options.isShowEmoji !== false, // Default to true
         isBottomToolbar: options.isBottomToolbar || false,
+        height: options.height || 300, // Add height prop
         acceptedFileTypes: options.acceptedFileTypes || "image/*",
         mentions: options.mentions || [],
         onChange: handleContentChange,
@@ -391,19 +397,41 @@ class EditorManager {
     const [instanceId, latestInstance] =
       instanceEntries[instanceEntries.length - 1];
 
-    return {
-      getContent: () => {
-        // Try to get content from the actual editor element
-        const editorElement = latestInstance.container.querySelector(
+    // Cache DOM references for better performance
+    let cachedEditorElement: HTMLElement | null = null;
+    const getEditorElement = () => {
+      if (!cachedEditorElement) {
+        cachedEditorElement = latestInstance.container.querySelector(
           '[contenteditable="true"]'
         ) as HTMLElement;
+      }
+      return cachedEditorElement;
+    };
+
+    return {
+      getContent: () => {
+        // Prefer stored editor reference for fresh content
+        const storedEditor = latestInstance.editorRef;
+        if (storedEditor && storedEditor.getHTML) {
+          return storedEditor.getHTML();
+        }
+
+        // Fallback to DOM element
+        const editorElement = getEditorElement();
         if (editorElement) {
           return editorElement.innerHTML || null;
         }
         return latestInstance.options.content || null;
       },
       setContent: (content: string) => {
-        // Update the stored options and re-render
+        // Prefer direct editor access for better performance
+        const storedEditor = latestInstance.editorRef;
+        if (storedEditor && storedEditor.commands) {
+          storedEditor.commands.setContent(content);
+          return;
+        }
+
+        // Fallback: Update stored options and re-render (less optimal)
         latestInstance.options.content = content;
         this.debounceRender(instanceId, () => {
           latestInstance.root.render(
@@ -411,10 +439,13 @@ class EditorManager {
               content={content}
               placeholder={latestInstance.options.placeholder}
               className={latestInstance.options.className}
+              isAutoFocus={latestInstance.options.isAutoFocus}
+              isEditable={latestInstance.options.isEditable}
               isShowMention={latestInstance.options.isShowMention}
               isShowEmoji={latestInstance.options.isShowEmoji}
               isFileUpload={latestInstance.options.isFileUpload}
               isBottomToolbar={latestInstance.options.isBottomToolbar}
+              height={latestInstance.options.height}
               acceptedFileTypes={latestInstance.options.acceptedFileTypes}
               mentions={latestInstance.options.mentions}
               onChange={latestInstance.options.onChange}
@@ -425,17 +456,25 @@ class EditorManager {
         });
       },
       focus: () => {
-        const editorElement = latestInstance.container.querySelector(
-          '[contenteditable="true"]'
-        ) as HTMLElement;
-        editorElement?.focus();
+        // Prefer direct editor access
+        const storedEditor = latestInstance.editorRef;
+        if (storedEditor && storedEditor.commands) {
+          storedEditor.commands.focus();
+        } else {
+          const editorElement = getEditorElement();
+          editorElement?.focus();
+        }
         this.emit("focus", { instanceId });
       },
       blur: () => {
-        const editorElement = latestInstance.container.querySelector(
-          '[contenteditable="true"]'
-        ) as HTMLElement;
-        editorElement?.blur();
+        // Prefer direct editor access
+        const storedEditor = latestInstance.editorRef;
+        if (storedEditor && storedEditor.commands) {
+          storedEditor.commands.blur();
+        } else {
+          const editorElement = getEditorElement();
+          editorElement?.blur();
+        }
         this.emit("blur", { instanceId });
       },
       destroy: () => this.destroyInstance(instanceId),
@@ -459,6 +498,8 @@ const autoInit = () => {
         content: scriptTag.dataset.content,
         placeholder: scriptTag.dataset.placeholder,
         className: scriptTag.dataset.className,
+        isAutoFocus: scriptTag.dataset.autoFocus === "true",
+        isEditable: scriptTag.dataset.editable !== "false", // Default to true
         isShowMention: scriptTag.dataset.mentions === "true",
         isShowEmoji: scriptTag.dataset.emoji === "true",
         isFileUpload: scriptTag.dataset.fileUpload === "true",
@@ -520,10 +561,13 @@ if (typeof window !== "undefined") {
         content: editorProps?.content || null,
         placeholder: editorProps?.placeholder,
         className: editorProps?.className,
+        isAutoFocus: editorProps?.isAutoFocus,
+        isEditable: editorProps?.isEditable,
         isShowMention: editorProps?.isShowMention,
         isShowEmoji: editorProps?.isShowEmoji,
         isFileUpload: editorProps?.isFileUpload,
         isBottomToolbar: editorProps?.isBottomToolbar,
+        height: editorProps?.height,
         acceptedFileTypes: editorProps?.acceptedFileTypes,
         mentions: editorProps?.mentions,
         onChange: editorProps?.onChange,
@@ -542,26 +586,5 @@ if (typeof window !== "undefined") {
   // Auto-initialize
   initWhenReady();
 }
-
-// Export default for CDN and module usage
-const defaultAPI = (() => {
-  if (typeof window !== "undefined" && window.AkhlaqDigitalEditor) {
-    return window.AkhlaqDigitalEditor;
-  }
-
-  const managerInstance = EditorManager.getInstance();
-  return {
-    init: (options?: EditorInitOptions) => managerInstance.init(options || {}),
-    destroy: () => managerInstance.destroy(),
-    destroyAll: () => managerInstance.destroyAll(),
-    version: PACKAGE_VERSION,
-    isInitialized: () => managerInstance.isInitialized(),
-    getInstance: () => managerInstance.getInstance(),
-    on: (event: EditorEvent, callback: EditorEventCallback) =>
-      managerInstance.on(event, callback),
-    off: (event: EditorEvent, callback: EditorEventCallback) =>
-      managerInstance.off(event, callback),
-  };
-})();
 
 // No export needed for IIFE format - globals are set above

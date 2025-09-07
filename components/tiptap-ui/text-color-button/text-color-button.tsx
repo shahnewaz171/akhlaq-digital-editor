@@ -41,25 +41,25 @@ const TEXT_COLORS = [
 function TextColorMenu({ editor: providedEditor }: { editor?: Editor }) {
   const { editor } = useTiptapEditor(providedEditor);
 
-  if (!editor || !editor.isEditable) return null;
-
   const setColor = (color: string) => {
-    editor.chain().focus().setColor(color).run();
+    editor?.chain().focus().setColor(color).run();
   };
 
   // check if selected cell has a color from the palette
   const isSelectCellColor = TEXT_COLORS.some(
-    (item) => item.color === editor.getAttributes("textStyle")?.color
+    (item) => item.color === editor?.getAttributes("textStyle")?.color
   );
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
+      <DropdownMenuTrigger asChild disabled={!editor?.isEditable}>
         <Button
           type="button"
           data-style="ghost"
           aria-label="Text color"
-          className="!p-1 !pl-2 cursor-pointer flex items-center justify-center gap-1"
+          disabled={!editor?.isEditable}
+          data-disabled={!editor?.isEditable}
+          className="!p-1 !pl-2 flex items-center justify-center gap-1"
           tooltip="Text color"
           data-active-state={isSelectCellColor ? "on" : "off"}
           style={{
@@ -75,7 +75,7 @@ function TextColorMenu({ editor: providedEditor }: { editor?: Editor }) {
               className="absolute bottom-[-2px] left-0 right-0 h-[3px]"
               style={{
                 backgroundColor:
-                  editor.getAttributes("textStyle")?.color || "#000000",
+                  editor?.getAttributes("textStyle")?.color || "#000000",
               }}
             />
           </span>
@@ -91,7 +91,7 @@ function TextColorMenu({ editor: providedEditor }: { editor?: Editor }) {
       >
         <div className="grid grid-cols-7 gap-1.5">
           {TEXT_COLORS.map((item) => {
-            const isCellYellow = editor.isActive("textStyle", {
+            const isCellYellow = editor?.isActive("textStyle", {
               color: item.color,
             });
 
@@ -125,7 +125,7 @@ function TextColorMenu({ editor: providedEditor }: { editor?: Editor }) {
         {/* remove cell background */}
         <div className="flex justify-center mt-2">
           <Button
-            onClick={() => editor.chain().focus().unsetColor().run()}
+            onClick={() => editor?.chain().focus().unsetColor().run()}
             aria-label="Remove color"
             tooltip="Remove color"
             type="button"

@@ -120,7 +120,7 @@ pnpm add @akhlaqdigital/editor
 ### CDN (For vanilla JS or quick prototyping)
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@akhlaqdigital/editor@latest/dist/ad-editor.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@akhlaqdigital/editor/dist/ad-editor.js"></script>
 ```
 
 ## 🚀 Quick Start
@@ -133,11 +133,20 @@ import { SimpleEditor } from "@akhlaqdigital/editor";
 function MyApp() {
   const [content, setContent] = useState("<p>Hello World!</p>");
 
+  const handleEditorInit = (editor) => {
+    console.log("Editor initialized:", editor);
+    // Access editor instance for advanced operations
+  };
+
   return (
     <SimpleEditor
       content={content}
       onChange={setContent}
+      onInit={handleEditorInit}
       placeholder="Start writing..."
+      height={400}
+      isAutoFocus={false}
+      isEditable={true}
       isShowMention={true}
       isShowEmoji={true}
       isFileUpload={true}
@@ -157,14 +166,19 @@ function MyApp() {
   <body>
     <div id="editor" style="height: 400px; border: 1px solid #ddd;"></div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@akhlaqdigital/editor@latest/dist/ad-editor.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@akhlaqdigital/editor/dist/ad-editor.js"></script>
     <script>
       const editor = window.AkhlaqDigitalEditor.init({
         container: "#editor",
         placeholder: "Start typing...",
         content: "<p>Welcome to the editor!</p>",
+        height: 400,
         onChange: (content) => {
           console.log("Content updated:", content);
+        },
+        onInit: (instance) => {
+          console.log("Editor initialized:", instance);
+          // Access editor instance for advanced operations
         },
       });
     </script>
@@ -195,12 +209,16 @@ function MyApp() {
 | ---------------------- | ---------- | --------------------------- | ----------------------------------------------------------------- |
 | `content`              | `string`   | `null`                      | Initial HTML content for the editor                               |
 | `onChange`             | `function` | `() => {}`                  | Callback when content changes `(content: string \| null) => void` |
+| `onInit`               | `function` | `undefined`                 | Callback when editor is initialized `(editor: any) => void`       |
 | `placeholder`          | `string`   | `"Enter your content here"` | Placeholder text when editor is empty                             |
 | `className`            | `string`   | `""`                        | Additional CSS classes for styling                                |
+| `isAutoFocus`          | `boolean`  | `false`                     | Enable auto focus feature                                         |
+| `isEditable`           | `boolean`  | `true`                      | Enable editable feature                                           |
 | `isShowMention`        | `boolean`  | `true`                      | Enable @mention functionality                                     |
 | `isShowEmoji`          | `boolean`  | `true`                      | Enable emoji feature                                              |
 | `isFileUpload`         | `boolean`  | `true`                      | Enable file upload features                                       |
 | `isBottomToolbar`      | `boolean`  | `false`                     | Position toolbar at bottom                                        |
+| `height`               | `number`   | `300`                       | Initial height of the editor in pixels                            |
 | `mentions`             | `array`    | `[]`                        | Array of mention suggestions                                      |
 | `acceptedFileTypes`    | `string`   | `""`                        | Accepted file types for uploads                                   |
 | `handleImageInsertion` | `function` | `undefined`                 | Custom image upload handler                                       |
@@ -240,6 +258,8 @@ function AdvancedExample() {
       onChange={setContent}
       placeholder="Write something amazing..."
       className="my-editor"
+      isAutoFocus={false}
+      isEditable={true}
       isShowMention={true}
       isFileUpload={true}
       isBottomToolbar={false}

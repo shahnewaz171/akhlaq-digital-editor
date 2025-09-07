@@ -54,7 +54,7 @@ const CDNDocumentationPage = () => {
               1. Add the CDN Script
             </h3>
             <div className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto">
-              <pre>{`<script src="https://cdn.jsdelivr.net/npm/@akhlaqdigital/editor@latest/dist/ad-editor.js"></script>`}</pre>
+              <pre>{`<script src="https://cdn.jsdelivr.net/npm/@akhlaqdigital/editor/dist/ad-editor.js"></script>`}</pre>
             </div>
 
             <h3 className="text-xl font-semibold mb-4 mt-6">
@@ -132,6 +132,18 @@ const CDNDocumentationPage = () => {
                     <td className="p-3">Callback when content changes</td>
                   </tr>
                   <tr className="border-b">
+                    <td className="p-3 font-mono">isAutoFocus</td>
+                    <td className="p-3">boolean</td>
+                    <td className="p-3 font-mono">false</td>
+                    <td className="p-3">Enable auto focus on editor</td>
+                  </tr>
+                  <tr className="border-b">
+                    <td className="p-3 font-mono">isEditable</td>
+                    <td className="p-3">boolean</td>
+                    <td className="p-3 font-mono">true</td>
+                    <td className="p-3">Enable editing capabilities</td>
+                  </tr>
+                  <tr className="border-b">
                     <td className="p-3 font-mono">isShowMention</td>
                     <td className="p-3">boolean</td>
                     <td className="p-3 font-mono">true</td>
@@ -156,6 +168,14 @@ const CDNDocumentationPage = () => {
                     <td className="p-3">boolean</td>
                     <td className="p-3 font-mono">false</td>
                     <td className="p-3">Position toolbar at the bottom</td>
+                  </tr>
+                  <tr className="border-b">
+                    <td className="p-3 font-mono">height</td>
+                    <td className="p-3">number</td>
+                    <td className="p-3 font-mono">300</td>
+                    <td className="p-3">
+                      Initial height of the editor in pixels
+                    </td>
                   </tr>
                   <tr className="border-b">
                     <td className="p-3 font-mono">acceptedFileTypes</td>
@@ -222,13 +242,15 @@ const CDNDocumentationPage = () => {
 <body>
   <div id="my-editor"></div>
 
-  <script src="https://cdn.jsdelivr.net/npm/@akhlaqdigital/editor@latest/dist/ad-editor.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@akhlaqdigital/editor/dist/ad-editor.js"></script>
   <script>
     function onCDNLoaded() {
       const editor = window.AkhlaqDigitalEditor.init({
         container: '#my-editor',
         content: '<h1>Welcome!</h1><p>Start writing...</p>',
         placeholder: 'Type your content here...',
+        isAutoFocus: false,
+        isEditable: true,
         isShowMention: true,
         isShowEmoji: true,
         isFileUpload: true,

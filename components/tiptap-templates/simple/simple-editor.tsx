@@ -251,10 +251,13 @@ const MobileToolbarContent = ({
 );
 
 export function SimpleEditor({
+  isAutoFocus = false,
+  isEditable = true,
   isShowMention = true,
   isFileUpload = true,
   isShowEmoji = true,
   isBottomToolbar = false,
+  height = 300,
   acceptedFileTypes = "",
   content = null,
   className = "",
@@ -269,7 +272,7 @@ export function SimpleEditor({
   const [mobileView, setMobileView] = React.useState<
     "main" | "highlighter" | "link"
   >("main");
-  const [resizeHeight, setHeight] = React.useState<number>(190);
+  const [resizeHeight, setHeight] = React.useState<number>(height);
   const toolbarRef = React.useRef<HTMLDivElement>(null);
   const editorRef = React.useRef<HTMLDivElement>(null);
   const toastId = React.useRef<any>(null);
@@ -288,19 +291,31 @@ export function SimpleEditor({
   const editorKey = React.useMemo(
     () =>
       [
+        isAutoFocus,
+        isEditable,
         isShowMention,
         isShowEmoji,
         isFileUpload,
         placeholder,
         JSON.stringify(mentions),
       ].join("-"),
-    [isShowMention, isShowEmoji, isFileUpload, placeholder, mentions]
+    [
+      isAutoFocus,
+      isEditable,
+      isShowMention,
+      isShowEmoji,
+      isFileUpload,
+      placeholder,
+      mentions,
+    ]
   );
 
   // editor instance
   const editor: Editor | null = useEditor(
     {
       content,
+      autofocus: isAutoFocus,
+      editable: isEditable,
       immediatelyRender: false,
       shouldRerenderOnTransaction: false,
       editorProps: {
@@ -309,7 +324,7 @@ export function SimpleEditor({
           autocorrect: "off",
           autocapitalize: "off",
           "aria-label": "Main content area, start typing to enter text.",
-          class: "simple-editor min-h-[190px]",
+          class: "simple-editor",
         },
       },
       extensions: [

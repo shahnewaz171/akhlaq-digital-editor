@@ -68,16 +68,17 @@ export const UndoRedoButton = React.forwardRef<
       children,
       ...buttonProps
     },
-    ref,
+    ref
   ) => {
     const { editor } = useTiptapEditor(providedEditor);
-    const { isVisible, handleAction, label, canExecute, Icon, shortcutKeys } =
-      useUndoRedo({
+    const { handleAction, label, canExecute, Icon, shortcutKeys } = useUndoRedo(
+      {
         editor,
         action,
         hideWhenUnavailable,
         onExecuted,
-      });
+      }
+    );
 
     const handleClick = React.useCallback(
       (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -85,12 +86,8 @@ export const UndoRedoButton = React.forwardRef<
         if (event.defaultPrevented) return;
         handleAction();
       },
-      [handleAction, onClick],
+      [handleAction, onClick]
     );
-
-    if (!isVisible) {
-      return null;
-    }
 
     return (
       <Button
@@ -120,7 +117,7 @@ export const UndoRedoButton = React.forwardRef<
         )}
       </Button>
     );
-  },
+  }
 );
 
 UndoRedoButton.displayName = "UndoRedoButton";

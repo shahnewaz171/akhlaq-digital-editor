@@ -177,18 +177,15 @@ export function ColorHighlightPopover({
 }: ColorHighlightPopoverProps) {
   const { editor } = useTiptapEditor(providedEditor);
   const [isOpen, setIsOpen] = React.useState(false);
-  const { isVisible, canColorHighlight, isActive, label, Icon } =
-    useColorHighlight({
-      editor,
-      hideWhenUnavailable,
-      onApplied,
-    });
-
-  if (!isVisible) return null;
+  const { canColorHighlight, isActive, label, Icon } = useColorHighlight({
+    editor,
+    hideWhenUnavailable,
+    onApplied,
+  });
 
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
-      <PopoverTrigger asChild>
+      <PopoverTrigger asChild disabled={!canColorHighlight}>
         <ColorHighlightPopoverButton
           disabled={!canColorHighlight}
           data-active-state={isActive ? "on" : "off"}

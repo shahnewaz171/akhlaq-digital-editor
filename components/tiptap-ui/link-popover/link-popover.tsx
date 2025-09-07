@@ -94,7 +94,7 @@ export const LinkButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
         {children || <LinkIcon className="tiptap-button-icon" />}
       </Button>
     );
-  },
+  }
 );
 
 LinkButton.displayName = "LinkButton";
@@ -219,13 +219,12 @@ export const LinkPopover = React.forwardRef<
       children,
       ...buttonProps
     },
-    ref,
+    ref
   ) => {
     const { editor } = useTiptapEditor(providedEditor);
     const [isOpen, setIsOpen] = React.useState(false);
 
     const {
-      isVisible,
       canSet,
       isActive,
       url,
@@ -246,7 +245,7 @@ export const LinkPopover = React.forwardRef<
         setIsOpen(nextIsOpen);
         onOpenChange?.(nextIsOpen);
       },
-      [onOpenChange],
+      [onOpenChange]
     );
 
     const handleSetLink = React.useCallback(() => {
@@ -260,7 +259,7 @@ export const LinkPopover = React.forwardRef<
         if (event.defaultPrevented) return;
         setIsOpen(!isOpen);
       },
-      [onClick, isOpen],
+      [onClick, isOpen]
     );
 
     React.useEffect(() => {
@@ -268,10 +267,6 @@ export const LinkPopover = React.forwardRef<
         setIsOpen(true);
       }
     }, [autoOpenOnLinkActive, isActive]);
-
-    if (!isVisible) {
-      return null;
-    }
 
     return (
       <Popover open={isOpen} onOpenChange={handleOnOpenChange}>
@@ -302,7 +297,7 @@ export const LinkPopover = React.forwardRef<
         </PopoverContent>
       </Popover>
     );
-  },
+  }
 );
 
 LinkPopover.displayName = "LinkPopover";

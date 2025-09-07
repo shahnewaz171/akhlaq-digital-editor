@@ -68,23 +68,16 @@ export const TextAlignButton = React.forwardRef<
       children,
       ...buttonProps
     },
-    ref,
+    ref
   ) => {
     const { editor } = useTiptapEditor(providedEditor);
-    const {
-      isVisible,
-      handleTextAlign,
-      label,
-      canAlign,
-      isActive,
-      Icon,
-      shortcutKeys,
-    } = useTextAlign({
-      editor,
-      align,
-      hideWhenUnavailable,
-      onAligned,
-    });
+    const { handleTextAlign, label, canAlign, isActive, Icon, shortcutKeys } =
+      useTextAlign({
+        editor,
+        align,
+        hideWhenUnavailable,
+        onAligned,
+      });
 
     const handleClick = React.useCallback(
       (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -92,12 +85,8 @@ export const TextAlignButton = React.forwardRef<
         if (event.defaultPrevented) return;
         handleTextAlign();
       },
-      [handleTextAlign, onClick],
+      [handleTextAlign, onClick]
     );
-
-    if (!isVisible) {
-      return null;
-    }
 
     return (
       <Button
@@ -129,7 +118,7 @@ export const TextAlignButton = React.forwardRef<
         )}
       </Button>
     );
-  },
+  }
 );
 
 TextAlignButton.displayName = "TextAlignButton";

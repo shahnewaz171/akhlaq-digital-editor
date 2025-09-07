@@ -62,23 +62,16 @@ export const MarkButton = React.forwardRef<HTMLButtonElement, MarkButtonProps>(
       children,
       ...buttonProps
     },
-    ref,
+    ref
   ) => {
     const { editor } = useTiptapEditor(providedEditor);
-    const {
-      isVisible,
-      handleMark,
-      label,
-      canToggle,
-      isActive,
-      Icon,
-      shortcutKeys,
-    } = useMark({
-      editor,
-      type,
-      hideWhenUnavailable,
-      onToggled,
-    });
+    const { handleMark, label, canToggle, isActive, Icon, shortcutKeys } =
+      useMark({
+        editor,
+        type,
+        hideWhenUnavailable,
+        onToggled,
+      });
 
     const handleClick = React.useCallback(
       (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -86,12 +79,8 @@ export const MarkButton = React.forwardRef<HTMLButtonElement, MarkButtonProps>(
         if (event.defaultPrevented) return;
         handleMark();
       },
-      [handleMark, onClick],
+      [handleMark, onClick]
     );
-
-    if (!isVisible) {
-      return null;
-    }
 
     return (
       <Button
@@ -120,7 +109,7 @@ export const MarkButton = React.forwardRef<HTMLButtonElement, MarkButtonProps>(
         )}
       </Button>
     );
-  },
+  }
 );
 
 MarkButton.displayName = "MarkButton";
