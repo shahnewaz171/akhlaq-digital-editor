@@ -60,7 +60,9 @@ export default defineConfig({
   },
   define: {
     "process.env.NODE_ENV": JSON.stringify("production"),
+    process: JSON.stringify({ env: { NODE_ENV: "production" } }),
     global: "globalThis",
+    Buffer: "undefined",
     __PACKAGE_VERSION__: JSON.stringify(PACKAGE_VERSION),
   },
 });
