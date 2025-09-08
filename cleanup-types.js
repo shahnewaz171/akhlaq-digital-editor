@@ -54,6 +54,7 @@ function transformTypeFile(filePath) {
 // Create the main type definition file with correct imports
 const mainContent = `import AppEditor from "./components/tiptap-templates";
 export type { SimpleEditorProps } from "./components/tiptap-node/types";
+export { AppEditor as SimpleEditor };
 export { AppEditor };
 export default AppEditor;
 `;

@@ -16,6 +16,7 @@ export default defineConfig(({ mode }) => {
     build: {
       emptyOutDir: true,
       outDir: "npm",
+      copyPublicDir: false,
       lib: {
         entry: path.resolve(__dirname, "lib/npm/index.ts"),
         name: "AkhlaqDigitalEditor",
@@ -29,27 +30,19 @@ export default defineConfig(({ mode }) => {
       terserOptions: isProd
         ? {
             compress: {
-              drop_console: true,
               drop_debugger: true,
-              pure_funcs: ["console.log", "console.info", "console.warn"],
               passes: 2,
-              unsafe_comps: true,
-              unsafe_math: true,
               pure_getters: true,
               keep_fargs: false,
             },
             mangle: {
               safari10: true,
-              properties: {
-                regex: /^_/,
-              },
             },
             format: {
               comments: false,
             },
           }
         : undefined,
-
       rollupOptions: {
         external: [
           "react",
@@ -67,7 +60,7 @@ export default defineConfig(({ mode }) => {
               constBindings: true,
               objectShorthand: true,
             },
-            manualChunks: undefined, // Prevent code splitting
+            manualChunks: undefined,
           }),
         },
         treeshake: isProd
@@ -75,38 +68,15 @@ export default defineConfig(({ mode }) => {
               moduleSideEffects: false,
               propertyReadSideEffects: false,
               unknownGlobalSideEffects: false,
-              tryCatchDeoptimization: false,
             }
           : false,
-        onwarn: isProd
-          ? (warning: any, warn: any) => {
-              const suppressedCodes = [
-                "THIS_IS_UNDEFINED",
-                "CIRCULAR_DEPENDENCY",
-                "EVAL",
-              ];
-              if (suppressedCodes.includes(warning.code)) return;
-              warn(warning);
-            }
-          : undefined,
       },
     },
     define: {
       "process.env.NODE_ENV": JSON.stringify(mode || "development"),
-      __DEV__: !isProd,
     },
     esbuild: {
-      drop: isProd ? ["console", "debugger"] : [],
       legalComments: isProd ? "none" : "inline",
-      ...(isProd && {
-        minifyIdentifiers: true,
-        minifySyntax: true,
-        minifyWhitespace: true,
-      }),
-    },
-    server: {
-      open: true,
-      port: 5173,
     },
   };
 });

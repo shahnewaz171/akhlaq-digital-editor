@@ -14,8 +14,10 @@
     "jsx": "preserve",
     "incremental": true,
     "declaration": true,
+    "declarationMap": false,
     "emitDeclarationOnly": true,
     "outDir": "npm",
+    "removeComments": true,
     "paths": {
       "@/*": ["./*"]
     },

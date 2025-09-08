@@ -42,7 +42,7 @@
     "build:cdn": "vite build --config cdn.config.ts",
     "build:npm:dev": "vite build --config npm.config.ts --mode development",
     "build:npm": "vite build --config npm.config.ts --mode production",
-    "build:types": "tsc --emitDeclarationOnly --project tsconfig.build.json && node fix-types.js",
+    "build:types": "tsc --emitDeclarationOnly --project tsconfig.build.json && node cleanup-types.js",
     "start": "next start",
     "lint": "next lint",
     "postinstall": "echo '✅ pnpm build script warnings are safe to ignore - see .pnpmrc for details'"
