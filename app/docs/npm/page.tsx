@@ -107,53 +107,30 @@ export default MyEditor;`}</pre>
             </h3>
             <div className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto">
               <pre>{`import React, { useState } from 'react';
-import { Editor, useTiptapEditor } from '@akhlaqdigital/editor';
+import { SimpleEditor } from '@akhlaqdigital/editor';
 
 function AdvancedEditor() {
   const [content, setContent] = useState('<h1>Welcome!</h1>');
   
-  const { editor } = useTiptapEditor({
-    content,
-    onChange: setContent,
-    placeholder: 'Write something amazing...',
-    isAutoFocus: false,
-    isEditable: true,
-    isShowMention: true,
-    isShowEmoji: true,
-    isFileUpload: true,
-    mentions: [
-      { id: 1, label: 'John Doe', email: 'john@example.com' },
-      { id: 2, label: 'Jane Smith', email: 'jane@example.com' }
-    ]
-  });
+  const mentions = [
+    { id: 1, label: 'John Doe' },
+    { id: 2, label: 'Jane Smith' }
+  ];
 
   return (
-    <div className="max-w-4xl mx-auto p-4">
-      <Editor 
-        editor={editor}
-        className="border rounded-lg"
-      />
-      
-      {/* Custom toolbar */}
-      <div className="mt-4 space-x-2">
-        <button 
-          onClick={() => editor?.chain().focus().toggleBold().run()}
-          className="px-3 py-1 bg-blue-500 text-white rounded"
-        >
-          Bold
-        </button>
-        <button 
-          onClick={() => editor?.chain().focus().toggleItalic().run()}
-          className="px-3 py-1 bg-blue-500 text-white rounded"
-        >
-          Italic
-        </button>
-      </div>
-    </div>
+    <SimpleEditor
+      content={content}
+      onChange={setContent}
+      placeholder="Write something amazing..."
+      height={500}
+      isAutoFocus={false}
+      isShowMention={true}
+      isShowEmoji={true}
+      isFileUpload={true}
+      mentions={mentions}
+    />
   );
-}
-
-export default AdvancedEditor;`}</pre>
+}`}</pre>
             </div>
           </div>
         </section>
@@ -345,7 +322,7 @@ export default function EditorPage() {
                     <td className="p-3 font-mono">editor</td>
                     <td className="p-3">Editor</td>
                     <td className="p-3 font-mono">undefined</td>
-                    <td className="p-3">Custom Tiptap editor instance</td>
+                    <td className="p-3">Custom editor instance</td>
                   </tr>
                 </tbody>
               </table>
@@ -353,40 +330,44 @@ export default function EditorPage() {
           </div>
         </section>
 
-        {/* Hooks */}
+        {/* Event Handling */}
         <section className="mb-12">
           <h2 className="text-3xl font-bold mb-6 text-gray-800">
-            🪝 Custom Hooks
+            ⚡ Event Handling
           </h2>
           <div className="bg-white rounded-lg shadow-md p-6">
-            <h3 className="text-xl font-semibold mb-4">useTiptapEditor</h3>
+            <h3 className="text-xl font-semibold mb-4">
+              Content Changes & Editor Ready
+            </h3>
             <div className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto">
-              <pre>{`import { useTiptapEditor } from '@akhlaqdigital/editor';
+              <pre>{`import { SimpleEditor } from '@akhlaqdigital/editor';
 
 function MyComponent() {
-  const { editor, isReady } = useTiptapEditor({
-    content: '<p>Initial content</p>',
-    onChange: (html) => console.log(html),
-    placeholder: 'Type here...',
-    isAutoFocus: false,
-    isEditable: true,
-    isShowMention: true,
-    isShowEmoji: true,
-    mentions: [
-      { id: 1, label: 'User 1' },
-      { id: 2, label: 'User 2' }
-    ]
-  });
+  const [content, setContent] = useState('');
 
-  if (!isReady) return <div>Loading...</div>;
+  const handleContentChange = (newContent) => {
+    console.log('Content changed:', newContent);
+    setContent(newContent);
+    // Save to server or localStorage
+    localStorage.setItem('editorContent', newContent);
+  };
+
+  const handleEditorReady = (editor) => {
+    console.log('Editor is ready:', editor);
+    // Load saved content
+    const saved = localStorage.getItem('editorContent');
+    if (saved) {
+      editor.commands.setContent(saved);
+    }
+  };
 
   return (
-    <div>
-      <Editor editor={editor} />
-      <button onClick={() => editor?.commands.focus()}>
-        Focus Editor
-      </button>
-    </div>
+    <SimpleEditor
+      content={content}
+      onChange={handleContentChange}
+      onInit={handleEditorReady}
+      placeholder="Start writing..."
+    />
   );
 }`}</pre>
             </div>

@@ -1,6 +1,6 @@
 {
   "name": "@akhlaqdigital/editor",
-  "version": "0.14.12",
+  "version": "0.14.13",
   "description": "A powerful, modern rich text editor for React applications and vanilla JavaScript. Built with Tiptap and optimized for performance, accessibility, and developer experience.",
   "author": "Akhlaq Digital <akhlaqdigital@gmail.com>",
   "license": "MIT",

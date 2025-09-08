@@ -13,7 +13,6 @@ export const metadata: Metadata = {
   keywords: [
     "documentation",
     "rich text editor guide",
-    "tiptap tutorial",
     "react editor documentation",
     "javascript editor guide",
     "editor features",
@@ -296,36 +295,46 @@ import { Editor } from '@akhlaqdigital/editor';
 
               <div className="bg-white rounded-lg shadow-md p-4 sm:p-6">
                 <h3 className="text-lg sm:text-xl font-semibold mb-4">
-                  Custom Extensions
+                  Advanced Example
                 </h3>
                 <div className="bg-gray-900 text-gray-100 p-3 sm:p-4 rounded-lg overflow-x-auto">
                   <pre className="text-xs sm:text-sm">
-                    <code>{`import { Extension } from '@tiptap/core';
+                    <code>{`import { SimpleEditor } from '@akhlaqdigital/editor';
 
-const CustomExtension = Extension.create({
-  name: 'customExtension',
-  
-  addCommands() {
-    return {
-      customCommand: () => ({ commands }) => {
-        // Custom command logic
-        return commands.insertContent('<p>Custom content!</p>');
-      },
-    };
-  },
-  
-  addKeyboardShortcuts() {
-    return {
-      'Mod-Shift-c': () => this.editor.commands.customCommand(),
-    };
-  },
-});
+function AdvancedEditor() {
+  const [content, setContent] = useState('');
 
-// Use with the editor
-const { editor } = useTiptapEditor({
-  extensions: [CustomExtension],
-  content: '<p>Hello</p>',
-});`}</code>
+  const mentions = [
+    { id: 1, label: 'John Doe' },
+    { id: 2, label: 'Jane Smith' }
+  ];
+
+  const handleImageUpload = async ({ file, onProgress, abortSignal }) => {
+    // Your upload logic here
+    const formData = new FormData();
+    formData.append('image', file.file);
+    
+    const response = await fetch('/api/upload', {
+      method: 'POST',
+      body: formData,
+      signal: abortSignal
+    });
+    
+    const { url } = await response.json();
+    return url;
+  };
+
+  return (
+    <SimpleEditor
+      content={content}
+      onChange={setContent}
+      placeholder="Write something amazing..."
+      height={500}
+      mentions={mentions}
+      handleImageInsertion={handleImageUpload}
+    />
+  );
+}`}</code>
                   </pre>
                 </div>
               </div>
@@ -577,9 +586,7 @@ const { editor } = useTiptapEditor({
                         </td>
                         <td className="p-2 sm:p-3">Editor</td>
                         <td className="p-2 sm:p-3 font-mono">undefined</td>
-                        <td className="p-2 sm:p-3">
-                          Custom Tiptap editor instance
-                        </td>
+                        <td className="p-2 sm:p-3">Custom editor instance</td>
                       </tr>
                     </tbody>
                   </table>
@@ -673,36 +680,38 @@ editor.chain().focus().toggleBlockquote().run()`}</code>
 
               <div className="bg-white rounded-lg shadow-md p-4 sm:p-6">
                 <h3 className="text-lg sm:text-xl font-semibold mb-4">
-                  Custom Toolbar
+                  Event Handling
                 </h3>
                 <div className="bg-gray-900 text-gray-100 p-3 sm:p-4 rounded-lg overflow-x-auto">
                   <pre className="text-xs sm:text-sm">
-                    <code>{`import { Editor, ToolbarButton } from '@akhlaqdigital/editor';
+                    <code>{`import { SimpleEditor } from '@akhlaqdigital/editor';
 
-function CustomEditor() {
-  const { editor } = useTiptapEditor({...});
+function EditorWithEvents() {
+  const [content, setContent] = useState('');
+
+  const handleContentChange = (newContent) => {
+    console.log('Content changed:', newContent);
+    setContent(newContent);
+    // Save to localStorage or send to server
+    localStorage.setItem('editorContent', newContent);
+  };
+
+  const handleEditorReady = (editor) => {
+    console.log('Editor is ready:', editor);
+    // Load saved content
+    const saved = localStorage.getItem('editorContent');
+    if (saved) {
+      editor.commands.setContent(saved);
+    }
+  };
 
   return (
-    <div>
-      {/* Custom toolbar */}
-      <div className="border-b p-2 flex gap-2">
-        <ToolbarButton
-          onClick={() => editor?.chain().focus().toggleBold().run()}
-          isActive={editor?.isActive('bold')}
-        >
-          Bold
-        </ToolbarButton>
-        
-        <ToolbarButton
-          onClick={() => editor?.chain().focus().toggleItalic().run()}
-          isActive={editor?.isActive('italic')}
-        >
-          Italic
-        </ToolbarButton>
-      </div>
-      
-      <Editor editor={editor} hideToolbar />
-    </div>
+    <SimpleEditor
+      content={content}
+      onChange={handleContentChange}
+      onInit={handleEditorReady}
+      placeholder="Start writing..."
+    />
   );
 }`}</code>
                   </pre>
@@ -723,83 +732,45 @@ function CustomEditor() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
               <div className="bg-white rounded-lg shadow-md p-4 sm:p-6">
                 <h3 className="text-lg sm:text-xl font-semibold mb-4">
-                  Blog Post Editor
+                  Blog Post Editor Example
                 </h3>
-                <div className="bg-gray-900 text-gray-100 p-3 sm:p-4 rounded-lg text-xs sm:text-sm overflow-x-auto">
-                  <pre>
-                    <code>{`function BlogEditor() {
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
-
-  return (
-    <div className="max-w-4xl mx-auto p-6">
-      <input
-        type="text"
-        placeholder="Post title..."
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        className="w-full text-3xl font-bold border-none outline-none mb-4"
-      />
-      
-      <Editor
-        content={content}
-        onChange={setContent}
-        placeholder="Write your blog post..."
-        className="min-h-96"
-        isFileUpload={true}
-      />
-      
-      <button className="mt-4 px-6 py-2 bg-blue-600 text-white rounded">
-        Publish Post
-      </button>
-    </div>
-  );
-}`}</code>
-                  </pre>
+                <p className="text-gray-600 mb-4">
+                  Here&apos;s how you can create a blog post editor with title
+                  input and rich text content:
+                </p>
+                <div className="bg-gray-100 p-4 rounded-lg">
+                  <p className="text-sm text-gray-700">
+                    <strong>Features:</strong>
+                    <br />
+                    • Title input field
+                    <br />
+                    • Rich text editor with file upload
+                    <br />
+                    • Custom styling for blog posts
+                    <br />• Publish button integration
+                  </p>
                 </div>
               </div>
 
               <div className="bg-white rounded-lg shadow-md p-4 sm:p-6">
                 <h3 className="text-lg sm:text-xl font-semibold mb-4">
-                  Comment System
+                  Comment System Example
                 </h3>
-                <div className="bg-gray-900 text-gray-100 p-3 sm:p-4 rounded-lg text-xs sm:text-sm overflow-x-auto">
-                  <pre>
-                    <code>{`function CommentEditor({ onSubmit }) {
-  const [comment, setComment] = useState('');
-
-  return (
-    <div className="border rounded-lg p-4">
-      <Editor
-        content={comment}
-        onChange={setComment}
-        placeholder="Write a comment..."
-        className="min-h-24"
-        isAutoFocus={false}
-        isEditable={true}
-        isShowMention={true}
-        mentions={userList}
-        isFileUpload={false}
-      />
-      
-      <div className="flex justify-end mt-3 gap-2">
-        <button 
-          onClick={() => setComment('')}
-          className="px-4 py-1 text-gray-600"
-        >
-          Cancel
-        </button>
-        <button 
-          onClick={() => onSubmit(comment)}
-          className="px-4 py-1 bg-blue-600 text-white rounded"
-        >
-          Post Comment
-        </button>
-      </div>
-    </div>
-  );
-}`}</code>
-                  </pre>
+                <p className="text-gray-600 mb-4">
+                  Perfect for building comment systems with mentions and compact
+                  design:
+                </p>
+                <div className="bg-gray-100 p-4 rounded-lg">
+                  <p className="text-sm text-gray-700">
+                    <strong>Features:</strong>
+                    <br />
+                    • Compact editor for comments
+                    <br />
+                    • @mention functionality
+                    <br />
+                    • Cancel and submit buttons
+                    <br />• No file uploads for simple comments
+                  </p>
                 </div>
               </div>
             </div>
