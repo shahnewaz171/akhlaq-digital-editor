@@ -16,22 +16,20 @@
     "emoji",
     "markdown"
   ],
-  "main": "npm/ad-editor.js",
-  "module": "npm/ad-editor.js",
+  "main": "npm/ad-editor.cjs.js",
+  "module": "npm/ad-editor.es.js",
   "types": "npm/ad-editor.d.ts",
   "public": true,
+  "sideEffects": false,
   "files": [
     "dist",
-    "npm",
-    "README.md",
-    "CDN-README.md",
-    "NPM-README.md"
+    "npm"
   ],
   "exports": {
     ".": {
       "types": "./npm/ad-editor.d.ts",
-      "import": "./npm/ad-editor.js",
-      "require": "./npm/ad-editor.js"
+      "import": "./npm/ad-editor.es.js",
+      "require": "./npm/ad-editor.cjs.js"
     },
     "./cdn": "./dist/ad-editor.js",
     "./package.json": "./package.json"
@@ -42,14 +40,15 @@
     "prebuild": "next lint",
     "build": "next build",
     "build:cdn": "vite build --config cdn.config.ts",
-    "build:npm:dev": "vite build --config npm.config.dev.ts --outDir npm/cjs/dev",
-    "build:npm:prod": "vite build --config npm.config.prod.ts --outDir npm/cjs/prod",
-    "build:npm:root": "node build.root.mjs",
+    "build:npm:dev": "vite build --config npm.config.ts --mode development",
+    "build:npm": "vite build --config npm.config.ts --mode production",
     "build:types": "tsc --emitDeclarationOnly --project tsconfig.build.json && node fix-types.js",
-    "build:npm": "pnpm run build:npm:dev && pnpm run build:npm:prod && pnpm run build:npm:root",
     "start": "next start",
     "lint": "next lint",
     "postinstall": "echo '✅ pnpm build script warnings are safe to ignore - see .pnpmrc for details'"
+  },
+  "engines": {
+    "node": ">=16.0.0"
   },
   "peerDependencies": {
     "react": ">=18.0.0",
