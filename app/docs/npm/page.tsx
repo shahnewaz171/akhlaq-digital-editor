@@ -243,7 +243,7 @@ export default function EditorPage() {
                     </td>
                   </tr>
                   <tr className="border-b">
-                    <td className="p-3 font-mono">isShowAutoFocus</td>
+                    <td className="p-3 font-mono">isAutoFocus</td>
                     <td className="p-3">boolean</td>
                     <td className="p-3 font-mono">false</td>
                     <td className="p-3">Enable auto focus on editor</td>

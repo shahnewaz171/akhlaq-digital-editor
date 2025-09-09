@@ -50,7 +50,6 @@ export default defineConfig({
       treeshake: {
         propertyReadSideEffects: false,
         unknownGlobalSideEffects: false,
-        moduleSideEffects: false,
       },
       onwarn(warning, warn) {
         if (warning.code === "THIS_IS_UNDEFINED") return;

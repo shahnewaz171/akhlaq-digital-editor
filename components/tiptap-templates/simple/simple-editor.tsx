@@ -370,8 +370,19 @@ export function SimpleEditor({
                 {
                   key: "delete",
                   title: "Delete this image",
-                  onClick: () =>
-                    payload.editor.chain().focus().deleteSelection().run(),
+                  onClick: () => {
+                    const { editor, getPos } = payload;
+                    const pos = getPos?.();
+
+                    if (typeof pos === "number") {
+                      editor
+                        .chain()
+                        .focus()
+                        .setNodeSelection(pos)
+                        .deleteSelection()
+                        .run();
+                    }
+                  },
                 },
               ],
             });

@@ -65,7 +65,6 @@ export default defineConfig(({ mode }) => {
         },
         treeshake: isProd
           ? {
-              moduleSideEffects: false,
               propertyReadSideEffects: false,
               unknownGlobalSideEffects: false,
             }

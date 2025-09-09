@@ -61,7 +61,7 @@
 | Option                 | Type       | Default     | Description                                         |
 | ---------------------- | ---------- | ----------- | --------------------------------------------------- |
 | `mentions`             | `array`    | `[]`        | Mention suggestions `[{id: number, label: string}]` |
-| `acceptedFileTypes`    | `string`   | `""`        | File type restrictions                              |
+| `acceptedFileTypes`    | `string`   | `""`        | File type restrictions (e.g., "image/\*,.pdf")      |
 | `handleImageInsertion` | `function` | `undefined` | Custom image upload                                 |
 | `handleFilesChange`    | `function` | `undefined` | Custom file handler                                 |
 

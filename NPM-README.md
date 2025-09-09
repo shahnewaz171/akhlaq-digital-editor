@@ -36,36 +36,24 @@ function MyApp() {
 
 ## 🔧 Props Reference
 
-### Essential Props
-
-| Prop          | Type             | Default                     | Description                                                 |
-| ------------- | ---------------- | --------------------------- | ----------------------------------------------------------- |
-| `content`     | `string \| null` | `null`                      | Initial HTML content                                        |
-| `onChange`    | `function`       | `() => {}`                  | Content change callback `(content: string \| null) => void` |
-| `onInit`      | `function`       | `undefined`                 | Editor initialization callback `(editor: any) => void`      |
-| `placeholder` | `string`         | `"Enter your content here"` | Placeholder text                                            |
-| `className`   | `string`         | `""`                        | Additional CSS classes                                      |
-
-### Feature Configuration
-
-| Prop              | Type      | Default | Description                |
-| ----------------- | --------- | ------- | -------------------------- |
-| `isAutoFocus`     | `boolean` | `false` | Auto focus on mount        |
-| `isEditable`      | `boolean` | `true`  | Enable/disable editing     |
-| `isShowMention`   | `boolean` | `true`  | Enable @mentions           |
-| `isShowEmoji`     | `boolean` | `true`  | Enable emoji picker        |
-| `isFileUpload`    | `boolean` | `true`  | Enable file uploads        |
-| `isBottomToolbar` | `boolean` | `false` | Position toolbar at bottom |
-| `height`          | `number`  | `300`   | Editor height in pixels    |
-
-### Advanced Props
-
-| Prop                   | Type       | Default     | Description                                         |
-| ---------------------- | ---------- | ----------- | --------------------------------------------------- |
-| `mentions`             | `array`    | `[]`        | Mention suggestions `[{id: number, label: string}]` |
-| `acceptedFileTypes`    | `string`   | `""`        | File type restrictions                              |
-| `handleImageInsertion` | `function` | `undefined` | Custom image upload handler                         |
-| `handleFilesChange`    | `function` | `undefined` | Custom file upload handler                          |
+| Prop                   | Type       | Default                     | Description                                                       |
+| ---------------------- | ---------- | --------------------------- | ----------------------------------------------------------------- |
+| `content`              | `string`   | `null`                      | Initial HTML content                                              |
+| `onChange`             | `function` | `() => {}`                  | Callback when content changes                                     |
+| `placeholder`          | `string`   | `"Enter your content here"` | Placeholder text                                                  |
+| `height`               | `number`   | `300`                       | Editor height in pixels                                           |
+| `isEditable`           | `boolean`  | `true`                      | Enable/disable editing                                            |
+| `isAutoFocus`          | `boolean`  | `false`                     | Autofocus the editor on mount                                     |
+| `isShowMention`        | `boolean`  | `true`                      | Enable @mentions                                                  |
+| `isShowEmoji`          | `boolean`  | `true`                      | Enable emoji picker                                               |
+| `isFileUpload`         | `boolean`  | `true`                      | Enable file uploads                                               |
+| `isBottomToolbar`      | `boolean`  | `false`                     | Show toolbar at the bottom                                        |
+| `acceptedFileTypes`    | `string`   | `-`                         | Accepted file types for upload (e.g. `"image/*,application/pdf"`) |
+| `mentions`             | `array`    | `[]`                        | Mention suggestions (array of user objects)                       |
+| `onInit`               | `function` | `-`                         | Callback when editor is initialized                               |
+| `handleImageInsertion` | `function` | `-`                         | Custom handler for image insertion                                |
+| `handleFilesChange`    | `function` | `async () => {}`            | Custom handler for file uploads                                   |
+| `className`            | `string`   | `-`                         | Custom class for the editor container                             |
 
 ## 📝 Advanced Example
 

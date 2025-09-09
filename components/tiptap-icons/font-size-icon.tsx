@@ -11,7 +11,7 @@ export function FontSizeIcon(props: React.SVGProps<SVGSVGElement>) {
       {...props}
     >
       <path
-        d="M4 20L10 4M20 20L14 4M7 12H17"
+        d="M4 20L10 4L16 20M6.5 14H13.5"
         stroke="currentColor"
         strokeWidth="2"
         strokeLinecap="round"

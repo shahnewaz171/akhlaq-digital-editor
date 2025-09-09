@@ -84,18 +84,26 @@ function MyApp() {
 - 💻 **Code Blocks** - Syntax highlighted code
 - 📱 **Mobile Responsive** - Touch-optimized interface
 
-## ⚙️ Configuration Options
+## 🔧 Props Reference
 
-| Prop            | Type       | Default                     | Description             |
-| --------------- | ---------- | --------------------------- | ----------------------- |
-| `content`       | `string`   | `null`                      | Initial HTML content    |
-| `onChange`      | `function` | `() => {}`                  | Content change callback |
-| `placeholder`   | `string`   | `"Enter your content here"` | Placeholder text        |
-| `height`        | `number`   | `300`                       | Editor height in pixels |
-| `isEditable`    | `boolean`  | `true`                      | Enable/disable editing  |
-| `isShowMention` | `boolean`  | `true`                      | Enable @mentions        |
-| `isShowEmoji`   | `boolean`  | `true`                      | Enable emoji picker     |
-| `isFileUpload`  | `boolean`  | `true`                      | Enable file uploads     |
+| Prop                   | Type       | Default                     | Description                                                       |
+| ---------------------- | ---------- | --------------------------- | ----------------------------------------------------------------- |
+| `content`              | `string`   | `null`                      | Initial HTML content                                              |
+| `onChange`             | `function` | `() => {}`                  | Callback when content changes                                     |
+| `placeholder`          | `string`   | `"Enter your content here"` | Placeholder text                                                  |
+| `height`               | `number`   | `300`                       | Editor height in pixels                                           |
+| `isEditable`           | `boolean`  | `true`                      | Enable/disable editing                                            |
+| `isAutoFocus`          | `boolean`  | `false`                     | Autofocus the editor on mount                                     |
+| `isShowMention`        | `boolean`  | `true`                      | Enable @mentions                                                  |
+| `isShowEmoji`          | `boolean`  | `true`                      | Enable emoji picker                                               |
+| `isFileUpload`         | `boolean`  | `true`                      | Enable file uploads                                               |
+| `isBottomToolbar`      | `boolean`  | `false`                     | Show toolbar at the bottom                                        |
+| `acceptedFileTypes`    | `string`   | `-`                         | Accepted file types for upload (e.g. `"image/*,application/pdf"`) |
+| `mentions`             | `array`    | `[]`                        | Mention suggestions (array of user objects)                       |
+| `onInit`               | `function` | `-`                         | Callback when editor is initialized                               |
+| `handleImageInsertion` | `function` | `-`                         | Custom handler for image insertion                                |
+| `handleFilesChange`    | `function` | `async () => {}`            | Custom handler for file uploads                                   |
+| `className`            | `string`   | `-`                         | Custom class for the editor container                             |
 
 ## 🎨 Styling
 
