@@ -73,6 +73,31 @@ function MyApp() {
 | 🌐 **CDN/Vanilla JS**  | Vanilla JavaScript guide         | [CDN Docs →](https://akhlaq-digital-editor.vercel.app/docs/cdn) |
 | 🎯 **Live Demo**       | Interactive playground           | [Try Demo →](https://akhlaq-digital-editor.vercel.app/example)  |
 
+## 🎨 Styling & CSS Classes
+
+The editor uses CSS classes with the `akd-` prefix to avoid conflicts with your application styles:
+
+- `.akd` - Main editor container with all core editor styles
+- `.dropdown-menu` - Dropdown menus for mentions and tools
+- `.tableWrapper` - Table container for responsive table handling
+
+### Import Styles
+
+```js
+// For NPM/React projects
+import "@akhlaqdigital/editor/styles.css";
+```
+
+```html
+<!-- For CDN usage -->
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/@akhlaqdigital/editor/dist/styles.css"
+/>
+```
+
+All styles are scoped and won't interfere with your existing CSS framework (Bootstrap, Tailwind, etc.).
+
 ## 📦 Core Features
 
 - 📝 **Rich Text Editing** - Bold, italic, headers, lists, and more
@@ -110,12 +135,12 @@ function MyApp() {
 Easily customize the editor appearance:
 
 ```css
-.simple-editor-wrapper {
+.akd-editor-wrapper {
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.simple-editor-content {
+.akd-editor-content {
   min-height: 200px;
   padding: 16px;
 }

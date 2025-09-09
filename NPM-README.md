@@ -111,21 +111,21 @@ Customize the editor appearance:
 
 ```css
 /* Main wrapper */
-.simple-editor-wrapper {
+.akd-editor-wrapper {
   border: 1px solid #e1e5e9;
   border-radius: 8px;
   overflow: hidden;
 }
 
 /* Content area */
-.simple-editor-content {
+.akd-editor-content {
   min-height: 200px;
   padding: 16px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
 }
 
 /* Toolbar */
-.tiptap-toolbar {
+.akd-toolbar {
   background: #f8f9fa;
   border-bottom: 1px solid #e9ecef;
   padding: 8px;

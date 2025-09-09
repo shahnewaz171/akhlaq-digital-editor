@@ -1,4 +1,4 @@
-.tiptap-button {
+.akd-button {
   font-size: 0.875rem;
   font-weight: 500;
   font-feature-settings: "salt" on, "cv01" on;
@@ -54,7 +54,7 @@
   }
 
   /* trim / expand text of the button */
-  .tiptap-button-text {
+  .akd-button-text {
     padding: 0 0.125rem;
     flex-grow: 1;
     text-align: left;
@@ -62,80 +62,80 @@
   }
 
   &[data-text-trim="on"] {
-    .tiptap-button-text {
+    .akd-button-text {
       text-overflow: ellipsis;
       overflow: hidden;
     }
   }
 
   /* global icon settings */
-  .tiptap-button-icon,
-  .tiptap-button-icon-sub,
-  .tiptap-button-dropdown-arrows,
-  .tiptap-button-dropdown-small {
+  .akd-button-icon,
+  .akd-button-icon-sub,
+  .akd-button-dropdown-arrows,
+  .akd-button-dropdown-small {
     flex-shrink: 0;
   }
 
   /* standard icon, what is used */
-  .tiptap-button-icon {
+  .akd-button-icon {
     width: 1rem;
     height: 1rem;
   }
 
-  &[data-size="large"] .tiptap-button-icon {
+  &[data-size="large"] .akd-button-icon {
     width: 1.125rem;
     height: 1.125rem;
   }
 
-  &[data-size="small"] .tiptap-button-icon {
+  &[data-size="small"] .akd-button-icon {
     width: 0.875rem;
     height: 0.875rem;
   }
 
   /* if 2 icons are used and this icon should be more subtle */
-  .tiptap-button-icon-sub {
+  .akd-button-icon-sub {
     width: 1rem;
     height: 1rem;
   }
 
-  &[data-size="large"] .tiptap-button-icon-sub {
+  &[data-size="large"] .akd-button-icon-sub {
     width: 1.125rem;
     height: 1.125rem;
   }
 
-  &[data-size="small"] .tiptap-button-icon-sub {
+  &[data-size="small"] .akd-button-icon-sub {
     width: 0.875rem;
     height: 0.875rem;
   }
 
   /* dropdown menus or arrows that are slightly smaller */
-  .tiptap-button-dropdown-arrows {
+  .akd-button-dropdown-arrows {
     width: 0.75rem;
     height: 0.75rem;
   }
 
-  &[data-size="large"] .tiptap-button-dropdown-arrows {
+  &[data-size="large"] .akd-button-dropdown-arrows {
     width: 0.875rem;
     height: 0.875rem;
   }
 
-  &[data-size="small"] .tiptap-button-dropdown-arrows {
+  &[data-size="small"] .akd-button-dropdown-arrows {
     width: 0.625rem;
     height: 0.625rem;
   }
 
   /* dropdown menu for icon buttons only */
-  .tiptap-button-dropdown-small {
+  .akd-button-dropdown-small {
     width: 0.625rem;
     height: 0.625rem;
   }
 
-  &[data-size="large"] .tiptap-button-dropdown-small {
+  &[data-size="large"] .akd-button-dropdown-small {
     width: 0.75rem;
     height: 0.75rem;
   }
 
-  &[data-size="small"] .tiptap-button-dropdown-small {
+  &[data-size="small"] .akd-button-dropdown-small {
     width: 0.5rem;
     height: 0.5rem;
   }
@@ -151,9 +151,9 @@
   }
 
   /* button only has 2 icons and one of them is dropdown small */
-  &:has(> svg:nth-of-type(2)):has(> .tiptap-button-dropdown-small):not(
+  &:has(> svg:nth-of-type(2)):has(> .akd-button-dropdown-small):not(
       :has(> svg:nth-of-type(3))
-    ):not(:has(> .tiptap-button-text)) {
+    ):not(:has(> .akd-button-text)) {
     gap: 0;
     padding-right: 0.25rem;
 
@@ -167,17 +167,17 @@
   }
 
   /* Emoji is used in a button */
-  .tiptap-button-emoji {
+  .akd-button-emoji {
     width: 1rem;
     display: flex;
     justify-content: center;
   }
 
-  &[data-size="large"] .tiptap-button-emoji {
+  &[data-size="large"] .akd-button-emoji {
     width: 1.125rem;
   }
 
-  &[data-size="small"] .tiptap-button-emoji {
+  &[data-size="small"] .akd-button-emoji {
     width: 0.875rem;
   }
 }
@@ -191,23 +191,23 @@
 ----------- BUTTON COLOR SETTINGS -------------
 -------------------------------------------- */
 
-.tiptap-button {
+.akd-button {
   background-color: var(--tt-button-default-bg-color);
   color: var(--tt-button-default-text-color);
 
-  .tiptap-button-icon {
+  .akd-button-icon {
     color: var(--tt-button-default-icon-color);
   }
 
-  .tiptap-button-icon-sub {
+  .akd-button-icon-sub {
     color: var(--tt-button-default-icon-sub-color);
   }
 
-  .tiptap-button-dropdown-arrows {
+  .akd-button-dropdown-arrows {
     color: var(--tt-button-default-dropdown-arrows-color);
   }
 
-  .tiptap-button-dropdown-small {
+  .akd-button-dropdown-small {
     color: var(--tt-button-default-dropdown-arrows-color);
   }
 
@@ -218,16 +218,16 @@
     background-color: var(--tt-button-hover-bg-color);
     color: var(--tt-button-hover-text-color);
 
-    .tiptap-button-icon {
+    .akd-button-icon {
       color: var(--tt-button-hover-icon-color);
     }
 
-    .tiptap-button-icon-sub {
+    .akd-button-icon-sub {
       color: var(--tt-button-hover-icon-sub-color);
     }
 
-    .tiptap-button-dropdown-arrows,
-    .tiptap-button-dropdown-small {
+    .akd-button-dropdown-arrows,
+    .akd-button-dropdown-small {
       color: var(--tt-button-hover-dropdown-arrows-color);
     }
   }
@@ -239,16 +239,16 @@
     background-color: var(--tt-button-active-bg-color);
     color: var(--tt-button-active-text-color);
 
-    .tiptap-button-icon {
+    .akd-button-icon {
       color: var(--tt-button-active-icon-color);
     }
 
-    .tiptap-button-icon-sub {
+    .akd-button-icon-sub {
       color: var(--tt-button-active-icon-sub-color);
     }
 
-    .tiptap-button-dropdown-arrows,
-    .tiptap-button-dropdown-small {
+    .akd-button-dropdown-arrows,
+    .akd-button-dropdown-small {
       color: var(--tt-button-active-dropdown-arrows-color);
     }
 
@@ -261,16 +261,16 @@
       background-color: var(--tt-button-active-bg-color-emphasized);
       color: var(--tt-button-active-text-color-emphasized);
 
-      .tiptap-button-icon {
+      .akd-button-icon {
         color: var(--tt-button-active-icon-color-emphasized);
       }
 
-      .tiptap-button-icon-sub {
+      .akd-button-icon-sub {
         color: var(--tt-button-active-icon-sub-color-emphasized);
       }
 
-      .tiptap-button-dropdown-arrows,
-      .tiptap-button-dropdown-small {
+      .akd-button-dropdown-arrows,
+      .akd-button-dropdown-small {
         color: var(--tt-button-active-dropdown-arrows-color-emphasized);
       }
 
@@ -284,23 +284,23 @@
       background-color: var(--tt-button-active-bg-color-subdued);
       color: var(--tt-button-active-text-color-subdued);
 
-      .tiptap-button-icon {
+      .akd-button-icon {
         color: var(--tt-button-active-icon-color-subdued);
       }
 
-      .tiptap-button-icon-sub {
+      .akd-button-icon-sub {
         color: var(--tt-button-active-icon-sub-color-subdued);
       }
 
-      .tiptap-button-dropdown-arrows,
-      .tiptap-button-dropdown-small {
+      .akd-button-dropdown-arrows,
+      .akd-button-dropdown-small {
         color: var(--tt-button-active-dropdown-arrows-color-subdued);
       }
 
       &:hover {
         background-color: var(--tt-button-active-hover-bg-color-subdued);
 
-        .tiptap-button-icon {
+        .akd-button-icon {
           color: var(--tt-button-active-icon-color-subdued);
         }
       }
@@ -311,7 +311,7 @@
     background-color: var(--tt-button-disabled-bg-color);
     color: var(--tt-button-disabled-text-color);
 
-    .tiptap-button-icon {
+    .akd-button-icon {
       color: var(--tt-button-disabled-icon-color);
     }
   }

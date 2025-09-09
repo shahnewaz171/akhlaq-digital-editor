@@ -1,4 +1,4 @@
-.tiptap-badge {
+.akd-badge {
   font-size: 0.625rem;
   font-weight: 700;
   font-feature-settings:
@@ -35,28 +35,28 @@
   }
 
   /* trim / expand text of the button */
-  .tiptap-badge-text {
+  .akd-badge-text {
     padding: 0 0.125rem;
     flex-grow: 1;
     text-align: left;
   }
 
   &[data-text-trim="on"] {
-    .tiptap-badge-text {
+    .akd-badge-text {
       text-overflow: ellipsis;
       overflow: hidden;
     }
   }
 
   /* standard icon, what is used */
-  .tiptap-badge-icon {
+  .akd-badge-icon {
     pointer-events: none;
     flex-shrink: 0;
     width: 0.625rem;
     height: 0.625rem;
   }
 
-  &[data-size="large"] .tiptap-badge-icon {
+  &[data-size="large"] .akd-badge-icon {
     width: 0.75rem;
     height: 0.75rem;
   }
@@ -66,12 +66,12 @@
 ----------- BADGE COLOR SETTINGS -------------
 -------------------------------------------- */
 
-.tiptap-badge {
+.akd-badge {
   background-color: var(--tt-badge-bg-color);
   border-color: var(--tt-badge-border-color);
   color: var(--tt-badge-text-color);
 
-  .tiptap-badge-icon {
+  .akd-badge-icon {
     color: var(--tt-badge-icon-color);
   }
 
@@ -81,7 +81,7 @@
     border-color: var(--tt-badge-border-color-emphasized);
     color: var(--tt-badge-text-color-emphasized);
 
-    .tiptap-badge-icon {
+    .akd-badge-icon {
       color: var(--tt-badge-icon-color-emphasized);
     }
   }
@@ -92,7 +92,7 @@
     border-color: var(--tt-badge-border-color-subdued);
     color: var(--tt-badge-text-color-subdued);
 
-    .tiptap-badge-icon {
+    .akd-badge-icon {
       color: var(--tt-badge-icon-color-subdued);
     }
   }

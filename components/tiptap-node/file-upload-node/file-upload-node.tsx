@@ -14,7 +14,7 @@ export const FileUploadNode = (props: any) => {
         <div className="file-size">{attrs["data-file-size"]}</div>
       </div>
       <Button onClick={deleteNode} data-style="ghost">
-        <CloseIcon className="tiptap-button-icon" />
+        <CloseIcon className="akd-button-icon" />
       </Button>
     </NodeViewWrapper>
   );

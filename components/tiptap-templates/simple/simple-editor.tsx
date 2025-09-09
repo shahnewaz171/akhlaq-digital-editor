@@ -231,11 +231,11 @@ const MobileToolbarContent = ({
   <>
     <ToolbarGroup>
       <Button data-style="ghost" onClick={onBack}>
-        <ArrowLeftIcon className="tiptap-button-icon" />
+        <ArrowLeftIcon className="akd-button-icon" />
         {type === "highlighter" ? (
-          <HighlighterIcon className="tiptap-button-icon" />
+          <HighlighterIcon className="akd-button-icon" />
         ) : (
-          <LinkIcon className="tiptap-button-icon" />
+          <LinkIcon className="akd-button-icon" />
         )}
       </Button>
     </ToolbarGroup>
@@ -324,7 +324,7 @@ export function SimpleEditor({
           autocorrect: "off",
           autocapitalize: "off",
           "aria-label": "Main content area, start typing to enter text.",
-          class: "simple-editor",
+          class: "akd akd-editor",
         },
       },
       extensions: [
@@ -607,7 +607,7 @@ export function SimpleEditor({
   };
 
   return (
-    <div className={cn("simple-editor-wrapper", className)}>
+    <div className={cn("akd-editor-wrapper", className)}>
       <EditorContext.Provider value={{ editor }}>
         <div className="editor-container">
           {!isBottomToolbar && (
@@ -636,7 +636,7 @@ export function SimpleEditor({
             editor={editor}
             ref={editorRef}
             role="presentation"
-            className="simple-editor-content"
+            className="akd-editor-content"
             style={{ height: `${resizeHeight}px` }}
           />
 

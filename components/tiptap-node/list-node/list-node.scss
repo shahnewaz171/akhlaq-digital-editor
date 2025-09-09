@@ -1,4 +1,4 @@
-.tiptap.ProseMirror {
+.akd.ProseMirror {
   --tt-checklist-bg-color: var(--tt-gray-light-a-100);
   --tt-checklist-bg-active-color: var(--tt-gray-light-a-900);
   --tt-checklist-border-color: var(--tt-gray-light-a-200);
@@ -19,7 +19,7 @@
 /* =====================
      LISTS
      ===================== */
-.tiptap.ProseMirror {
+.akd.ProseMirror {
   // Common list styles
   ol,
   ul {
@@ -120,9 +120,7 @@
           position: relative;
           cursor: pointer;
           background-color: var(--tt-checklist-bg-color);
-          transition:
-            background-color 80ms ease-out,
-            border-color 80ms ease-out;
+          transition: background-color 80ms ease-out, border-color 80ms ease-out;
 
           &::before {
             content: "";

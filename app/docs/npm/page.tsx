@@ -83,6 +83,8 @@ const NPMDocumentationPage = () => {
             <div className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto">
               <pre>{`import React, { useState } from 'react';
 import { Editor } from '@akhlaqdigital/editor';
+// Import editor styles
+import '@akhlaqdigital/editor/styles.css';
 
 function MyEditor() {
   const [content, setContent] = useState('');
@@ -108,6 +110,8 @@ export default MyEditor;`}</pre>
             <div className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto">
               <pre>{`import React, { useState } from 'react';
 import { SimpleEditor } from '@akhlaqdigital/editor';
+// Import editor styles
+import '@akhlaqdigital/editor/styles.css';
 
 function AdvancedEditor() {
   const [content, setContent] = useState('<h1>Welcome!</h1>');
@@ -383,23 +387,24 @@ function MyComponent() {
             <h3 className="text-xl font-semibold mb-4">Custom CSS</h3>
             <div className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto">
               <pre>{`/* Override editor styles */
-.akhlaq-editor {
+.akd {
   border: 2px solid #e2e8f0;
   border-radius: 8px;
   padding: 16px;
 }
 
-.akhlaq-editor:focus {
+.akd:focus-within {
   border-color: #3b82f6;
   outline: none;
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
-/* Custom toolbar styling */
-.akhlaq-toolbar {
+/* Custom button styling */
+.akd-button {
   background: #f8fafc;
-  border-bottom: 1px solid #e2e8f0;
+  border: 1px solid #e2e8f0;
   padding: 8px;
+  border-radius: 4px;
 }
 
 /* Mention styling */

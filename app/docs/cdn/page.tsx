@@ -51,10 +51,14 @@ const CDNDocumentationPage = () => {
           </h2>
           <div className="bg-white rounded-lg shadow-md p-6">
             <h3 className="text-xl font-semibold mb-4">
-              1. Add the CDN Script
+              1. Include CSS and Script
             </h3>
             <div className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto">
-              <pre>{`<script src="https://cdn.jsdelivr.net/npm/@akhlaqdigital/editor/dist/ad-editor.js"></script>`}</pre>
+              <pre>{`<!-- Include editor styles -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@akhlaqdigital/editor/dist/styles.css">
+
+<!-- Include editor script -->
+<script src="https://cdn.jsdelivr.net/npm/@akhlaqdigital/editor/dist/ad-editor.js"></script>`}</pre>
             </div>
 
             <h3 className="text-xl font-semibold mb-4 mt-6">
@@ -270,6 +274,71 @@ const CDNDocumentationPage = () => {
   </script>
 </body>
 </html>`}</pre>
+            </div>
+          </div>
+        </section>
+
+        {/* Styling Section */}
+        <section className="mb-12">
+          <h2 className="text-3xl font-bold mb-6 text-gray-800">
+            🎨 Styling & CSS
+          </h2>
+          <div className="bg-white rounded-lg shadow-md p-6">
+            <h3 className="text-xl font-semibold mb-4">CSS Classes</h3>
+            <p className="text-gray-600 mb-4">
+              The editor uses scoped CSS classes with the{" "}
+              <code className="bg-gray-100 px-2 py-1 rounded">akd-</code> prefix
+              to avoid conflicts:
+            </p>
+            <ul className="list-disc list-inside text-gray-600 mb-6 space-y-1">
+              <li>
+                <code className="bg-gray-100 px-2 py-1 rounded">.akd</code> -
+                Main editor container with all core styles
+              </li>
+              <li>
+                <code className="bg-gray-100 px-2 py-1 rounded">
+                  .dropdown-menu
+                </code>{" "}
+                - Dropdown menus for mentions and tools
+              </li>
+              <li>
+                <code className="bg-gray-100 px-2 py-1 rounded">
+                  .tableWrapper
+                </code>{" "}
+                - Table container for responsive table handling
+              </li>
+            </ul>
+
+            <h3 className="text-xl font-semibold mb-4">Custom Styling</h3>
+            <div className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto">
+              <pre>{`/* Custom editor container */
+.akd {
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
+}
+
+/* Focus state */
+.akd:focus-within {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Dark theme example */
+.akd.dark-theme {
+  background: #1a1a1a;
+  color: #ffffff;
+  border-color: #374151;
+}
+
+/* Custom mention styling */
+.mention {
+  background: #3b82f6;
+  color: white;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 500;
+}`}</pre>
             </div>
           </div>
         </section>

@@ -33,14 +33,14 @@ jobs:
       - name: Checking Lint
         run: pnpm run lint
 
-      - name: Checking Typescript Types Errors
-        run: pnpm run build:types
+      - name: Build CDN
+        run: pnpm run build:cdn
 
       - name: Build NPM
         run: pnpm run build:npm
 
-      - name: Build CDN
-        run: pnpm run build:cdn
+      - name: Checking Typescript Types Errors
+        run: pnpm run build:types
 
   Notification:
     if: ${{ always() }}

@@ -44,17 +44,17 @@ jobs:
       - name: Checking Lint
         run: pnpm run lint
 
-      - name: Checking Typescript Types Errors
+      - name: Build CDN
         if: steps.check.outputs.version_changed == 'true'
-        run: pnpm run build:types
+        run: pnpm run build:cdn
 
       - name: Build NPM
         if: steps.check.outputs.version_changed == 'true'
         run: pnpm run build:npm
 
-      - name: Build CDN
+      - name: Checking Typescript Types Errors
         if: steps.check.outputs.version_changed == 'true'
-        run: pnpm run build:cdn
+        run: pnpm run build:types
 
       - name: Publish to NPM
         if: steps.check.outputs.version_changed == 'true'

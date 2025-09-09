@@ -69,8 +69,8 @@ export function FontSizeDropdown({
           data-active-state={isSelectDropdownItem ? "on" : "off"}
           {...props}
         >
-          <FontSizeIcon className="tiptap-button-icon" />
-          <ChevronDownIcon className="tiptap-button-icon" />
+          <FontSizeIcon className="akd-button-icon" />
+          <ChevronDownIcon className="akd-button-icon" />
         </Button>
       </DropdownMenuTrigger>
 

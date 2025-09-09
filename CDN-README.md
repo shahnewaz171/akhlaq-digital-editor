@@ -142,49 +142,63 @@
 </html>
 ```
 
-## 🎨 Styling
+## 🎨 Styling & CSS
 
-Customize the editor appearance:
+### Include Styles
+
+The editor requires its CSS file to be included. Add this to your HTML:
+
+```html
+<!-- Include styles from jsDelivr CDN -->
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/@akhlaqdigital/editor/dist/styles.css"
+/>
+
+<!-- Include editor script -->
+<script src="https://cdn.jsdelivr.net/npm/@akhlaqdigital/editor/dist/ad-editor.js"></script>
+```
+
+### CSS Classes
+
+The editor uses scoped CSS classes with the `akd-` prefix to avoid conflicts:
+
+- `.akd` - Main editor container with all core styles
+- `.dropdown-menu` - Dropdown menus for mentions and tools
+- `.tableWrapper` - Table container for responsive table handling
+
+### Custom Styling
+
+Customize the editor appearance by overriding the default styles:
 
 ```css
-/* Editor wrapper */
-.akhlaq-editor-wrapper {
-  border: 1px solid #e1e5e9;
+/* Custom editor container */
+.akd {
+  border: 2px solid #e2e8f0;
   border-radius: 8px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
 }
 
-/* Content area */
-.akhlaq-editor-content {
-  min-height: 200px;
-  padding: 16px;
-  outline: none;
+/* Focus state */
+.akd:focus-within {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
-/* Toolbar */
-.akhlaq-editor-toolbar {
-  background: #f8f9fa;
-  border-bottom: 1px solid #e9ecef;
-  padding: 8px;
+/* Dark theme example */
+.akd.dark-theme {
+  background: #1a1a1a;
+  color: #ffffff;
+  border-color: #374151;
 }
 
-/* Custom button styles */
-.akhlaq-editor-toolbar button {
-  margin: 0 2px;
-  padding: 6px 8px;
-  border: none;
-  border-radius: 4px;
-  background: transparent;
-  cursor: pointer;
-}
-
-.akhlaq-editor-toolbar button:hover {
-  background: #e9ecef;
-}
-
-.akhlaq-editor-toolbar button.active {
-  background: #007bff;
+/* Custom mention styling */
+.mention {
+  background: #3b82f6;
   color: white;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 500;
 }
 ```
 

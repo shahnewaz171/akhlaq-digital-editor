@@ -99,8 +99,8 @@ export const CodeBlockButton = React.forwardRef<
       >
         {children ?? (
           <>
-            <Icon className="tiptap-button-icon" />
-            {text && <span className="tiptap-button-text">{text}</span>}
+            <Icon className="akd-button-icon" />
+            {text && <span className="akd-button-text">{text}</span>}
             {showShortcut && (
               <CodeBlockShortcutBadge shortcutKeys={shortcutKeys} />
             )}

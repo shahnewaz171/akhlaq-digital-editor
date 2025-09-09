@@ -1,4 +1,4 @@
-.tiptap.ProseMirror {
+.akd.ProseMirror {
   img {
     max-width: 100%;
     height: auto;
@@ -16,7 +16,7 @@
   }
 
   // Thread image handling
-  .tiptap-thread:has(> img) {
+  .akd-thread:has(> img) {
     // margin: 2rem 0;
 
     img {
@@ -25,7 +25,7 @@
     }
   }
 
-  .tiptap-thread img {
+  .akd-thread img {
     margin: 0;
   }
 }

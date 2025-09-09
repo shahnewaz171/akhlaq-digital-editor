@@ -62,7 +62,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     if (!tooltip || !showTooltip) {
       return (
         <button
-          className={cn("tiptap-button", className)}
+          className={cn("akd-button", className)}
           ref={ref}
           aria-label={ariaLabel}
           {...props}
@@ -75,7 +75,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <Tooltip delay={200}>
         <TooltipTrigger
-          className={cn("tiptap-button", className)}
+          className={cn("akd-button", className)}
           ref={ref}
           aria-label={ariaLabel}
           {...props}
@@ -102,7 +102,7 @@ export const ButtonGroup = React.forwardRef<
   return (
     <div
       ref={ref}
-      className={cn("tiptap-button-group", className)}
+      className={cn("akd-button-group", className)}
       data-orientation={orientation}
       role="group"
       {...props}

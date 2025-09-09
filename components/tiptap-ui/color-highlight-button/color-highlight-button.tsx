@@ -127,12 +127,12 @@ export const ColorHighlightButton = React.forwardRef<
         {children ?? (
           <>
             <span
-              className="tiptap-button-highlight"
+              className="akd-button-highlight"
               style={
                 { "--highlight-color": highlightColor } as React.CSSProperties
               }
             />
-            {text && <span className="tiptap-button-text">{text}</span>}
+            {text && <span className="akd-button-text">{text}</span>}
             {showShortcut && (
               <ColorHighlightShortcutBadge shortcutKeys={shortcutKeys} />
             )}

@@ -50,7 +50,7 @@ body,
   background: transparent;
 }
 
-.tiptap.ProseMirror {
+.akd.ProseMirror {
   font-family: "DM Sans", sans-serif;
 }
 
@@ -64,7 +64,7 @@ body,
   min-height: 190px !important ;
 }
 
-.simple-editor-content {
+.akd-editor-content {
   width: 100%;
   margin: 0 auto;
   display: flex;
@@ -73,7 +73,7 @@ body,
   overflow-x: auto;
 }
 
-.simple-editor-content .tiptap.ProseMirror.simple-editor {
+.akd-editor-content .akd.ProseMirror.akd-editor {
   flex: 1;
   padding: 1rem;
 }
@@ -99,7 +99,7 @@ body,
 }
 
 @media screen and (max-width: 480px) {
-  .simple-editor-content .tiptap.ProseMirror.simple-editor {
+  .akd-editor-content .akd.ProseMirror.akd-editor {
     padding: 1rem;
   }
 }

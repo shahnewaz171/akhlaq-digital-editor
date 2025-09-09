@@ -92,8 +92,8 @@ export const HeadingDropdownMenu = React.forwardRef<
             {...buttonProps}
             ref={ref}
           >
-            <Icon className="tiptap-button-icon" />
-            <ChevronDownIcon className="tiptap-button-icon" />
+            <Icon className="akd-button-icon" />
+            <ChevronDownIcon className="akd-button-icon" />
           </Button>
         </DropdownMenuTrigger>
 

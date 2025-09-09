@@ -74,7 +74,7 @@ export function TableDropdownMenu({
           }
           {...props}
         >
-          <TableIcon className="tiptap-button-icon" />
+          <TableIcon className="akd-button-icon" />
         </Button>
       </DropdownMenuTrigger>
     </DropdownMenu>

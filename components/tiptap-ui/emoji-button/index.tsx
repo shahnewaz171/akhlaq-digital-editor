@@ -64,8 +64,8 @@ function EmojiDropdown({ editor: providedEditor }: { editor?: Editor }) {
             boxShadow: "none",
           }}
         >
-          <EmojiIcon className="tiptap-button-icon" />
-          <ChevronDownIcon className="tiptap-button-icon" />
+          <EmojiIcon className="akd-button-icon" />
+          <ChevronDownIcon className="akd-button-icon" />
         </Button>
       </DropdownMenuTrigger>
 

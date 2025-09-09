@@ -90,8 +90,8 @@ export function ListDropdownMenu({
           tooltip="List"
           {...props}
         >
-          <Icon className="tiptap-button-icon" />
-          <ChevronDownIcon className="tiptap-button-icon" />
+          <Icon className="akd-button-icon" />
+          <ChevronDownIcon className="akd-button-icon" />
         </Button>
       </DropdownMenuTrigger>
 

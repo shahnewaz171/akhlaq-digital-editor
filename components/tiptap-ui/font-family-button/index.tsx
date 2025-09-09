@@ -73,8 +73,8 @@ export function FontFamilyDropdown({
           tooltip="Font family"
           {...props}
         >
-          <FontFamilyIcon className="tiptap-button-icon" />
-          <ChevronDownIcon className="tiptap-button-icon" />
+          <FontFamilyIcon className="akd-button-icon" />
+          <ChevronDownIcon className="akd-button-icon" />
         </Button>
       </DropdownMenuTrigger>
 

@@ -23,12 +23,12 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
       children,
       ...props
     },
-    ref,
+    ref
   ) => {
     return (
       <div
         ref={ref}
-        className={`tiptap-badge ${className || ""}`}
+        className={`akd-badge ${className || ""}`}
         data-style={variant}
         data-size={size}
         data-appearance={appearance}
@@ -38,7 +38,7 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
         {children}
       </div>
     );
-  },
+  }
 );
 
 Badge.displayName = "Badge";

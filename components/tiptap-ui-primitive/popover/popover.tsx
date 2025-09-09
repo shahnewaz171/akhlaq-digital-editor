@@ -28,7 +28,7 @@ function PopoverContent({
       <PopoverPrimitive.Content
         align={align}
         sideOffset={sideOffset}
-        className={cn("tiptap-popover", className)}
+        className={cn("akd-popover", className)}
         {...props}
       />
     </PopoverPrimitive.Portal>

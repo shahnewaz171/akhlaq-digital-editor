@@ -95,8 +95,8 @@ function FloatingTableMenu({
                     tooltip="Align"
                     className="flex items-center gap-1 cursor-pointer"
                   >
-                    <AlignLeftIcon className="tiptap-button-icon" />
-                    <ChevronDownIcon className="tiptap-button-icon" />
+                    <AlignLeftIcon className="akd-button-icon" />
+                    <ChevronDownIcon className="akd-button-icon" />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent
@@ -116,7 +116,7 @@ function FloatingTableMenu({
                         )
                       }
                     >
-                      <AlignLeftIcon className="tiptap-button-icon" /> Left
+                      <AlignLeftIcon className="akd-button-icon" /> Left
                     </Button>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
@@ -130,7 +130,7 @@ function FloatingTableMenu({
                         )
                       }
                     >
-                      <AlignCenterIcon className="tiptap-button-icon" /> Center
+                      <AlignCenterIcon className="akd-button-icon" /> Center
                     </Button>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
@@ -144,7 +144,7 @@ function FloatingTableMenu({
                         )
                       }
                     >
-                      <AlignRightIcon className="tiptap-button-icon" /> Right
+                      <AlignRightIcon className="akd-button-icon" /> Right
                     </Button>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
@@ -158,7 +158,7 @@ function FloatingTableMenu({
                         )
                       }
                     >
-                      <AlignJustifyIcon className="tiptap-button-icon" />{" "}
+                      <AlignJustifyIcon className="akd-button-icon" />{" "}
                       Justify
                     </Button>
                   </DropdownMenuItem>
@@ -175,8 +175,8 @@ function FloatingTableMenu({
                     tooltip="Row actions"
                     className="flex items-center gap-1 cursor-pointer"
                   >
-                    <ListOrderedIcon className="tiptap-button-icon" />
-                    <ChevronDownIcon className="tiptap-button-icon" />
+                    <ListOrderedIcon className="akd-button-icon" />
+                    <ChevronDownIcon className="akd-button-icon" />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent
@@ -234,8 +234,8 @@ function FloatingTableMenu({
                     tooltip="Column actions"
                     className="flex items-center gap-1 cursor-pointer"
                   >
-                    <ListIcon className="tiptap-button-icon" />
-                    <ChevronDownIcon className="tiptap-button-icon" />
+                    <ListIcon className="akd-button-icon" />
+                    <ChevronDownIcon className="akd-button-icon" />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent
@@ -297,8 +297,8 @@ function FloatingTableMenu({
                     tooltip="Header toggles"
                     className="flex items-center gap-1 cursor-pointer"
                   >
-                    <HeadingIcon className="tiptap-button-icon" />
-                    <ChevronDownIcon className="tiptap-button-icon" />
+                    <HeadingIcon className="akd-button-icon" />
+                    <ChevronDownIcon className="akd-button-icon" />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent
@@ -362,8 +362,8 @@ function FloatingTableMenu({
                     tooltip="Cell operations"
                     className="flex items-center gap-1 cursor-pointer"
                   >
-                    <Code2Icon className="tiptap-button-icon" />
-                    <ChevronDownIcon className="tiptap-button-icon" />
+                    <Code2Icon className="akd-button-icon" />
+                    <ChevronDownIcon className="akd-button-icon" />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent
@@ -427,8 +427,8 @@ function FloatingTableMenu({
                     tooltip="Navigate cells"
                     className="flex items-center gap-1 cursor-pointer"
                   >
-                    <CornerDownLeftIcon className="tiptap-button-icon" />
-                    <ChevronDownIcon className="tiptap-button-icon" />
+                    <CornerDownLeftIcon className="akd-button-icon" />
+                    <ChevronDownIcon className="akd-button-icon" />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent
@@ -476,8 +476,8 @@ function FloatingTableMenu({
                     tooltip="Utilities"
                     className="flex items-center gap-1 cursor-pointer"
                   >
-                    <WrenchIcon className="tiptap-button-icon" />
-                    <ChevronDownIcon className="tiptap-button-icon" />
+                    <WrenchIcon className="akd-button-icon" />
+                    <ChevronDownIcon className="akd-button-icon" />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent
@@ -511,8 +511,8 @@ function FloatingTableMenu({
                     tooltip="Danger"
                     className="flex items-center gap-1 text-red-600"
                   >
-                    <TrashIcon className="tiptap-button-icon" />
-                    <ChevronDownIcon className="tiptap-button-icon" />
+                    <TrashIcon className="akd-button-icon" />
+                    <ChevronDownIcon className="akd-button-icon" />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent

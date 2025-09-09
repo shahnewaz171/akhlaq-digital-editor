@@ -64,8 +64,8 @@ export const FileUploadButton = React.forwardRef<
         {...buttonProps}
         ref={ref}
       >
-        <FileIcon className="tiptap-button-icon" />
-        {text && <span className="tiptap-button-text">{text}</span>}
+        <FileIcon className="akd-button-icon" />
+        {text && <span className="akd-button-text">{text}</span>}
       </Button>
     );
   }

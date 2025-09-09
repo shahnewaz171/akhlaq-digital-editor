@@ -1,12 +1,12 @@
 :root {
-  --tiptap-input-placeholder: var(--tt-gray-light-a-400);
+  --akd-input-placeholder: var(--tt-gray-light-a-400);
 }
 
 .dark {
-  --tiptap-input-placeholder: var(--tt-gray-dark-a-400);
+  --akd-input-placeholder: var(--tt-gray-dark-a-400);
 }
 
-.tiptap-input {
+.akd-input {
   display: block;
   width: 100%;
   height: 2rem;
@@ -20,11 +20,11 @@
   outline: none;
 
   &::placeholder {
-    color: var(--tiptap-input-placeholder);
+    color: var(--akd-input-placeholder);
   }
 }
 
-.tiptap-input-clamp {
+.akd-input-clamp {
   min-width: 12rem;
   padding-right: 0;
 
@@ -37,7 +37,7 @@
   }
 }
 
-.tiptap-input-group {
+.akd-input-group {
   position: relative;
   display: flex;
   flex-wrap: wrap;

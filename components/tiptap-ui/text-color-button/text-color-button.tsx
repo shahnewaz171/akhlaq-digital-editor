@@ -70,7 +70,7 @@ function TextColorMenu({ editor: providedEditor }: { editor?: Editor }) {
           }}
         >
           <span className="relative inline-block font-bold text-[14px] leading-[16px]">
-            <FontSizeIcon className="tiptap-button-icon" />
+            <FontSizeIcon className="akd-button-icon" />
             <span
               className="absolute bottom-[-2px] left-0 right-0 h-[3px]"
               style={{
@@ -79,7 +79,7 @@ function TextColorMenu({ editor: providedEditor }: { editor?: Editor }) {
               }}
             />
           </span>
-          <ChevronDownIcon className="tiptap-button-icon" />
+          <ChevronDownIcon className="akd-button-icon" />
         </Button>
       </DropdownMenuTrigger>
 
@@ -135,7 +135,7 @@ function TextColorMenu({ editor: providedEditor }: { editor?: Editor }) {
             data-testid="unsetColor"
             style={{ height: 28, width: 28, minWidth: 0, borderRadius: 4 }}
           >
-            <BanIcon className="tiptap-button-icon" />
+            <BanIcon className="akd-button-icon" />
           </Button>
         </div>
       </DropdownMenuContent>

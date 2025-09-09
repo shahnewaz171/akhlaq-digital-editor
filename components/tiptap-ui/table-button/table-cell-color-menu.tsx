@@ -98,7 +98,7 @@ export function TableCellColorMenu({
               verticalAlign: "middle",
             }}
           />
-          <ChevronDownIcon className="tiptap-button-icon" />
+          <ChevronDownIcon className="akd-button-icon" />
         </Button>
       </DropdownMenuTrigger>
 
@@ -155,7 +155,7 @@ export function TableCellColorMenu({
             className="cursor-pointer"
             style={{ height: 28, width: 28, minWidth: 0, borderRadius: 4 }}
           >
-            <BanIcon className="tiptap-button-icon" />
+            <BanIcon className="akd-button-icon" />
           </Button>
         </div>
       </DropdownMenuContent>

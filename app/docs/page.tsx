@@ -665,13 +665,13 @@ editor.chain().focus().toggleBlockquote().run()`}</code>
   --button-hover: #374151;
 }
 
-.akhlaq-editor {
+.akd {
   background: var(--editor-bg);
   color: var(--editor-text);
   border: 1px solid var(--editor-border);
 }
 
-.akhlaq-editor:focus {
+.akd:focus-within {
   border-color: var(--editor-focus);
 }`}</code>
                   </pre>

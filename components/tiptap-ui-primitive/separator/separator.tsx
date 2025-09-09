@@ -21,14 +21,14 @@ export const Separator = React.forwardRef<HTMLDivElement, SeparatorProps>(
 
     return (
       <div
-        className={cn("tiptap-separator", className)}
+        className={cn("akd-separator", className)}
         data-orientation={orientation}
         {...semanticProps}
         {...divProps}
         ref={ref}
       />
     );
-  },
+  }
 );
 
 Separator.displayName = "Separator";

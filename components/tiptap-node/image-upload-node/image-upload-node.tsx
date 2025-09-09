@@ -231,7 +231,7 @@ const CloudUploadIcon: React.FC = () => (
     width="24"
     height="24"
     viewBox="0 0 24 24"
-    className="tiptap-image-upload-icon"
+    className="akd-image-upload-icon"
     fill="currentColor"
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -252,7 +252,7 @@ const FileIcon: React.FC = () => (
     height="57"
     viewBox="0 0 43 57"
     fill="currentColor"
-    className="tiptap-image-upload-dropzone-rect-primary"
+    className="akd-image-upload-dropzone-rect-primary"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
@@ -269,7 +269,7 @@ const FileCornerIcon: React.FC = () => (
   <svg
     width="10"
     height="10"
-    className="tiptap-image-upload-dropzone-rect-secondary"
+    className="akd-image-upload-dropzone-rect-secondary"
     viewBox="0 0 10 10"
     fill="currentColor"
     xmlns="http://www.w3.org/2000/svg"
@@ -340,7 +340,7 @@ const ImageUploadDragArea: React.FC<ImageUploadDragAreaProps> = ({
 
   return (
     <div
-      className={`tiptap-image-upload-drag-area ${
+      className={`akd-image-upload-drag-area ${
         isDragActive ? "drag-active" : ""
       } ${isDragOver ? "drag-over" : ""}`}
       onDragEnter={handleDragEnter}
@@ -382,31 +382,31 @@ const ImageUploadPreview: React.FC<ImageUploadPreviewProps> = ({
   };
 
   return (
-    <div className="tiptap-image-upload-preview">
+    <div className="akd-image-upload-preview">
       {isImageUploading && (
         <div
-          className="tiptap-image-upload-progress"
+          className="akd-image-upload-progress"
           style={{ width: `${fileItem.progress}%` }}
         />
       )}
 
-      <div className="tiptap-image-upload-preview-content">
-        <div className="tiptap-image-upload-file-info">
-          <div className="tiptap-image-upload-file-icon">
+      <div className="akd-image-upload-preview-content">
+        <div className="akd-image-upload-file-info">
+          <div className="akd-image-upload-file-icon">
             <CloudUploadIcon />
           </div>
-          <div className="tiptap-image-upload-details">
-            <span className="tiptap-image-upload-text">
+          <div className="akd-image-upload-details">
+            <span className="akd-image-upload-text">
               {fileItem.file.name}
             </span>
-            <span className="tiptap-image-upload-subtext">
+            <span className="akd-image-upload-subtext">
               {formatFileSize(fileItem.file.size)}
             </span>
           </div>
         </div>
-        <div className="tiptap-image-upload-actions">
+        <div className="akd-image-upload-actions">
           {isImageUploading && (
-            <span className="tiptap-image-upload-progress-text">
+            <span className="akd-image-upload-progress-text">
               {fileItem.progress}%
             </span>
           )}
@@ -419,7 +419,7 @@ const ImageUploadPreview: React.FC<ImageUploadPreviewProps> = ({
               onRemove();
             }}
           >
-            <CloseIcon className="tiptap-button-icon" />
+            <CloseIcon className="akd-button-icon" />
           </Button>
         </div>
       </div>
@@ -432,19 +432,19 @@ const DropZoneContent: React.FC<{ maxSize: number; limit: number }> = ({
   limit,
 }) => (
   <>
-    <div className="tiptap-image-upload-dropzone">
+    <div className="akd-image-upload-dropzone">
       <FileIcon />
       <FileCornerIcon />
-      <div className="tiptap-image-upload-icon-container">
+      <div className="akd-image-upload-icon-container">
         <CloudUploadIcon />
       </div>
     </div>
 
-    <div className="tiptap-image-upload-content">
-      <span className="tiptap-image-upload-text">
+    <div className="akd-image-upload-content">
+      <span className="akd-image-upload-text">
         <em>Click to upload</em> or drag and drop
       </span>
-      <span className="tiptap-image-upload-subtext">
+      <span className="akd-image-upload-subtext">
         Maximum {limit} file{limit === 1 ? "" : "s"}, {maxSize / 1024 / 1024}MB
         each.
       </span>
@@ -520,7 +520,7 @@ export const ImageUploadNode: React.FC<NodeViewProps> = (props) => {
 
   return (
     <NodeViewWrapper
-      className="tiptap-image-upload"
+      className="akd-image-upload"
       tabIndex={0}
       onClick={handleClick}
     >
@@ -531,9 +531,9 @@ export const ImageUploadNode: React.FC<NodeViewProps> = (props) => {
       )}
 
       {hasFiles && (
-        <div className="tiptap-image-upload-previews">
+        <div className="akd-image-upload-previews">
           {fileItems.length > 1 && (
-            <div className="tiptap-image-upload-header">
+            <div className="akd-image-upload-header">
               <span>Uploading {fileItems.length} files</span>
               <Button
                 type="button"

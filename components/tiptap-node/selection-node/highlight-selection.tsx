@@ -6,7 +6,7 @@ const ClearHighlightOnBlur = Extension.create({
 
   addOptions() {
     return {
-      toolbarSelector: ".tiptap-toolbar",
+      toolbarSelector: ".akd-toolbar",
       bottomToolbarSelector: ".editor-status-bar",
     };
   },

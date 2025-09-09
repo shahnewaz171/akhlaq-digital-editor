@@ -7,7 +7,7 @@ import "@/components/tiptap-ui-primitive/card/card.scss";
 const Card = React.forwardRef<HTMLDivElement, React.ComponentProps<"div">>(
   ({ className, ...props }, ref) => {
     return (
-      <div ref={ref} className={cn("tiptap-card", className)} {...props} />
+      <div ref={ref} className={cn("akd-card", className)} {...props} />
     );
   },
 );
@@ -18,7 +18,7 @@ const CardHeader = React.forwardRef<
   React.ComponentProps<"div">
 >(({ className, ...props }, ref) => {
   return (
-    <div ref={ref} className={cn("tiptap-card-header", className)} {...props} />
+    <div ref={ref} className={cn("akd-card-header", className)} {...props} />
   );
 });
 CardHeader.displayName = "CardHeader";
@@ -26,7 +26,7 @@ CardHeader.displayName = "CardHeader";
 const CardBody = React.forwardRef<HTMLDivElement, React.ComponentProps<"div">>(
   ({ className, ...props }, ref) => {
     return (
-      <div ref={ref} className={cn("tiptap-card-body", className)} {...props} />
+      <div ref={ref} className={cn("akd-card-body", className)} {...props} />
     );
   },
 );
@@ -42,7 +42,7 @@ const CardItemGroup = React.forwardRef<
     <div
       ref={ref}
       data-orientation={orientation}
-      className={cn("tiptap-card-item-group", className)}
+      className={cn("akd-card-item-group", className)}
       {...props}
     />
   );
@@ -56,7 +56,7 @@ const CardGroupLabel = React.forwardRef<
   return (
     <div
       ref={ref}
-      className={cn("tiptap-card-group-label", className)}
+      className={cn("akd-card-group-label", className)}
       {...props}
     />
   );
@@ -68,7 +68,7 @@ const CardFooter = React.forwardRef<
   React.ComponentProps<"div">
 >(({ className, ...props }, ref) => {
   return (
-    <div ref={ref} className={cn("tiptap-card-footer", className)} {...props} />
+    <div ref={ref} className={cn("akd-card-footer", className)} {...props} />
   );
 });
 CardFooter.displayName = "CardFooter";

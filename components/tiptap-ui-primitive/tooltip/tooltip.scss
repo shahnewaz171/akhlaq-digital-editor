@@ -1,4 +1,4 @@
-.tiptap-tooltip {
+.akd-tooltip {
   --tt-tooltip-bg: var(--tt-gray-light-900);
   --tt-tooltip-text: var(--white);
   --tt-kbd: var(--tt-gray-dark-a-400);
@@ -10,7 +10,7 @@
   }
 }
 
-.tiptap-tooltip {
+.akd-tooltip {
   z-index: 200;
   overflow: hidden;
   border-radius: var(--tt-radius-md, 0.375rem);
