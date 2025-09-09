@@ -223,7 +223,7 @@ export default function EditorPage() {
                   <tr className="border-b">
                     <td className="p-3 font-mono">onChange</td>
                     <td className="p-3">(html: string) =&gt; void</td>
-                    <td className="p-3 font-mono">undefined</td>
+                    <td className="p-3 font-mono">-</td>
                     <td className="p-3">Callback when content changes</td>
                   </tr>
                   <tr className="border-b">
@@ -237,7 +237,7 @@ export default function EditorPage() {
                   <tr className="border-b">
                     <td className="p-3 font-mono">className</td>
                     <td className="p-3">string</td>
-                    <td className="p-3 font-mono">undefined</td>
+                    <td className="p-3 font-mono">-</td>
                     <td className="p-3">
                       CSS classes for the editor container
                     </td>
@@ -303,25 +303,25 @@ export default function EditorPage() {
                   <tr className="border-b">
                     <td className="p-3 font-mono">onInit</td>
                     <td className="p-3">(editor: any) =&gt; void</td>
-                    <td className="p-3 font-mono">undefined</td>
+                    <td className="p-3 font-mono">-</td>
                     <td className="p-3">Callback when editor is initialized</td>
                   </tr>
                   <tr className="border-b">
                     <td className="p-3 font-mono">handleImageInsertion</td>
                     <td className="p-3">function</td>
-                    <td className="p-3 font-mono">undefined</td>
+                    <td className="p-3 font-mono">-</td>
                     <td className="p-3">Custom image upload handler</td>
                   </tr>
                   <tr className="border-b">
                     <td className="p-3 font-mono">handleFilesChange</td>
                     <td className="p-3">function</td>
-                    <td className="p-3 font-mono">undefined</td>
+                    <td className="p-3 font-mono">-</td>
                     <td className="p-3">Custom file upload handler</td>
                   </tr>
                   <tr className="border-b">
                     <td className="p-3 font-mono">editor</td>
                     <td className="p-3">Editor</td>
-                    <td className="p-3 font-mono">undefined</td>
+                    <td className="p-3 font-mono">-</td>
                     <td className="p-3">Custom editor instance</td>
                   </tr>
                 </tbody>

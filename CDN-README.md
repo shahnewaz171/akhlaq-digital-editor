@@ -41,8 +41,8 @@
 | `container`   | `string`         | **required**        | CSS selector for container |
 | `content`     | `string \| null` | `null`              | Initial HTML content       |
 | `placeholder` | `string`         | `"Start typing..."` | Placeholder text           |
-| `onChange`    | `function`       | `undefined`         | Content change callback    |
-| `onInit`      | `function`       | `undefined`         | Editor ready callback      |
+| `onChange`    | `function`       | `-`                 | Content change callback    |
+| `onInit`      | `function`       | `-`                 | Editor ready callback      |
 
 ### Feature Options
 
@@ -58,12 +58,12 @@
 
 ### Advanced Options
 
-| Option                 | Type       | Default     | Description                                         |
-| ---------------------- | ---------- | ----------- | --------------------------------------------------- |
-| `mentions`             | `array`    | `[]`        | Mention suggestions `[{id: number, label: string}]` |
-| `acceptedFileTypes`    | `string`   | `""`        | File type restrictions (e.g., "image/\*,.pdf")      |
-| `handleImageInsertion` | `function` | `undefined` | Custom image upload                                 |
-| `handleFilesChange`    | `function` | `undefined` | Custom file handler                                 |
+| Option                 | Type       | Default | Description                                         |
+| ---------------------- | ---------- | ------- | --------------------------------------------------- |
+| `mentions`             | `array`    | `[]`    | Mention suggestions `[{id: number, label: string}]` |
+| `acceptedFileTypes`    | `string`   | `""`    | File type restrictions (e.g., "image/\*,.pdf")      |
+| `handleImageInsertion` | `function` | `-`     | Custom image upload                                 |
+| `handleFilesChange`    | `function` | `-`     | Custom file handler                                 |
 
 ## 📝 Complete Example
 

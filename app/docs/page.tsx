@@ -453,7 +453,7 @@ function AdvancedEditor() {
                         <td className="p-2 sm:p-3">
                           (html: string) =&gt; void
                         </td>
-                        <td className="p-2 sm:p-3 font-mono">undefined</td>
+                        <td className="p-2 sm:p-3 font-mono">-</td>
                         <td className="p-2 sm:p-3">
                           Callback when content changes
                         </td>
@@ -473,7 +473,7 @@ function AdvancedEditor() {
                           className
                         </td>
                         <td className="p-2 sm:p-3">string</td>
-                        <td className="p-2 sm:p-3 font-mono">undefined</td>
+                        <td className="p-2 sm:p-3 font-mono">-</td>
                         <td className="p-2 sm:p-3">
                           CSS classes for the editor container
                         </td>
@@ -555,7 +555,7 @@ function AdvancedEditor() {
                           onInit
                         </td>
                         <td className="p-2 sm:p-3">(editor: any) =&gt; void</td>
-                        <td className="p-2 sm:p-3 font-mono">undefined</td>
+                        <td className="p-2 sm:p-3 font-mono">-</td>
                         <td className="p-2 sm:p-3">
                           Callback when editor is initialized
                         </td>
@@ -565,7 +565,7 @@ function AdvancedEditor() {
                           handleImageInsertion
                         </td>
                         <td className="p-2 sm:p-3">function</td>
-                        <td className="p-2 sm:p-3 font-mono">undefined</td>
+                        <td className="p-2 sm:p-3 font-mono">-</td>
                         <td className="p-2 sm:p-3">
                           Custom image upload handler
                         </td>
@@ -575,7 +575,7 @@ function AdvancedEditor() {
                           handleFilesChange
                         </td>
                         <td className="p-2 sm:p-3">function</td>
-                        <td className="p-2 sm:p-3 font-mono">undefined</td>
+                        <td className="p-2 sm:p-3 font-mono">-</td>
                         <td className="p-2 sm:p-3">
                           Custom file upload handler
                         </td>
@@ -585,7 +585,7 @@ function AdvancedEditor() {
                           editor
                         </td>
                         <td className="p-2 sm:p-3">Editor</td>
-                        <td className="p-2 sm:p-3 font-mono">undefined</td>
+                        <td className="p-2 sm:p-3 font-mono">-</td>
                         <td className="p-2 sm:p-3">Custom editor instance</td>
                       </tr>
                     </tbody>
