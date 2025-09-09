@@ -1,4 +1,4 @@
-import "./MentionList.scss";
+import "./mention-list.scss";
 
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { cn } from "@/lib/tiptap-utils";

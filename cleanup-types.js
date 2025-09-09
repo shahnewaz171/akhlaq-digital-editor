@@ -45,9 +45,6 @@ function transformTypeFile(filePath) {
 
   if (content !== transformed) {
     writeFileSync(filePath, transformed, "utf8");
-    console.log(
-      `✅ Fixed aliases in: ${filePath.replace(__dirname + "/", "")}`
-    );
   }
 }
 

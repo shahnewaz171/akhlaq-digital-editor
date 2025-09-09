@@ -30,6 +30,7 @@
       "import": "./npm/ad-editor.es.js",
       "require": "./npm/ad-editor.cjs.js"
     },
+    "./styles.css": "./dist/styles.css",
     "./cdn": "./dist/ad-editor.js",
     "./package.json": "./package.json"
   },
@@ -38,9 +39,11 @@
     "dev": "next dev",
     "prebuild": "next lint",
     "build": "next build",
+    "watch:styles": "node scripts/build-styles.js --watch",
+    "build:styles": "node scripts/build-styles.js",
     "build:cdn": "vite build --config cdn.config.ts",
     "build:npm:dev": "vite build --config npm.config.ts --mode development",
-    "build:npm": "vite build --config npm.config.ts --mode production",
+    "build:npm": "npm run build:styles && vite build --config npm.config.ts --mode production",
     "build:types": "tsc --emitDeclarationOnly --project tsconfig.build.json && node cleanup-types.js",
     "start": "next start",
     "lint": "next lint",
