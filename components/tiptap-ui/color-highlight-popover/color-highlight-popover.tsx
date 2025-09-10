@@ -89,11 +89,11 @@ ColorHighlightPopoverButton.displayName = "ColorHighlightPopoverButton";
 export function ColorHighlightPopoverContent({
   editor,
   colors = pickHighlightColorsByValue([
-    "var(--tt-color-highlight-green)",
-    "var(--tt-color-highlight-blue)",
-    "var(--tt-color-highlight-red)",
-    "var(--tt-color-highlight-purple)",
-    "var(--tt-color-highlight-yellow)",
+    "var(--akd-color-highlight-green)",
+    "var(--akd-color-highlight-blue)",
+    "var(--akd-color-highlight-red)",
+    "var(--akd-color-highlight-purple)",
+    "var(--akd-color-highlight-yellow)",
   ]),
 }: ColorHighlightPopoverContentProps) {
   const { handleRemoveHighlight } = useColorHighlight({ editor });
@@ -165,11 +165,11 @@ export function ColorHighlightPopoverContent({
 export function ColorHighlightPopover({
   editor: providedEditor,
   colors = pickHighlightColorsByValue([
-    "var(--tt-color-highlight-green)",
-    "var(--tt-color-highlight-blue)",
-    "var(--tt-color-highlight-red)",
-    "var(--tt-color-highlight-purple)",
-    "var(--tt-color-highlight-yellow)",
+    "var(--akd-color-highlight-green)",
+    "var(--akd-color-highlight-blue)",
+    "var(--akd-color-highlight-red)",
+    "var(--akd-color-highlight-purple)",
+    "var(--akd-color-highlight-yellow)",
   ]),
   hideWhenUnavailable = false,
   onApplied,

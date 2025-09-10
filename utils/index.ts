@@ -72,7 +72,7 @@ export const generateBrandColors = (
   const result: Record<string, string> = {};
 
   Object.entries(shades).forEach(([key, lightness]) => {
-    result[`--tt-brand-color-${key}`] = `hsl(${h}, ${s}%, ${lightness}%)`;
+    result[`--akd-brand-color-${key}`] = `hsl(${h}, ${s}%, ${lightness}%)`;
   });
 
   return result;

@@ -4,43 +4,43 @@
   **************************************************/
 
   /* Light mode */
-  --tt-button-default-bg-color: var(--tt-gray-light-a-100);
-  --tt-button-hover-bg-color: var(--tt-gray-light-200);
-  --tt-button-active-bg-color: var(--tt-gray-light-a-200);
-  --tt-button-active-bg-color-emphasized: var(
-    --tt-brand-color-100
+  --akd-button-default-bg-color: var(--akd-gray-light-a-100);
+  --akd-button-hover-bg-color: var(--akd-gray-light-200);
+  --akd-button-active-bg-color: var(--akd-gray-light-a-200);
+  --akd-button-active-bg-color-emphasized: var(
+    --akd-brand-color-100
   ); //more important active state
-  --tt-button-active-bg-color-subdued: var(
-    --tt-gray-light-a-200
+  --akd-button-active-bg-color-subdued: var(
+    --akd-gray-light-a-200
   ); //less important active state
-  --tt-button-active-hover-bg-color: var(--tt-gray-light-300);
-  --tt-button-active-hover-bg-color-emphasized: var(
-    --tt-brand-color-200
+  --akd-button-active-hover-bg-color: var(--akd-gray-light-300);
+  --akd-button-active-hover-bg-color-emphasized: var(
+    --akd-brand-color-200
   ); //more important active state hover
-  --tt-button-active-hover-bg-color-subdued: var(
-    --tt-gray-light-a-300
+  --akd-button-active-hover-bg-color-subdued: var(
+    --akd-gray-light-a-300
   ); //less important active state hover
-  --tt-button-disabled-bg-color: var(--tt-gray-light-a-50);
+  --akd-button-disabled-bg-color: var(--akd-gray-light-a-50);
 
   /* Dark mode */
   .dark & {
-    --tt-button-default-bg-color: var(--tt-gray-dark-a-100);
-    --tt-button-hover-bg-color: var(--tt-gray-dark-200);
-    --tt-button-active-bg-color: var(--tt-gray-dark-a-200);
-    --tt-button-active-bg-color-emphasized: var(
-      --tt-brand-color-900
+    --akd-button-default-bg-color: var(--akd-gray-dark-a-100);
+    --akd-button-hover-bg-color: var(--akd-gray-dark-200);
+    --akd-button-active-bg-color: var(--akd-gray-dark-a-200);
+    --akd-button-active-bg-color-emphasized: var(
+      --akd-brand-color-900
     ); //more important active state
-    --tt-button-active-bg-color-subdued: var(
-      --tt-gray-dark-a-200
+    --akd-button-active-bg-color-subdued: var(
+      --akd-gray-dark-a-200
     ); //less important active state
-    --tt-button-active-hover-bg-color: var(--tt-gray-dark-300);
-    --tt-button-active-hover-bg-color-emphasized: var(
-      --tt-brand-color-800
+    --akd-button-active-hover-bg-color: var(--akd-gray-dark-300);
+    --akd-button-active-hover-bg-color-emphasized: var(
+      --akd-brand-color-800
     ); //more important active state hover
-    --tt-button-active-hover-bg-color-subdued: var(
-      --tt-gray-dark-a-300
+    --akd-button-active-hover-bg-color-subdued: var(
+      --akd-gray-dark-a-300
     ); //less important active state hover
-    --tt-button-disabled-bg-color: var(--tt-gray-dark-a-50);
+    --akd-button-disabled-bg-color: var(--akd-gray-dark-a-50);
   }
 
   /************************************************** 
@@ -48,21 +48,21 @@
   **************************************************/
 
   /* Light mode */
-  --tt-button-default-text-color: var(--tt-gray-light-a-600);
-  --tt-button-hover-text-color: var(--tt-gray-light-a-900);
-  --tt-button-active-text-color: var(--tt-gray-light-a-900);
-  --tt-button-active-text-color-emphasized: var(--tt-gray-light-a-900);
-  --tt-button-active-text-color-subdued: var(--tt-gray-light-a-900);
-  --tt-button-disabled-text-color: var(--tt-gray-light-a-400);
+  --akd-button-default-text-color: var(--akd-gray-light-a-600);
+  --akd-button-hover-text-color: var(--akd-gray-light-a-900);
+  --akd-button-active-text-color: var(--akd-gray-light-a-900);
+  --akd-button-active-text-color-emphasized: var(--akd-gray-light-a-900);
+  --akd-button-active-text-color-subdued: var(--akd-gray-light-a-900);
+  --akd-button-disabled-text-color: var(--akd-gray-light-a-400);
 
   /* Dark mode */
   .dark & {
-    --tt-button-default-text-color: var(--tt-gray-dark-a-600);
-    --tt-button-hover-text-color: var(--tt-gray-dark-a-900);
-    --tt-button-active-text-color: var(--tt-gray-dark-a-900);
-    --tt-button-active-text-color-emphasized: var(--tt-gray-dark-a-900);
-    --tt-button-active-text-color-subdued: var(--tt-gray-dark-a-900);
-    --tt-button-disabled-text-color: var(--tt-gray-dark-a-300);
+    --akd-button-default-text-color: var(--akd-gray-dark-a-600);
+    --akd-button-hover-text-color: var(--akd-gray-dark-a-900);
+    --akd-button-active-text-color: var(--akd-gray-dark-a-900);
+    --akd-button-active-text-color-emphasized: var(--akd-gray-dark-a-900);
+    --akd-button-active-text-color-subdued: var(--akd-gray-dark-a-900);
+    --akd-button-disabled-text-color: var(--akd-gray-dark-a-300);
   }
 
   /************************************************** 
@@ -70,21 +70,21 @@
   **************************************************/
 
   /* Light mode */
-  --tt-button-default-icon-color: var(--tt-gray-light-a-600);
-  --tt-button-hover-icon-color: var(--tt-gray-light-a-900);
-  --tt-button-active-icon-color: var(--tt-brand-color-500);
-  --tt-button-active-icon-color-emphasized: var(--tt-brand-color-600);
-  --tt-button-active-icon-color-subdued: var(--tt-gray-light-a-900);
-  --tt-button-disabled-icon-color: var(--tt-gray-light-a-400);
+  --akd-button-default-icon-color: var(--akd-gray-light-a-600);
+  --akd-button-hover-icon-color: var(--akd-gray-light-a-900);
+  --akd-button-active-icon-color: var(--akd-brand-color-500);
+  --akd-button-active-icon-color-emphasized: var(--akd-brand-color-600);
+  --akd-button-active-icon-color-subdued: var(--akd-gray-light-a-900);
+  --akd-button-disabled-icon-color: var(--akd-gray-light-a-400);
 
   /* Dark mode */
   .dark & {
-    --tt-button-default-icon-color: var(--tt-gray-dark-a-600);
-    --tt-button-hover-icon-color: var(--tt-gray-dark-a-900);
-    --tt-button-active-icon-color: var(--tt-brand-color-400);
-    --tt-button-active-icon-color-emphasized: var(--tt-brand-color-400);
-    --tt-button-active-icon-color-subdued: var(--tt-gray-dark-a-900);
-    --tt-button-disabled-icon-color: var(--tt-gray-dark-a-400);
+    --akd-button-default-icon-color: var(--akd-gray-dark-a-600);
+    --akd-button-hover-icon-color: var(--akd-gray-dark-a-900);
+    --akd-button-active-icon-color: var(--akd-brand-color-400);
+    --akd-button-active-icon-color-emphasized: var(--akd-brand-color-400);
+    --akd-button-active-icon-color-subdued: var(--akd-gray-dark-a-900);
+    --akd-button-disabled-icon-color: var(--akd-gray-dark-a-400);
   }
 
   /************************************************** 
@@ -92,21 +92,21 @@
   **************************************************/
 
   /* Light mode */
-  --tt-button-default-icon-sub-color: var(--tt-gray-light-a-400);
-  --tt-button-hover-icon-sub-color: var(--tt-gray-light-a-500);
-  --tt-button-active-icon-sub-color: var(--tt-gray-light-a-400);
-  --tt-button-active-icon-sub-color-emphasized: var(--tt-gray-light-a-500);
-  --tt-button-active-icon-sub-color-subdued: var(--tt-gray-light-a-400);
-  --tt-button-disabled-icon-sub-color: var(--tt-gray-light-a-100);
+  --akd-button-default-icon-sub-color: var(--akd-gray-light-a-400);
+  --akd-button-hover-icon-sub-color: var(--akd-gray-light-a-500);
+  --akd-button-active-icon-sub-color: var(--akd-gray-light-a-400);
+  --akd-button-active-icon-sub-color-emphasized: var(--akd-gray-light-a-500);
+  --akd-button-active-icon-sub-color-subdued: var(--akd-gray-light-a-400);
+  --akd-button-disabled-icon-sub-color: var(--akd-gray-light-a-100);
 
   /* Dark mode */
   .dark & {
-    --tt-button-default-icon-sub-color: var(--tt-gray-dark-a-300);
-    --tt-button-hover-icon-sub-color: var(--tt-gray-dark-a-400);
-    --tt-button-active-icon-sub-color: var(--tt-gray-dark-a-300);
-    --tt-button-active-icon-sub-color-emphasized: var(--tt-gray-dark-a-400);
-    --tt-button-active-icon-sub-color-subdued: var(--tt-gray-dark-a-300);
-    --tt-button-disabled-icon-sub-color: var(--tt-gray-dark-a-100);
+    --akd-button-default-icon-sub-color: var(--akd-gray-dark-a-300);
+    --akd-button-hover-icon-sub-color: var(--akd-gray-dark-a-400);
+    --akd-button-active-icon-sub-color: var(--akd-gray-dark-a-300);
+    --akd-button-active-icon-sub-color-emphasized: var(--akd-gray-dark-a-400);
+    --akd-button-active-icon-sub-color-subdued: var(--akd-gray-dark-a-300);
+    --akd-button-disabled-icon-sub-color: var(--akd-gray-dark-a-100);
   }
 
   /************************************************** 
@@ -114,25 +114,29 @@
   **************************************************/
 
   /* Light mode */
-  --tt-button-default-dropdown-arrows-color: var(--tt-gray-light-a-600);
-  --tt-button-hover-dropdown-arrows-color: var(--tt-gray-light-a-700);
-  --tt-button-active-dropdown-arrows-color: var(--tt-gray-light-a-600);
-  --tt-button-active-dropdown-arrows-color-emphasized: var(
-    --tt-gray-light-a-700
+  --akd-button-default-dropdown-arrows-color: var(--akd-gray-light-a-600);
+  --akd-button-hover-dropdown-arrows-color: var(--akd-gray-light-a-700);
+  --akd-button-active-dropdown-arrows-color: var(--akd-gray-light-a-600);
+  --akd-button-active-dropdown-arrows-color-emphasized: var(
+    --akd-gray-light-a-700
   );
-  --tt-button-active-dropdown-arrows-color-subdued: var(--tt-gray-light-a-600);
-  --tt-button-disabled-dropdown-arrows-color: var(--tt-gray-light-a-400);
+  --akd-button-active-dropdown-arrows-color-subdued: var(
+    --akd-gray-light-a-600
+  );
+  --akd-button-disabled-dropdown-arrows-color: var(--akd-gray-light-a-400);
 
   /* Dark mode */
   .dark & {
-    --tt-button-default-dropdown-arrows-color: var(--tt-gray-dark-a-600);
-    --tt-button-hover-dropdown-arrows-color: var(--tt-gray-dark-a-700);
-    --tt-button-active-dropdown-arrows-color: var(--tt-gray-dark-a-600);
-    --tt-button-active-dropdown-arrows-color-emphasized: var(
-      --tt-gray-dark-a-700
+    --akd-button-default-dropdown-arrows-color: var(--akd-gray-dark-a-600);
+    --akd-button-hover-dropdown-arrows-color: var(--akd-gray-dark-a-700);
+    --akd-button-active-dropdown-arrows-color: var(--akd-gray-dark-a-600);
+    --akd-button-active-dropdown-arrows-color-emphasized: var(
+      --akd-gray-dark-a-700
     );
-    --tt-button-active-dropdown-arrows-color-subdued: var(--tt-gray-dark-a-600);
-    --tt-button-disabled-dropdown-arrows-color: var(--tt-gray-dark-a-400);
+    --akd-button-active-dropdown-arrows-color-subdued: var(
+      --akd-gray-dark-a-600
+    );
+    --akd-button-disabled-dropdown-arrows-color: var(--akd-gray-dark-a-400);
   }
 
   /* ----------------------------------------------------------------
@@ -145,43 +149,43 @@
     **************************************************/
 
     /* Light mode */
-    --tt-button-default-bg-color: var(--transparent);
-    --tt-button-hover-bg-color: var(--tt-gray-light-200);
-    --tt-button-active-bg-color: var(--tt-gray-light-a-100);
-    --tt-button-active-bg-color-emphasized: var(
-      --tt-brand-color-100
+    --akd-button-default-bg-color: var(--transparent);
+    --akd-button-hover-bg-color: var(--akd-gray-light-200);
+    --akd-button-active-bg-color: var(--akd-gray-light-a-100);
+    --akd-button-active-bg-color-emphasized: var(
+      --akd-brand-color-100
     ); //more important active state
-    --tt-button-active-bg-color-subdued: var(
-      --tt-gray-light-a-100
+    --akd-button-active-bg-color-subdued: var(
+      --akd-gray-light-a-100
     ); //less important active state
-    --tt-button-active-hover-bg-color: var(--tt-gray-light-200);
-    --tt-button-active-hover-bg-color-emphasized: var(
-      --tt-brand-color-200
+    --akd-button-active-hover-bg-color: var(--akd-gray-light-200);
+    --akd-button-active-hover-bg-color-emphasized: var(
+      --akd-brand-color-200
     ); //more important active state hover
-    --tt-button-active-hover-bg-color-subdued: var(
-      --tt-gray-light-a-200
+    --akd-button-active-hover-bg-color-subdued: var(
+      --akd-gray-light-a-200
     ); //less important active state hover
-    --tt-button-disabled-bg-color: var(--transparent);
+    --akd-button-disabled-bg-color: var(--transparent);
 
     /* Dark mode */
     .dark & {
-      --tt-button-default-bg-color: var(--transparent);
-      --tt-button-hover-bg-color: var(--tt-gray-dark-200);
-      --tt-button-active-bg-color: var(--tt-gray-dark-a-100);
-      --tt-button-active-bg-color-emphasized: var(
-        --tt-brand-color-900
+      --akd-button-default-bg-color: var(--transparent);
+      --akd-button-hover-bg-color: var(--akd-gray-dark-200);
+      --akd-button-active-bg-color: var(--akd-gray-dark-a-100);
+      --akd-button-active-bg-color-emphasized: var(
+        --akd-brand-color-900
       ); //more important active state
-      --tt-button-active-bg-color-subdued: var(
-        --tt-gray-dark-a-100
+      --akd-button-active-bg-color-subdued: var(
+        --akd-gray-dark-a-100
       ); //less important active state
-      --tt-button-active-hover-bg-color: var(--tt-gray-dark-200);
-      --tt-button-active-hover-bg-color-emphasized: var(
-        --tt-brand-color-800
+      --akd-button-active-hover-bg-color: var(--akd-gray-dark-200);
+      --akd-button-active-hover-bg-color-emphasized: var(
+        --akd-brand-color-800
       ); //more important active state hover
-      --tt-button-active-hover-bg-color-subdued: var(
-        --tt-gray-dark-a-200
+      --akd-button-active-hover-bg-color-subdued: var(
+        --akd-gray-dark-a-200
       ); //less important active state hover
-      --tt-button-disabled-bg-color: var(--transparent);
+      --akd-button-disabled-bg-color: var(--transparent);
     }
 
     /************************************************** 
@@ -189,21 +193,21 @@
     **************************************************/
 
     /* Light mode */
-    --tt-button-default-text-color: var(--tt-gray-light-a-600);
-    --tt-button-hover-text-color: var(--tt-gray-light-a-900);
-    --tt-button-active-text-color: var(--tt-gray-light-a-900);
-    --tt-button-active-text-color-emphasized: var(--tt-gray-light-a-900);
-    --tt-button-active-text-color-subdued: var(--tt-gray-light-a-900);
-    --tt-button-disabled-text-color: var(--tt-gray-light-a-400);
+    --akd-button-default-text-color: var(--akd-gray-light-a-600);
+    --akd-button-hover-text-color: var(--akd-gray-light-a-900);
+    --akd-button-active-text-color: var(--akd-gray-light-a-900);
+    --akd-button-active-text-color-emphasized: var(--akd-gray-light-a-900);
+    --akd-button-active-text-color-subdued: var(--akd-gray-light-a-900);
+    --akd-button-disabled-text-color: var(--akd-gray-light-a-400);
 
     /* Dark mode */
     .dark & {
-      --tt-button-default-text-color: var(--tt-gray-dark-a-600);
-      --tt-button-hover-text-color: var(--tt-gray-dark-a-900);
-      --tt-button-active-text-color: var(--tt-gray-dark-a-900);
-      --tt-button-active-text-color-emphasized: var(--tt-gray-dark-a-900);
-      --tt-button-active-text-color-subdued: var(--tt-gray-dark-a-900);
-      --tt-button-disabled-text-color: var(--tt-gray-dark-a-300);
+      --akd-button-default-text-color: var(--akd-gray-dark-a-600);
+      --akd-button-hover-text-color: var(--akd-gray-dark-a-900);
+      --akd-button-active-text-color: var(--akd-gray-dark-a-900);
+      --akd-button-active-text-color-emphasized: var(--akd-gray-dark-a-900);
+      --akd-button-active-text-color-subdued: var(--akd-gray-dark-a-900);
+      --akd-button-disabled-text-color: var(--akd-gray-dark-a-300);
     }
 
     /************************************************** 
@@ -211,21 +215,21 @@
     **************************************************/
 
     /* Light mode */
-    --tt-button-default-icon-color: var(--tt-gray-light-a-600);
-    --tt-button-hover-icon-color: var(--tt-gray-light-a-900);
-    --tt-button-active-icon-color: var(--tt-brand-color-500);
-    --tt-button-active-icon-color-emphasized: var(--tt-brand-color-600);
-    --tt-button-active-icon-color-subdued: var(--tt-gray-light-a-900);
-    --tt-button-disabled-icon-color: var(--tt-gray-light-a-400);
+    --akd-button-default-icon-color: var(--akd-gray-light-a-600);
+    --akd-button-hover-icon-color: var(--akd-gray-light-a-900);
+    --akd-button-active-icon-color: var(--akd-brand-color-500);
+    --akd-button-active-icon-color-emphasized: var(--akd-brand-color-600);
+    --akd-button-active-icon-color-subdued: var(--akd-gray-light-a-900);
+    --akd-button-disabled-icon-color: var(--akd-gray-light-a-400);
 
     /* Dark mode */
     .dark & {
-      --tt-button-default-icon-color: var(--tt-gray-dark-a-600);
-      --tt-button-hover-icon-color: var(--tt-gray-dark-a-900);
-      --tt-button-active-icon-color: var(--tt-brand-color-400);
-      --tt-button-active-icon-color-emphasized: var(--tt-brand-color-300);
-      --tt-button-active-icon-color-subdued: var(--tt-gray-dark-a-900);
-      --tt-button-disabled-icon-color: var(--tt-gray-dark-a-400);
+      --akd-button-default-icon-color: var(--akd-gray-dark-a-600);
+      --akd-button-hover-icon-color: var(--akd-gray-dark-a-900);
+      --akd-button-active-icon-color: var(--akd-brand-color-400);
+      --akd-button-active-icon-color-emphasized: var(--akd-brand-color-300);
+      --akd-button-active-icon-color-subdued: var(--akd-gray-dark-a-900);
+      --akd-button-disabled-icon-color: var(--akd-gray-dark-a-400);
     }
 
     /************************************************** 
@@ -233,21 +237,21 @@
     **************************************************/
 
     /* Light mode */
-    --tt-button-default-icon-sub-color: var(--tt-gray-light-a-400);
-    --tt-button-hover-icon-sub-color: var(--tt-gray-light-a-500);
-    --tt-button-active-icon-sub-color: var(--tt-gray-light-a-400);
-    --tt-button-active-icon-sub-color-emphasized: var(--tt-gray-light-a-500);
-    --tt-button-active-icon-sub-color-subdued: var(--tt-gray-light-a-400);
-    --tt-button-disabled-icon-sub-color: var(--tt-gray-light-a-100);
+    --akd-button-default-icon-sub-color: var(--akd-gray-light-a-400);
+    --akd-button-hover-icon-sub-color: var(--akd-gray-light-a-500);
+    --akd-button-active-icon-sub-color: var(--akd-gray-light-a-400);
+    --akd-button-active-icon-sub-color-emphasized: var(--akd-gray-light-a-500);
+    --akd-button-active-icon-sub-color-subdued: var(--akd-gray-light-a-400);
+    --akd-button-disabled-icon-sub-color: var(--akd-gray-light-a-100);
 
     /* Dark mode */
     .dark & {
-      --tt-button-default-icon-sub-color: var(--tt-gray-dark-a-300);
-      --tt-button-hover-icon-sub-color: var(--tt-gray-dark-a-400);
-      --tt-button-active-icon-sub-color: var(--tt-gray-dark-a-300);
-      --tt-button-active-icon-sub-color-emphasized: var(--tt-gray-dark-a-400);
-      --tt-button-active-icon-sub-color-subdued: var(--tt-gray-dark-a-300);
-      --tt-button-disabled-icon-sub-color: var(--tt-gray-dark-a-100);
+      --akd-button-default-icon-sub-color: var(--akd-gray-dark-a-300);
+      --akd-button-hover-icon-sub-color: var(--akd-gray-dark-a-400);
+      --akd-button-active-icon-sub-color: var(--akd-gray-dark-a-300);
+      --akd-button-active-icon-sub-color-emphasized: var(--akd-gray-dark-a-400);
+      --akd-button-active-icon-sub-color-subdued: var(--akd-gray-dark-a-300);
+      --akd-button-disabled-icon-sub-color: var(--akd-gray-dark-a-100);
     }
 
     /************************************************** 
@@ -255,29 +259,29 @@
     **************************************************/
 
     /* Light mode */
-    --tt-button-default-dropdown-arrows-color: var(--tt-gray-light-a-600);
-    --tt-button-hover-dropdown-arrows-color: var(--tt-gray-light-a-700);
-    --tt-button-active-dropdown-arrows-color: var(--tt-gray-light-a-600);
-    --tt-button-active-dropdown-arrows-color-emphasized: var(
-      --tt-gray-light-a-700
+    --akd-button-default-dropdown-arrows-color: var(--akd-gray-light-a-600);
+    --akd-button-hover-dropdown-arrows-color: var(--akd-gray-light-a-700);
+    --akd-button-active-dropdown-arrows-color: var(--akd-gray-light-a-600);
+    --akd-button-active-dropdown-arrows-color-emphasized: var(
+      --akd-gray-light-a-700
     );
-    --tt-button-active-dropdown-arrows-color-subdued: var(
-      --tt-gray-light-a-600
+    --akd-button-active-dropdown-arrows-color-subdued: var(
+      --akd-gray-light-a-600
     );
-    --tt-button-disabled-dropdown-arrows-color: var(--tt-gray-light-a-400);
+    --akd-button-disabled-dropdown-arrows-color: var(--akd-gray-light-a-400);
 
     /* Dark mode */
     .dark & {
-      --tt-button-default-dropdown-arrows-color: var(--tt-gray-dark-a-600);
-      --tt-button-hover-dropdown-arrows-color: var(--tt-gray-dark-a-700);
-      --tt-button-active-dropdown-arrows-color: var(--tt-gray-dark-a-600);
-      --tt-button-active-dropdown-arrows-color-emphasized: var(
-        --tt-gray-dark-a-700
+      --akd-button-default-dropdown-arrows-color: var(--akd-gray-dark-a-600);
+      --akd-button-hover-dropdown-arrows-color: var(--akd-gray-dark-a-700);
+      --akd-button-active-dropdown-arrows-color: var(--akd-gray-dark-a-600);
+      --akd-button-active-dropdown-arrows-color-emphasized: var(
+        --akd-gray-dark-a-700
       );
-      --tt-button-active-dropdown-arrows-color-subdued: var(
-        --tt-gray-dark-a-600
+      --akd-button-active-dropdown-arrows-color-subdued: var(
+        --akd-gray-dark-a-600
       );
-      --tt-button-disabled-dropdown-arrows-color: var(--tt-gray-dark-a-400);
+      --akd-button-disabled-dropdown-arrows-color: var(--akd-gray-dark-a-400);
     }
   }
 
@@ -291,43 +295,43 @@
     **************************************************/
 
     /* Light mode */
-    --tt-button-default-bg-color: var(--tt-brand-color-500);
-    --tt-button-hover-bg-color: var(--tt-brand-color-600);
-    --tt-button-active-bg-color: var(--tt-brand-color-100);
-    --tt-button-active-bg-color-emphasized: var(
-      --tt-brand-color-100
+    --akd-button-default-bg-color: var(--akd-brand-color-500);
+    --akd-button-hover-bg-color: var(--akd-brand-color-600);
+    --akd-button-active-bg-color: var(--akd-brand-color-100);
+    --akd-button-active-bg-color-emphasized: var(
+      --akd-brand-color-100
     ); //more important active state
-    --tt-button-active-bg-color-subdued: var(
-      --tt-brand-color-100
+    --akd-button-active-bg-color-subdued: var(
+      --akd-brand-color-100
     ); //less important active state
-    --tt-button-active-hover-bg-color: var(--tt-brand-color-200);
-    --tt-button-active-hover-bg-color-emphasized: var(
-      --tt-brand-color-200
+    --akd-button-active-hover-bg-color: var(--akd-brand-color-200);
+    --akd-button-active-hover-bg-color-emphasized: var(
+      --akd-brand-color-200
     ); //more important active state hover
-    --tt-button-active-hover-bg-color-subdued: var(
-      --tt-brand-color-200
+    --akd-button-active-hover-bg-color-subdued: var(
+      --akd-brand-color-200
     ); //less important active state hover
-    --tt-button-disabled-bg-color: var(--tt-gray-light-a-100);
+    --akd-button-disabled-bg-color: var(--akd-gray-light-a-100);
 
     /* Dark mode */
     .dark & {
-      --tt-button-default-bg-color: var(--tt-brand-color-500);
-      --tt-button-hover-bg-color: var(--tt-brand-color-600);
-      --tt-button-active-bg-color: var(--tt-brand-color-900);
-      --tt-button-active-bg-color-emphasized: var(
-        --tt-brand-color-900
+      --akd-button-default-bg-color: var(--akd-brand-color-500);
+      --akd-button-hover-bg-color: var(--akd-brand-color-600);
+      --akd-button-active-bg-color: var(--akd-brand-color-900);
+      --akd-button-active-bg-color-emphasized: var(
+        --akd-brand-color-900
       ); //more important active state
-      --tt-button-active-bg-color-subdued: var(
-        --tt-brand-color-900
+      --akd-button-active-bg-color-subdued: var(
+        --akd-brand-color-900
       ); //less important active state
-      --tt-button-active-hover-bg-color: var(--tt-brand-color-800);
-      --tt-button-active-hover-bg-color-emphasized: var(
-        --tt-brand-color-800
+      --akd-button-active-hover-bg-color: var(--akd-brand-color-800);
+      --akd-button-active-hover-bg-color-emphasized: var(
+        --akd-brand-color-800
       ); //more important active state hover
-      --tt-button-active-hover-bg-color-subdued: var(
-        --tt-brand-color-800
+      --akd-button-active-hover-bg-color-subdued: var(
+        --akd-brand-color-800
       ); //less important active state hover
-      --tt-button-disabled-bg-color: var(--tt-gray-dark-a-100);
+      --akd-button-disabled-bg-color: var(--akd-gray-dark-a-100);
     }
 
     /************************************************** 
@@ -335,21 +339,21 @@
     **************************************************/
 
     /* Light mode */
-    --tt-button-default-text-color: var(--white);
-    --tt-button-hover-text-color: var(--white);
-    --tt-button-active-text-color: var(--tt-gray-light-a-900);
-    --tt-button-active-text-color-emphasized: var(--tt-gray-light-a-900);
-    --tt-button-active-text-color-subdued: var(--tt-gray-light-a-900);
-    --tt-button-disabled-text-color: var(--tt-gray-light-a-400);
+    --akd-button-default-text-color: var(--white);
+    --akd-button-hover-text-color: var(--white);
+    --akd-button-active-text-color: var(--akd-gray-light-a-900);
+    --akd-button-active-text-color-emphasized: var(--akd-gray-light-a-900);
+    --akd-button-active-text-color-subdued: var(--akd-gray-light-a-900);
+    --akd-button-disabled-text-color: var(--akd-gray-light-a-400);
 
     /* Dark mode */
     .dark & {
-      --tt-button-default-text-color: var(--white);
-      --tt-button-hover-text-color: var(--white);
-      --tt-button-active-text-color: var(--tt-gray-dark-a-900);
-      --tt-button-active-text-color-emphasized: var(--tt-gray-dark-a-900);
-      --tt-button-active-text-color-subdued: var(--tt-gray-dark-a-900);
-      --tt-button-disabled-text-color: var(--tt-gray-dark-a-300);
+      --akd-button-default-text-color: var(--white);
+      --akd-button-hover-text-color: var(--white);
+      --akd-button-active-text-color: var(--akd-gray-dark-a-900);
+      --akd-button-active-text-color-emphasized: var(--akd-gray-dark-a-900);
+      --akd-button-active-text-color-subdued: var(--akd-gray-dark-a-900);
+      --akd-button-disabled-text-color: var(--akd-gray-dark-a-300);
     }
 
     /************************************************** 
@@ -357,21 +361,21 @@
     **************************************************/
 
     /* Light mode */
-    --tt-button-default-icon-color: var(--white);
-    --tt-button-hover-icon-color: var(--white);
-    --tt-button-active-icon-color: var(--tt-brand-color-600);
-    --tt-button-active-icon-color-emphasized: var(--tt-brand-color-600);
-    --tt-button-active-icon-color-subdued: var(--tt-brand-color-600);
-    --tt-button-disabled-icon-color: var(--tt-gray-light-a-400);
+    --akd-button-default-icon-color: var(--white);
+    --akd-button-hover-icon-color: var(--white);
+    --akd-button-active-icon-color: var(--akd-brand-color-600);
+    --akd-button-active-icon-color-emphasized: var(--akd-brand-color-600);
+    --akd-button-active-icon-color-subdued: var(--akd-brand-color-600);
+    --akd-button-disabled-icon-color: var(--akd-gray-light-a-400);
 
     /* Dark mode */
     .dark & {
-      --tt-button-default-icon-color: var(--white);
-      --tt-button-hover-icon-color: var(--white);
-      --tt-button-active-icon-color: var(--tt-brand-color-400);
-      --tt-button-active-icon-color-emphasized: var(--tt-brand-color-400);
-      --tt-button-active-icon-color-subdued: var(--tt-brand-color-400);
-      --tt-button-disabled-icon-color: var(--tt-gray-dark-a-300);
+      --akd-button-default-icon-color: var(--white);
+      --akd-button-hover-icon-color: var(--white);
+      --akd-button-active-icon-color: var(--akd-brand-color-400);
+      --akd-button-active-icon-color-emphasized: var(--akd-brand-color-400);
+      --akd-button-active-icon-color-subdued: var(--akd-brand-color-400);
+      --akd-button-disabled-icon-color: var(--akd-gray-dark-a-300);
     }
 
     /************************************************** 
@@ -379,21 +383,21 @@
     **************************************************/
 
     /* Light mode */
-    --tt-button-default-icon-sub-color: var(--tt-gray-dark-a-500);
-    --tt-button-hover-icon-sub-color: var(--tt-gray-dark-a-500);
-    --tt-button-active-icon-sub-color: var(--tt-gray-light-a-500);
-    --tt-button-active-icon-sub-color-emphasized: var(--tt-gray-light-a-500);
-    --tt-button-active-icon-sub-color-subdued: var(--tt-gray-light-a-500);
-    --tt-button-disabled-icon-sub-color: var(--tt-gray-light-a-100);
+    --akd-button-default-icon-sub-color: var(--akd-gray-dark-a-500);
+    --akd-button-hover-icon-sub-color: var(--akd-gray-dark-a-500);
+    --akd-button-active-icon-sub-color: var(--akd-gray-light-a-500);
+    --akd-button-active-icon-sub-color-emphasized: var(--akd-gray-light-a-500);
+    --akd-button-active-icon-sub-color-subdued: var(--akd-gray-light-a-500);
+    --akd-button-disabled-icon-sub-color: var(--akd-gray-light-a-100);
 
     /* Dark mode */
     .dark & {
-      --tt-button-default-icon-sub-color: var(--tt-gray-dark-a-400);
-      --tt-button-hover-icon-sub-color: var(--tt-gray-dark-a-500);
-      --tt-button-active-icon-sub-color: var(--tt-gray-dark-a-300);
-      --tt-button-active-icon-sub-color-emphasized: var(--tt-gray-dark-a-400);
-      --tt-button-active-icon-sub-color-subdued: var(--tt-gray-dark-a-300);
-      --tt-button-disabled-icon-sub-color: var(--tt-gray-dark-a-100);
+      --akd-button-default-icon-sub-color: var(--akd-gray-dark-a-400);
+      --akd-button-hover-icon-sub-color: var(--akd-gray-dark-a-500);
+      --akd-button-active-icon-sub-color: var(--akd-gray-dark-a-300);
+      --akd-button-active-icon-sub-color-emphasized: var(--akd-gray-dark-a-400);
+      --akd-button-active-icon-sub-color-subdued: var(--akd-gray-dark-a-300);
+      --akd-button-disabled-icon-sub-color: var(--akd-gray-dark-a-100);
     }
 
     /************************************************** 
@@ -401,29 +405,29 @@
     **************************************************/
 
     /* Light mode */
-    --tt-button-default-dropdown-arrows-color: var(--white);
-    --tt-button-hover-dropdown-arrows-color: var(--white);
-    --tt-button-active-dropdown-arrows-color: var(--tt-gray-light-a-700);
-    --tt-button-active-dropdown-arrows-color-emphasized: var(
-      --tt-gray-light-a-700
+    --akd-button-default-dropdown-arrows-color: var(--white);
+    --akd-button-hover-dropdown-arrows-color: var(--white);
+    --akd-button-active-dropdown-arrows-color: var(--akd-gray-light-a-700);
+    --akd-button-active-dropdown-arrows-color-emphasized: var(
+      --akd-gray-light-a-700
     );
-    --tt-button-active-dropdown-arrows-color-subdued: var(
-      --tt-gray-light-a-700
+    --akd-button-active-dropdown-arrows-color-subdued: var(
+      --akd-gray-light-a-700
     );
-    --tt-button-disabled-dropdown-arrows-color: var(--tt-gray-light-a-400);
+    --akd-button-disabled-dropdown-arrows-color: var(--akd-gray-light-a-400);
 
     /* Dark mode */
     .dark & {
-      --tt-button-default-dropdown-arrows-color: var(--white);
-      --tt-button-hover-dropdown-arrows-color: var(--white);
-      --tt-button-active-dropdown-arrows-color: var(--tt-gray-dark-a-600);
-      --tt-button-active-dropdown-arrows-color-emphasized: var(
-        --tt-gray-dark-a-600
+      --akd-button-default-dropdown-arrows-color: var(--white);
+      --akd-button-hover-dropdown-arrows-color: var(--white);
+      --akd-button-active-dropdown-arrows-color: var(--akd-gray-dark-a-600);
+      --akd-button-active-dropdown-arrows-color-emphasized: var(
+        --akd-gray-dark-a-600
       );
-      --tt-button-active-dropdown-arrows-color-subdued: var(
-        --tt-gray-dark-a-600
+      --akd-button-active-dropdown-arrows-color-subdued: var(
+        --akd-gray-dark-a-600
       );
-      --tt-button-disabled-dropdown-arrows-color: var(--tt-gray-dark-a-400);
+      --akd-button-disabled-dropdown-arrows-color: var(--akd-gray-dark-a-400);
     }
   }
 }

@@ -414,7 +414,7 @@ export function SimpleEditor({
                 HTMLAttributes: {
                   class: "mention",
                   style:
-                    "background-color: var(--tt-brand-color-500); border-radius: 9999px; color: rgb(250 251 252); margin: 0.2rem; display: inline-block; font-size: 12px; padding: 0.1rem 0.5rem;",
+                    "background-color: var(--akd-brand-color-500); border-radius: 9999px; color: rgb(250 251 252); margin: 0.2rem; display: inline-block; font-size: 12px; padding: 0.1rem 0.5rem;",
                 },
                 suggestion: getMentionSuggestion(mentions),
 

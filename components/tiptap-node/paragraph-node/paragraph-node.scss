@@ -1,21 +1,21 @@
 .akd.ProseMirror {
-  --tt-collaboration-carets-label: var(--tt-gray-light-900);
-  --link-text-color: var(--tt-brand-color-500);
-  --thread-text: var(--tt-gray-light-900);
-  --placeholder-color: var(--tt-gray-light-a-400);
-  --thread-bg-color: var(--tt-color-yellow-inc-2);
+  --akd-collaboration-carets-label: var(--akd-gray-light-900);
+  --link-text-color: var(--akd-brand-color-500);
+  --thread-text: var(--akd-gray-light-900);
+  --placeholder-color: var(--akd-gray-light-a-400);
+  --thread-bg-color: var(--akd-color-yellow-inc-2);
 
   // ai
-  --akd-ai-insertion-color: var(--tt-brand-color-600);
+  --akd-ai-insertion-color: var(--akd-brand-color-600);
 
   .dark & {
-    --tt-collaboration-carets-label: var(--tt-gray-dark-100);
-    --link-text-color: var(--tt-brand-color-400);
-    --thread-text: var(--tt-gray-dark-900);
-    --placeholder-color: var(--tt-gray-dark-a-400);
-    --thread-bg-color: var(--tt-color-yellow-dec-2);
+    --akd-collaboration-carets-label: var(--akd-gray-dark-100);
+    --link-text-color: var(--akd-brand-color-400);
+    --thread-text: var(--akd-gray-dark-900);
+    --placeholder-color: var(--akd-gray-dark-a-400);
+    --thread-bg-color: var(--akd-color-yellow-dec-2);
 
-    --akd-ai-insertion-color: var(--tt-brand-color-400);
+    --akd-ai-insertion-color: var(--akd-brand-color-400);
   }
 }
 
@@ -31,7 +31,7 @@
 .akd.ProseMirror {
   white-space: pre-wrap;
   outline: none;
-  caret-color: var(--tt-cursor-color);
+  caret-color: var(--akd-cursor-color);
 
   // Paragraph spacing
   p {
@@ -43,7 +43,7 @@
   // Selection styles
   &:not(.readonly):not(.ProseMirror-hideselection) {
     ::selection {
-      background-color: var(--tt-selection-color);
+      background-color: var(--akd-selection-color);
     }
 
     .selection::selection {
@@ -53,7 +53,7 @@
 
   .selection {
     display: inline;
-    background-color: var(--tt-selection-color);
+    background-color: var(--akd-selection-color);
     font-size: inherit;
     font-weight: inherit;
     line-height: inherit;
@@ -61,8 +61,8 @@
 
   // Selected node styles
   .ProseMirror-selectednode:not(img):not(pre):not(.react-renderer) {
-    border-radius: var(--tt-radius-md);
-    background-color: var(--tt-selection-color);
+    border-radius: var(--akd-radius-md);
+    background-color: var(--akd-selection-color);
   }
 
   .ProseMirror-hideselection {
@@ -114,7 +114,7 @@
     }
 
     &__label {
-      color: var(--tt-collaboration-carets-label);
+      color: var(--akd-collaboration-carets-label);
       border-radius: 0.25rem;
       border-bottom-left-radius: 0;
       font-size: 0.75rem;
@@ -167,7 +167,7 @@
   .akd-thread.akd-thread--unresolved.akd-thread--inline {
     transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
     color: var(--thread-text);
-    border-bottom: 2px dashed var(--tt-color-yellow-base);
+    border-bottom: 2px dashed var(--akd-color-yellow-base);
     font-weight: 600;
 
     &.akd-thread--selected,
@@ -180,14 +180,14 @@
   // Block thread styles with images
   .akd-thread.akd-thread--unresolved.akd-thread--block {
     &:has(img) {
-      outline: 0.125rem solid var(--tt-color-yellow-base);
-      border-radius: var(--tt-radius-xs, 0.25rem);
+      outline: 0.125rem solid var(--akd-color-yellow-base);
+      border-radius: var(--akd-radius-xs, 0.25rem);
       overflow: hidden;
       width: fit-content;
 
       &.akd-thread--selected {
         outline-width: 0.25rem;
-        outline-color: var(--tt-color-yellow-base);
+        outline-color: var(--akd-color-yellow-base);
       }
 
       &.akd-thread--hovered {
@@ -198,21 +198,21 @@
     // Block thread styles without images
     &:not(:has(img)) {
       border-radius: 0.25rem;
-      border-bottom: 0.125rem dashed var(--tt-color-yellow-base);
+      border-bottom: 0.125rem dashed var(--akd-color-yellow-base);
       padding-bottom: 0.5rem;
       outline: 0.25rem solid transparent;
 
       &.akd-thread--hovered,
       &.akd-thread--selected {
-        background-color: var(--tt-color-yellow-base);
-        outline-color: var(--tt-color-yellow-base);
+        background-color: var(--akd-color-yellow-base);
+        outline-color: var(--akd-color-yellow-base);
       }
     }
   }
 
   // Resolved thread styles
   .akd-thread.akd-thread--resolved.akd-thread--inline.akd-thread--selected {
-    background-color: var(--tt-color-yellow-base);
+    background-color: var(--akd-color-yellow-base);
     border-color: transparent;
     opacity: 0.5;
   }
@@ -261,7 +261,7 @@
      ===================== */
 .prosemirror-dropcursor-block,
 .prosemirror-dropcursor-inline {
-  background: var(--tt-brand-color-400) !important;
+  background: var(--akd-brand-color-400) !important;
   border-radius: 0.25rem;
   margin-left: -1px;
   margin-right: -1px;

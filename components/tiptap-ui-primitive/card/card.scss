@@ -1,21 +1,21 @@
 :root {
   --akd-card-bg-color: var(--white);
-  --akd-card-border-color: var(--tt-gray-light-a-100);
-  --akd-card-group-label-color: var(--tt-gray-light-a-800);
+  --akd-card-border-color: var(--akd-gray-light-a-100);
+  --akd-card-group-label-color: var(--akd-gray-light-a-800);
 }
 
 .dark {
-  --akd-card-bg-color: var(--tt-gray-dark-50);
-  --akd-card-border-color: var(--tt-gray-dark-a-100);
-  --akd-card-group-label-color: var(--tt-gray-dark-a-800);
+  --akd-card-bg-color: var(--akd-gray-dark-50);
+  --akd-card-border-color: var(--akd-gray-dark-a-100);
+  --akd-card-group-label-color: var(--akd-gray-dark-a-800);
 }
 
 .akd-card {
   --padding: 0.375rem;
   --border-width: 1px;
 
-  border-radius: calc(var(--padding) + var(--tt-radius-lg));
-  box-shadow: var(--tt-shadow-elevated-md);
+  border-radius: calc(var(--padding) + var(--akd-radius-lg));
+  box-shadow: var(--akd-shadow-elevated-md);
   background-color: var(--akd-card-bg-color);
   border: 1px solid var(--akd-card-border-color);
   display: flex;

@@ -18,53 +18,53 @@ export const COLOR_HIGHLIGHT_SHORTCUT_KEY = "mod+shift+h";
 export const HIGHLIGHT_COLORS = [
   {
     label: "Default background",
-    value: "var(--tt-bg-color)",
-    border: "var(--tt-bg-color-contrast)",
+    value: "var(--akd-bg-color)",
+    border: "var(--akd-bg-color-contrast)",
   },
   {
     label: "Gray background",
-    value: "var(--tt-color-highlight-gray)",
-    border: "var(--tt-color-highlight-gray-contrast)",
+    value: "var(--akd-color-highlight-gray)",
+    border: "var(--akd-color-highlight-gray-contrast)",
   },
   {
     label: "Brown background",
-    value: "var(--tt-color-highlight-brown)",
-    border: "var(--tt-color-highlight-brown-contrast)",
+    value: "var(--akd-color-highlight-brown)",
+    border: "var(--akd-color-highlight-brown-contrast)",
   },
   {
     label: "Orange background",
-    value: "var(--tt-color-highlight-orange)",
-    border: "var(--tt-color-highlight-orange-contrast)",
+    value: "var(--akd-color-highlight-orange)",
+    border: "var(--akd-color-highlight-orange-contrast)",
   },
   {
     label: "Yellow background",
-    value: "var(--tt-color-highlight-yellow)",
-    border: "var(--tt-color-highlight-yellow-contrast)",
+    value: "var(--akd-color-highlight-yellow)",
+    border: "var(--akd-color-highlight-yellow-contrast)",
   },
   {
     label: "Green background",
-    value: "var(--tt-color-highlight-green)",
-    border: "var(--tt-color-highlight-green-contrast)",
+    value: "var(--akd-color-highlight-green)",
+    border: "var(--akd-color-highlight-green-contrast)",
   },
   {
     label: "Blue background",
-    value: "var(--tt-color-highlight-blue)",
-    border: "var(--tt-color-highlight-blue-contrast)",
+    value: "var(--akd-color-highlight-blue)",
+    border: "var(--akd-color-highlight-blue-contrast)",
   },
   {
     label: "Purple background",
-    value: "var(--tt-color-highlight-purple)",
-    border: "var(--tt-color-highlight-purple-contrast)",
+    value: "var(--akd-color-highlight-purple)",
+    border: "var(--akd-color-highlight-purple-contrast)",
   },
   {
     label: "Pink background",
-    value: "var(--tt-color-highlight-pink)",
-    border: "var(--tt-color-highlight-pink-contrast)",
+    value: "var(--akd-color-highlight-pink)",
+    border: "var(--akd-color-highlight-pink-contrast)",
   },
   {
     label: "Red background",
-    value: "var(--tt-color-highlight-red)",
-    border: "var(--tt-color-highlight-red-contrast)",
+    value: "var(--akd-color-highlight-red)",
+    border: "var(--akd-color-highlight-red-contrast)",
   },
 ];
 export type HighlightColor = (typeof HIGHLIGHT_COLORS)[number];
@@ -98,7 +98,7 @@ export interface UseColorHighlightConfig {
 
 export function pickHighlightColorsByValue(values: string[]) {
   const colorMap = new Map(
-    HIGHLIGHT_COLORS.map((color) => [color.value, color]),
+    HIGHLIGHT_COLORS.map((color) => [color.value, color])
   );
   return values
     .map((value) => colorMap.get(value))
@@ -118,7 +118,7 @@ export function canColorHighlight(editor: Editor | null): boolean {
 
 export function isColorHighlightActive(
   editor: Editor | null,
-  highlightColor?: string,
+  highlightColor?: string
 ): boolean {
   if (!editor || !editor.isEditable) return false;
   return highlightColor
@@ -188,7 +188,7 @@ export function useColorHighlight(config: UseColorHighlightConfig) {
       const highlightMarkType = editor.schema.marks.highlight;
       if (highlightMarkType) {
         editor.view.dispatch(
-          editor.state.tr.removeStoredMark(highlightMarkType),
+          editor.state.tr.removeStoredMark(highlightMarkType)
         );
       }
     }
@@ -224,7 +224,7 @@ export function useColorHighlight(config: UseColorHighlightConfig) {
       enabled: isVisible && canColorHighlightState,
       enableOnContentEditable: !isMobile,
       enableOnFormTags: true,
-    },
+    }
   );
 
   return {
