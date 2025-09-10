@@ -120,6 +120,7 @@ import {
   HandleImagePasteAndDropParams,
 } from "@/components/tiptap-node/image-paste-node/image-paste-node-extension";
 import ClearHighlightOnBlur from "@/components/tiptap-node/selection-node/highlight-selection";
+import { Spacer } from "@/components/tiptap-ui-primitive/spacer";
 import { ResizableImageExtension } from "@/components/tiptap-ui/image-resizable-button";
 import FloatingTableMenu from "@/components/tiptap-ui/table-button/floating-table-menu";
 import CustomTableCell from "@/components/tiptap-ui/table-button/table-cell";
@@ -139,6 +140,7 @@ const MainToolbarContent = ({
 }: MainToolbarParams) => {
   return (
     <>
+      <Spacer />
       <ToolbarGroup>
         <UndoRedoButton action="undo" />
         <UndoRedoButton action="redo" />
@@ -211,6 +213,7 @@ const MainToolbarContent = ({
         )}
       </ToolbarGroup>
 
+      <Spacer />
       {isMobile && <ToolbarSeparator />}
 
       {/* dark mode */}
