@@ -6,7 +6,7 @@
 
 **A modern, powerful rich text editor for React and vanilla JavaScript**
 
-[![npm version](https://badge.fury.io/js/@akhlaqdigital%2Feditor.svg)](https://badge.fury.io/js/@akhlaqdigital%2Feditor)
+[![npm version](https://img.shields.io/npm/v/@akhlaqdigital/editor.svg)](https://www.npmjs.com/package/@akhlaqdigital/editor)
 [![Downloads](https://img.shields.io/npm/dm/@akhlaqdigital/editor.svg)](https://npm-stat.com/charts.html?package=@akhlaqdigital/editor)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
