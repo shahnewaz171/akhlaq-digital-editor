@@ -30,6 +30,7 @@ export interface SimpleEditorProps {
   isFileUpload?: boolean;
   isShowEmoji?: boolean;
   isBottomToolbar?: boolean;
+  isRefreshEditor?: boolean;
   height?: number;
   acceptedFileTypes?: string;
   content?: string | null;

@@ -46,15 +46,16 @@
 
 ### Feature Options
 
-| Option            | Type      | Default | Description                |
-| ----------------- | --------- | ------- | -------------------------- |
-| `isEditable`      | `boolean` | `true`  | Enable/disable editing     |
-| `isAutoFocus`     | `boolean` | `false` | Auto focus on init         |
-| `isShowMention`   | `boolean` | `true`  | Enable @mentions           |
-| `isShowEmoji`     | `boolean` | `true`  | Enable emoji picker        |
-| `isFileUpload`    | `boolean` | `true`  | Enable file uploads        |
-| `isBottomToolbar` | `boolean` | `false` | Position toolbar at bottom |
-| `height`          | `number`  | `300`   | Editor height in pixels    |
+| Option            | Type      | Default | Description                    |
+| ----------------- | --------- | ------- | ------------------------------ |
+| `isEditable`      | `boolean` | `true`  | Enable/disable editing         |
+| `isRefreshEditor` | `boolean` | `false` | Force remount when deps change |
+| `isAutoFocus`     | `boolean` | `false` | Auto focus on init             |
+| `isShowMention`   | `boolean` | `true`  | Enable @mentions               |
+| `isShowEmoji`     | `boolean` | `true`  | Enable emoji picker            |
+| `isFileUpload`    | `boolean` | `true`  | Enable file uploads            |
+| `isBottomToolbar` | `boolean` | `false` | Position toolbar at bottom     |
+| `height`          | `number`  | `300`   | Editor height in pixels        |
 
 ### Advanced Options
 

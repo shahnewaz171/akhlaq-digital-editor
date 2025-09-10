@@ -120,6 +120,11 @@ export function ColorHighlightPopoverContent({
     autoSelectFirstItem: false,
   });
 
+  const handleMouseDown = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
   return (
     <Card
       ref={containerRef}
@@ -144,6 +149,7 @@ export function ColorHighlightPopoverContent({
           <Separator />
           <ButtonGroup orientation="horizontal">
             <Button
+              onMouseDown={handleMouseDown}
               onClick={handleRemoveHighlight}
               aria-label="Remove highlight"
               tooltip="Remove highlight"

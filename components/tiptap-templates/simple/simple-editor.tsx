@@ -257,6 +257,7 @@ export function SimpleEditor({
   isFileUpload = true,
   isShowEmoji = true,
   isBottomToolbar = false,
+  isRefreshEditor = false,
   height = 300,
   acceptedFileTypes = "",
   content = null,
@@ -291,6 +292,7 @@ export function SimpleEditor({
   const editorKey = React.useMemo(
     () =>
       [
+        isRefreshEditor,
         isAutoFocus,
         isEditable,
         isShowMention,
@@ -300,6 +302,7 @@ export function SimpleEditor({
         JSON.stringify(mentions),
       ].join("-"),
     [
+      isRefreshEditor,
       isAutoFocus,
       isEditable,
       isShowMention,

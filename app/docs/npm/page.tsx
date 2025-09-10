@@ -259,6 +259,14 @@ export default function EditorPage() {
                     <td className="p-3">Enable editing capabilities</td>
                   </tr>
                   <tr className="border-b">
+                    <td className="p-3 font-mono">isRefreshEditor</td>
+                    <td className="p-3">boolean</td>
+                    <td className="p-3 font-mono">false</td>
+                    <td className="p-3">
+                      Force remount editor when dependencies change
+                    </td>
+                  </tr>
+                  <tr className="border-b">
                     <td className="p-3 font-mono">isShowMention</td>
                     <td className="p-3">boolean</td>
                     <td className="p-3 font-mono">true</td>

@@ -111,6 +111,15 @@ export const HeadingDropdownMenu = React.forwardRef<
                     />
                   </DropdownMenuItem>
                 ))}
+                <DropdownMenuItem asChild>
+                  <Button
+                    type="button"
+                    data-style="ghost"
+                    onClick={() => editor?.chain().focus().setParagraph().run()}
+                  >
+                    Reset
+                  </Button>
+                </DropdownMenuItem>
               </ButtonGroup>
             </CardBody>
           </Card>

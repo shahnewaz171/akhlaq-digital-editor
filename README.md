@@ -118,6 +118,7 @@ All styles are scoped and won't interfere with your existing CSS framework (Boot
 | `placeholder`          | `string`   | `"Enter your content here"` | Placeholder text                                                  |
 | `height`               | `number`   | `300`                       | Editor height in pixels                                           |
 | `isEditable`           | `boolean`  | `true`                      | Enable/disable editing                                            |
+| `isRefreshEditor`      | `boolean`  | `false`                     | Force remount when deps change                                    |
 | `isAutoFocus`          | `boolean`  | `false`                     | Autofocus the editor on mount                                     |
 | `isShowMention`        | `boolean`  | `true`                      | Enable @mentions                                                  |
 | `isShowEmoji`          | `boolean`  | `true`                      | Enable emoji picker                                               |

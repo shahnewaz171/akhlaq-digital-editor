@@ -44,6 +44,7 @@ export interface EditorInitOptions {
   isShowEmoji?: boolean;
   isFileUpload?: boolean;
   isBottomToolbar?: boolean;
+  isRefreshEditor?: boolean;
   height?: number;
   acceptedFileTypes?: string;
   mentions?: any[];
@@ -229,6 +230,7 @@ class EditorManager {
         content: currentContent,
         placeholder: options.placeholder || "Start writing...",
         className: options.className,
+        isRefreshEditor: options.isRefreshEditor || false,
         isAutoFocus: options.isAutoFocus || false,
         isEditable: options.isEditable !== false, // Default to true
         isShowMention: options.isShowMention !== false, // Default to true
@@ -439,6 +441,7 @@ class EditorManager {
               content={content}
               placeholder={latestInstance.options.placeholder}
               className={latestInstance.options.className}
+              isRefreshEditor={latestInstance.options.isRefreshEditor}
               isAutoFocus={latestInstance.options.isAutoFocus}
               isEditable={latestInstance.options.isEditable}
               isShowMention={latestInstance.options.isShowMention}
@@ -498,6 +501,7 @@ const autoInit = () => {
         content: scriptTag.dataset.content,
         placeholder: scriptTag.dataset.placeholder,
         className: scriptTag.dataset.className,
+        isRefreshEditor: scriptTag.dataset.refreshEditor === "true",
         isAutoFocus: scriptTag.dataset.autoFocus === "true",
         isEditable: scriptTag.dataset.editable !== "false", // Default to true
         isShowMention: scriptTag.dataset.mentions === "true",
@@ -561,6 +565,7 @@ if (typeof window !== "undefined") {
         content: editorProps?.content || null,
         placeholder: editorProps?.placeholder,
         className: editorProps?.className,
+        isRefreshEditor: editorProps?.isRefreshEditor,
         isAutoFocus: editorProps?.isAutoFocus,
         isEditable: editorProps?.isEditable,
         isShowMention: editorProps?.isShowMention,
