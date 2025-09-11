@@ -59,7 +59,7 @@ function TextColorMenu({ editor: providedEditor }: { editor?: Editor }) {
           aria-label="Text color"
           disabled={!editor?.isEditable}
           data-disabled={!editor?.isEditable}
-          className="!p-1 !pl-2 flex items-center justify-center gap-1"
+          className="akd-p-1 akd-pl-2 akd-flex akd-items-center akd-justify-center akd-gap-1"
           tooltip="Text color"
           data-active-state={isSelectCellColor ? "on" : "off"}
           style={{
@@ -69,10 +69,10 @@ function TextColorMenu({ editor: providedEditor }: { editor?: Editor }) {
             boxShadow: "none",
           }}
         >
-          <span className="relative inline-block font-bold text-[14px] leading-[16px]">
+          <span className="akd-relative akd-inline-block-font-bold-14">
             <FontSizeIcon className="akd-button-icon" />
             <span
-              className="absolute bottom-[-2px] left-0 right-0 h-[3px]"
+              className="akd-absolute akd-bottom-neg-2 akd-left-0 akd-right-0 akd-h-3px"
               style={{
                 backgroundColor:
                   editor?.getAttributes("textStyle")?.color || "#000000",
@@ -86,10 +86,10 @@ function TextColorMenu({ editor: providedEditor }: { editor?: Editor }) {
       {/* dropdown content */}
       <DropdownMenuContent
         align="start"
-        className="p-2 bg-white rounded-md"
+        className="akd-p-2 akd-bg-white akd-rounded-md"
         style={{ boxShadow: "0 4px 24px 0 rgba(0,0,0,0.12)" }}
       >
-        <div className="grid grid-cols-7 gap-1.5">
+        <div className="akd-grid akd-grid-cols-7 akd-gap-1-5">
           {TEXT_COLORS.map((item) => {
             const isCellYellow = editor?.isActive("textStyle", {
               color: item.color,
@@ -101,7 +101,7 @@ function TextColorMenu({ editor: providedEditor }: { editor?: Editor }) {
                   type="button"
                   data-style="ghost"
                   aria-label={item.name}
-                  className="cursor-pointer !p-0"
+                  className="akd-cursor-pointer akd-p-0"
                   tooltip={item.name}
                   style={{
                     background: item.color,
@@ -114,7 +114,7 @@ function TextColorMenu({ editor: providedEditor }: { editor?: Editor }) {
                   onClick={() => setColor(item.color)}
                 >
                   {isCellYellow && (
-                    <CheckIcon className=" text-black font-semibold" />
+                    <CheckIcon className="akd-text-black akd-font-semibold" />
                   )}
                 </Button>
               </DropdownMenuItem>
@@ -123,7 +123,7 @@ function TextColorMenu({ editor: providedEditor }: { editor?: Editor }) {
         </div>
 
         {/* remove cell background */}
-        <div className="flex justify-center mt-2">
+        <div className="akd-flex akd-justify-center akd-mt-2">
           <Button
             onClick={() => editor?.chain().focus().unsetColor().run()}
             aria-label="Remove color"
@@ -131,7 +131,7 @@ function TextColorMenu({ editor: providedEditor }: { editor?: Editor }) {
             type="button"
             role="menuitem"
             data-style="ghost"
-            className="cursor-pointer"
+            className="akd-cursor-pointer"
             data-testid="unsetColor"
             style={{ height: 28, width: 28, minWidth: 0, borderRadius: 4 }}
           >

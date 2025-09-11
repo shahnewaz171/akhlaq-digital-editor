@@ -77,7 +77,7 @@ export function FontSizeDropdown({
       <DropdownMenuContent
         align="start"
         portal={portal}
-        className="custom-dropdown"
+        className="akd-custom-dropdown"
       >
         <Card>
           <CardBody>
@@ -92,7 +92,10 @@ export function FontSizeDropdown({
                     <Button
                       type="button"
                       data-style="ghost"
-                      className={cn("cursor-pointer", isActive && "is-active")}
+                      className={cn(
+                        "akd-cursor-pointer",
+                        isActive && "is-active"
+                      )}
                       onClick={() =>
                         exec(() =>
                           editor?.chain().focus().setFontSize(size).run()
@@ -109,7 +112,7 @@ export function FontSizeDropdown({
                 <Button
                   type="button"
                   data-style="ghost"
-                  className="cursor-pointer"
+                  className="akd-cursor-pointer"
                   onClick={() =>
                     exec(() => editor?.chain().focus().unsetFontSize().run())
                   }

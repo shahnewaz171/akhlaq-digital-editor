@@ -81,7 +81,7 @@ export function FontFamilyDropdown({
       <DropdownMenuContent align="start" portal={portal}>
         <Card>
           <CardBody>
-            <ButtonGroup className="gap-1 w-full">
+            <ButtonGroup className="akd-gap-1 akd-w-full">
               {families.map((family) => {
                 const isActive = editor?.isActive("textStyle", {
                   fontFamily: family,
@@ -92,7 +92,10 @@ export function FontFamilyDropdown({
                     <Button
                       type="button"
                       data-style="ghost"
-                      className={cn("cursor-pointer", isActive && "is-active")}
+                      className={cn(
+                        "akd-cursor-pointer",
+                        isActive && "is-active"
+                      )}
                       style={{ fontFamily: family }}
                       onClick={() => handleSelectFont(family)}
                     >
@@ -106,7 +109,7 @@ export function FontFamilyDropdown({
                 <Button
                   type="button"
                   data-style="ghost"
-                  className="cursor-pointer"
+                  className="akd-cursor-pointer"
                   onClick={() => handleSelectFont("", true)}
                 >
                   Reset

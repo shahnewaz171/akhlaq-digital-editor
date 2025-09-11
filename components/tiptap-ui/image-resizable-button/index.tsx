@@ -30,12 +30,12 @@ const NodeView = (props: ResizableImageNodeViewRendererProps) => {
           <Popover.Content
             side="bottom"
             align="center"
-            className="z-50 bg-white border rounded shadow-md p-2 flex gap-1 my-2"
+            className="akd-z-50 akd-bg-white akd-border akd-rounded akd-shadow-md akd-p-2 akd-flex akd-gap-1 akd-my-2"
           >
             <button
               type="button"
               onClick={() => setTextAlign("left")}
-              className="p-1 rounded hover:bg-gray-100 focus:bg-gray-200"
+              className="akd-p-1 akd-rounded akd-hover-bg-gray-100 akd-focus-bg-gray-200"
               aria-label="Align left"
             >
               <AlignLeftIcon />
@@ -43,7 +43,7 @@ const NodeView = (props: ResizableImageNodeViewRendererProps) => {
             <button
               type="button"
               onClick={() => setTextAlign("center")}
-              className="p-1 rounded hover:bg-gray-100 focus:bg-gray-200"
+              className="akd-p-1 akd-rounded akd-hover-bg-gray-100 akd-focus-bg-gray-200"
               aria-label="Align center"
             >
               <AlignCenterIcon />
@@ -51,7 +51,7 @@ const NodeView = (props: ResizableImageNodeViewRendererProps) => {
             <button
               type="button"
               onClick={() => setTextAlign("right")}
-              className="p-1 rounded hover:bg-gray-100 focus:bg-gray-200"
+              className="akd-p-1 akd-rounded akd-hover-bg-gray-100 akd-focus-bg-gray-200"
               aria-label="Align right"
             >
               <AlignRightIcon />

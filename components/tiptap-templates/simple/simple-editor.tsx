@@ -41,6 +41,7 @@ import { HorizontalRule } from "@/components/tiptap-node/horizontal-rule-node/ho
 import { FileUploadNode } from "@/components/tiptap-node/file-upload-node/file-upload-node-extension";
 import { AutoHideWhileTyping } from "@/components/tiptap-node/auto-hide-while-typing";
 import emojiSuggestion from "@/components/tiptap-node/emoji-node/emoji-suggestion";
+import "@/styles/global-editor.scss";
 import "@/components/tiptap-node/blockquote-node/blockquote-node.scss";
 import "@/components/tiptap-node/code-block-node/code-block-node.scss";
 import "@/components/tiptap-node/horizontal-rule-node/horizontal-rule-node.scss";
@@ -661,13 +662,13 @@ export function SimpleEditor({
           />
 
           {/* status bar */}
-          <div className="flex justify-end items-center gap-2 bg-[#f5f5f6] editor-status-bar pr-5">
-            <p className="!text-[11px] uppercase">{`Chars: ${characters}`}</p>
-            <p className="!text-[11px] uppercase">{`Words: ${words}`}</p>
+          <div className="akd-editor-status-bar editor-status-bar">
+            <p className="akd-text-11-uppercase">{`Chars: ${characters}`}</p>
+            <p className="akd-text-11-uppercase">{`Words: ${words}`}</p>
           </div>
 
           {/* resize */}
-          <div className="relative editor-resize">
+          <div className="akd-relative editor-resize">
             <span
               className="editor-resize-icon"
               onMouseDown={(e) => handleResize(e.nativeEvent)}

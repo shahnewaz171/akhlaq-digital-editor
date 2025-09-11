@@ -3,7 +3,6 @@ import { createRoot, Root } from "react-dom/client";
 
 // editor
 import AppEditor from "@/components/tiptap-templates";
-import "../../app/globals.css";
 
 // types
 import type { SimpleEditorProps } from "@/components/tiptap-node/types";

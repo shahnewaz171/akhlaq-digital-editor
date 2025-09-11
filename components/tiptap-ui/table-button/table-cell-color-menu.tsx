@@ -76,7 +76,7 @@ export function TableCellColorMenu({
           type="button"
           data-style="ghost"
           aria-label="Cell background"
-          className="p-2 cursor-pointer"
+          className="akd-p-2 akd-cursor-pointer"
           tooltip="Cell background"
           data-active-state={isSelectCellColor ? "on" : "off"}
           style={{
@@ -105,10 +105,10 @@ export function TableCellColorMenu({
       {/* dropdown content */}
       <DropdownMenuContent
         align="start"
-        className="p-2 bg-white rounded-md"
+        className="akd-p-2 akd-bg-white akd-rounded-md"
         style={{ boxShadow: "0 4px 24px 0 rgba(0,0,0,0.12)" }}
       >
-        <div className="grid grid-cols-7 gap-1.5">
+        <div className="akd-grid akd-grid-cols-7 akd-gap-1-5">
           {TABLE_COLORS.map((item) => {
             const isCellYellow =
               editor.isActive("tableCell", { backgroundColor: item.color }) ||
@@ -120,7 +120,7 @@ export function TableCellColorMenu({
                   type="button"
                   data-style="ghost"
                   aria-label={item.name}
-                  className="cursor-pointer !p-0"
+                  className="akd-cursor-pointer akd-p-0"
                   tooltip={item.name}
                   style={{
                     background: item.color,
@@ -134,7 +134,7 @@ export function TableCellColorMenu({
                   onClick={() => setColor(item.color)}
                 >
                   {isCellYellow && (
-                    <CheckIcon className=" text-black font-semibold" />
+                    <CheckIcon className="akd-text-black akd-font-semibold" />
                   )}
                 </Button>
               </DropdownMenuItem>
@@ -143,7 +143,7 @@ export function TableCellColorMenu({
         </div>
 
         {/* remove cell background */}
-        <div className="flex justify-center mt-2">
+        <div className="akd-flex akd-justify-center akd-mt-2">
           <Button
             onMouseDown={handleMouseDown}
             onClick={() => setColor(null)}
@@ -152,7 +152,7 @@ export function TableCellColorMenu({
             type="button"
             role="menuitem"
             data-style="ghost"
-            className="cursor-pointer"
+            className="akd-cursor-pointer"
             style={{ height: 28, width: 28, minWidth: 0, borderRadius: 4 }}
           >
             <BanIcon className="akd-button-icon" />

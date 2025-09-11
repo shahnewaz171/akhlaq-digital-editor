@@ -80,11 +80,11 @@ function FloatingTableMenu({
       hidden={!isFocusedEditor}
       options={{ placement: "bottom-start" }}
     >
-      <Card className="bg-white z-[10]">
+      <Card className="akd-bg-white akd-z-index-10">
         <CardBody>
           <div className="space-y-2">
             {/* Row 1 */}
-            <div className="grid grid-cols-4 gap-2">
+            <div className="akd-grid akd-grid-cols-4 akd-gap-2">
               {/* Alignment Dropdown */}
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -93,7 +93,7 @@ function FloatingTableMenu({
                     data-style="ghost"
                     aria-label="Align"
                     tooltip="Align"
-                    className="flex items-center gap-1 cursor-pointer"
+                    className="akd-flex akd-items-center akd-gap-1 akd-cursor-pointer"
                   >
                     <AlignLeftIcon className="akd-button-icon" />
                     <ChevronDownIcon className="akd-button-icon" />
@@ -102,7 +102,7 @@ function FloatingTableMenu({
                 <DropdownMenuContent
                   align="start"
                   portal={portal}
-                  className="divide-y divide-gray-200 dark:divide-gray-700 bg-white p-2 rounded-md"
+                  className="akd-divide-y akd-divide-gray-200 akd-bg-white akd-p-2 akd-rounded-md"
                   style={{ boxShadow: "0 4px 24px 0 rgba(0,0,0,0.12)" }}
                 >
                   <DropdownMenuItem asChild>
@@ -158,8 +158,7 @@ function FloatingTableMenu({
                         )
                       }
                     >
-                      <AlignJustifyIcon className="akd-button-icon" />{" "}
-                      Justify
+                      <AlignJustifyIcon className="akd-button-icon" /> Justify
                     </Button>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
@@ -173,7 +172,7 @@ function FloatingTableMenu({
                     data-style="ghost"
                     aria-label="Row actions"
                     tooltip="Row actions"
-                    className="flex items-center gap-1 cursor-pointer"
+                    className="akd-flex akd-items-center akd-gap-1 akd-cursor-pointer"
                   >
                     <ListOrderedIcon className="akd-button-icon" />
                     <ChevronDownIcon className="akd-button-icon" />
@@ -182,7 +181,7 @@ function FloatingTableMenu({
                 <DropdownMenuContent
                   align="start"
                   portal={portal}
-                  className="divide-y divide-gray-200 dark:divide-gray-700 bg-white p-2 rounded-md"
+                  className="akd-divide-y akd-divide-gray-200 akd-bg-white akd-p-2 akd-rounded-md"
                   style={{ boxShadow: "0 4px 24px 0 rgba(0,0,0,0.12)" }}
                 >
                   <DropdownMenuItem asChild>
@@ -232,7 +231,7 @@ function FloatingTableMenu({
                     data-style="ghost"
                     aria-label="Column actions"
                     tooltip="Column actions"
-                    className="flex items-center gap-1 cursor-pointer"
+                    className="akd-flex akd-items-center akd-gap-1 akd-cursor-pointer"
                   >
                     <ListIcon className="akd-button-icon" />
                     <ChevronDownIcon className="akd-button-icon" />
@@ -241,7 +240,7 @@ function FloatingTableMenu({
                 <DropdownMenuContent
                   align="start"
                   portal={portal}
-                  className="divide-y divide-gray-200 dark:divide-gray-700 bg-white p-2 rounded-md"
+                  className="akd-divide-y akd-divide-gray-200 akd-bg-white akd-p-2 akd-rounded-md"
                   style={{ boxShadow: "0 4px 24px 0 rgba(0,0,0,0.12)" }}
                 >
                   <DropdownMenuItem asChild>
@@ -295,7 +294,7 @@ function FloatingTableMenu({
                     data-style="ghost"
                     aria-label="Header toggles"
                     tooltip="Header toggles"
-                    className="flex items-center gap-1 cursor-pointer"
+                    className="akd-flex akd-items-center akd-gap-1 akd-cursor-pointer"
                   >
                     <HeadingIcon className="akd-button-icon" />
                     <ChevronDownIcon className="akd-button-icon" />
@@ -304,7 +303,7 @@ function FloatingTableMenu({
                 <DropdownMenuContent
                   align="start"
                   portal={portal}
-                  className="divide-y divide-gray-200 dark:divide-gray-700 bg-white p-2 rounded-md"
+                  className="akd-divide-y akd-divide-gray-200 akd-bg-white akd-p-2 akd-rounded-md"
                   style={{ boxShadow: "0 4px 24px 0 rgba(0,0,0,0.12)" }}
                 >
                   <DropdownMenuItem asChild>
@@ -360,7 +359,7 @@ function FloatingTableMenu({
                     data-style="ghost"
                     aria-label="Cell operations"
                     tooltip="Cell operations"
-                    className="flex items-center gap-1 cursor-pointer"
+                    className="akd-flex akd-items-center akd-gap-1 akd-cursor-pointer"
                   >
                     <Code2Icon className="akd-button-icon" />
                     <ChevronDownIcon className="akd-button-icon" />
@@ -369,7 +368,7 @@ function FloatingTableMenu({
                 <DropdownMenuContent
                   align="start"
                   portal={portal}
-                  className="divide-y divide-gray-200 dark:divide-gray-700 bg-white p-2 rounded-md"
+                  className="akd-divide-y akd-divide-gray-200 akd-bg-white akd-p-2 akd-rounded-md"
                   style={{ boxShadow: "0 4px 24px 0 rgba(0,0,0,0.12)" }}
                 >
                   <DropdownMenuItem asChild>
@@ -425,7 +424,7 @@ function FloatingTableMenu({
                     data-style="ghost"
                     aria-label="Navigate cells"
                     tooltip="Navigate cells"
-                    className="flex items-center gap-1 cursor-pointer"
+                    className="akd-flex akd-items-center akd-gap-1 akd-cursor-pointer"
                   >
                     <CornerDownLeftIcon className="akd-button-icon" />
                     <ChevronDownIcon className="akd-button-icon" />
@@ -434,7 +433,7 @@ function FloatingTableMenu({
                 <DropdownMenuContent
                   align="start"
                   portal={portal}
-                  className="divide-y divide-gray-200 dark:divide-gray-700 bg-white p-2 rounded-md"
+                  className="akd-divide-y akd-divide-gray-200 akd-bg-white akd-p-2 akd-rounded-md"
                   style={{ boxShadow: "0 4px 24px 0 rgba(0,0,0,0.12)" }}
                 >
                   <DropdownMenuItem asChild>
@@ -474,7 +473,7 @@ function FloatingTableMenu({
                     data-style="ghost"
                     aria-label="Utilities"
                     tooltip="Utilities"
-                    className="flex items-center gap-1 cursor-pointer"
+                    className="akd-flex akd-items-center akd-gap-1 akd-cursor-pointer"
                   >
                     <WrenchIcon className="akd-button-icon" />
                     <ChevronDownIcon className="akd-button-icon" />
@@ -483,7 +482,7 @@ function FloatingTableMenu({
                 <DropdownMenuContent
                   align="start"
                   portal={portal}
-                  className="divide-y divide-gray-200 dark:divide-gray-700 bg-white p-2 rounded-md"
+                  className="akd-divide-y akd-divide-gray-200 akd-bg-white akd-p-2 akd-rounded-md"
                   style={{ boxShadow: "0 4px 24px 0 rgba(0,0,0,0.12)" }}
                 >
                   <DropdownMenuItem asChild>
@@ -509,7 +508,7 @@ function FloatingTableMenu({
                     data-style="ghost"
                     aria-label="Danger"
                     tooltip="Danger"
-                    className="flex items-center gap-1 text-red-600"
+                    className="akd-flex akd-items-center akd-gap-1 akd-akd-text-red-600"
                   >
                     <TrashIcon className="akd-button-icon" />
                     <ChevronDownIcon className="akd-button-icon" />
@@ -518,7 +517,7 @@ function FloatingTableMenu({
                 <DropdownMenuContent
                   align="start"
                   portal={portal}
-                  className="divide-y divide-gray-200 dark:divide-gray-700 bg-white p-2 rounded-md"
+                  className="akd-divide-y akd-divide-gray-200 akd-bg-white akd-p-2 akd-rounded-md"
                   style={{ boxShadow: "0 4px 24px 0 rgba(0,0,0,0.12)" }}
                 >
                   <DropdownMenuItem asChild>
@@ -549,7 +548,7 @@ function FloatingTableMenu({
                     <Button
                       type="button"
                       data-style="ghost"
-                      className="text-red-600"
+                      className="akd-text-red-600"
                       onMouseDown={handleMouseDown}
                       onClick={() =>
                         exec(() => editor.chain().focus().deleteTable().run())

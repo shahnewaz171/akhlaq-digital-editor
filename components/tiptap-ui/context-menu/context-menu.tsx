@@ -28,13 +28,13 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({
       <Popover.Content
         side="right"
         align="start"
-        className="z-50 bg-white border rounded shadow-md p-2 flex flex-col gap-1"
+        className="akd-z-50 akd-bg-white akd-border akd-rounded akd-shadow-md akd-p-2 akd-flex akd-flex-col akd-gap-1"
       >
         {items.map((item) => (
           <button
             key={item.key}
             type="button"
-            className="p-1 text-left hover:bg-gray-100 rounded cursor-pointer"
+            className="akd-p-1 akd-text-left akd-hover-bg-gray-100 akd-rounded akd-cursor-pointer"
             onClick={() => {
               item.onClick();
               onOpenChange(false);

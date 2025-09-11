@@ -54,7 +54,7 @@ export const MentionList = forwardRef((props: any, ref) => {
   }));
 
   return (
-    <div className="dropdown-menu flex flex-col items-start bg-white border-[#dadada]">
+    <div className="dropdown-menu akd-dropdown-menu-base">
       {props.items.length ? (
         props.items.map((item: any, index: number) => {
           const {
@@ -71,29 +71,31 @@ export const MentionList = forwardRef((props: any, ref) => {
             <button
               key={id}
               className={cn(
-                "p-1 px-2 rounded-md cursor-pointer",
+                "akd-p-1 akd-px-2 akd-rounded-md akd-cursor-pointer",
                 index === selectedIndex && "is-selected"
               )}
               onClick={() => selectItem(index)}
             >
-              <span className="flex items-center">
+              <span className="akd-flex akd-items-center">
                 {isShowAvatar && (
                   <ImageComponent
                     alt={`${name}'s avatar`}
-                    className="w-6 h-6 rounded-full mr-2"
+                    className="akd-w-6 akd-h-6 akd-rounded-full akd-mr-2"
                     defaultImageName={defaultImageName}
                     generatedUrl={generatedUrl}
                     src={avatar}
                     isPrivate={image_visibility === "private"}
                   />
                 )}
-                <span className="!text-[14px] font-medium">{name}</span>
+                <span className="akd-text-14 akd-font-medium">{name}</span>
               </span>
             </button>
           );
         })
       ) : (
-        <div className="!text-[14px] font-normal p-1 px-2">Nothing to show</div>
+        <div className="akd-text-14 akd-font-normal akd-p-1 akd-px-2">
+          Nothing to show
+        </div>
       )}
     </div>
   );
