@@ -5,14 +5,11 @@
 /.idea
 /.pnp
 .pnp.js
-yarn.lock
 .env
 .env.local
 .next
 .npm
 .dist
-package-lock.json
-pnpm-lock.yaml
 .npmrc
 
 # testing
